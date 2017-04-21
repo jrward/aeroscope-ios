@@ -1,0 +1,652 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5005EE41B9FF8970061932F /* ScopeComms.swift */; };
+		E509CDE91CEFC31B003CB77D /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CDE81CEFC31A003CB77D /* Debug.swift */; };
+		E5154D6E1CDF9EF100713DA5 /* Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5154D6D1CDF9EF100713DA5 /* Copyable.swift */; };
+		E5154D721CE5910A00713DA5 /* ScopeFrameInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5154D711CE5910A00713DA5 /* ScopeFrameInterface.swift */; };
+		E5154D741CE91BA500713DA5 /* ScopeSettingsInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5154D731CE91BA500713DA5 /* ScopeSettingsInterface.swift */; };
+		E5265AD31CA1CCE900D45ECB /* WirelessControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD21CA1CCE900D45ECB /* WirelessControl.swift */; };
+		E5265AD51CA1CCFD00D45ECB /* SettingsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD41CA1CCFD00D45ECB /* SettingsControl.swift */; };
+		E5265AD71CA1CD0A00D45ECB /* MeasureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD61CA1CD0A00D45ECB /* MeasureControl.swift */; };
+		E5360F181CB82D2700C4DEEB /* ScopeOffsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360F171CB82D2700C4DEEB /* ScopeOffsetView.swift */; };
+		E5360F1A1CB82D4400C4DEEB /* ScopeOffsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360F191CB82D4400C4DEEB /* ScopeOffsetViewController.swift */; };
+		E54DE9BF1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */; };
+		E54DE9C11E1DFD34001CEB7D /* ScopeMeasurementCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54DE9C01E1DFD34001CEB7D /* ScopeMeasurementCenter.swift */; };
+		E54DE9C31E1E403B001CEB7D /* ScopeMeasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54DE9C21E1E403A001CEB7D /* ScopeMeasViewController.swift */; };
+		E5501AAA1CACCFC40030440D /* RunStopControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5501AA91CACCFC40030440D /* RunStopControl.swift */; };
+		E56344E21DF1DE0D00BA56F6 /* ScopeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344E11DF1DE0D00BA56F6 /* ScopeButton.swift */; };
+		E56344E41DF224DC00BA56F6 /* ScopeBatteryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56344E31DF224DC00BA56F6 /* ScopeBatteryView.swift */; };
+		E56B02D01E71E05900CC2F8C /* Samples.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B02CF1E71E05900CC2F8C /* Samples.swift */; };
+		E56B02D21E774A5B00CC2F8C /* ScopeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56B02D11E774A5B00CC2F8C /* ScopeTest.swift */; };
+		E56D359B1E6CD1E6001B44E6 /* HamburgerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D359A1E6CD1E6001B44E6 /* HamburgerControl.swift */; };
+		E56D359F1E6D24B4001B44E6 /* HamburgerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E56D359E1E6D24B4001B44E6 /* HamburgerViewController.swift */; };
+		E57073A61D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A51D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift */; };
+		E57073A81D33FBD000CE0FF8 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A71D33FBD000CE0FF8 /* Translator.swift */; };
+		E57073AA1D340C9300CE0FF8 /* ScopeAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A91D340C9300CE0FF8 /* ScopeAppSettings.swift */; };
+		E571987F1BBD376000A9B832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E571987D1BBD376000A9B832 /* Main.storyboard */; };
+		E574C48F1B7AC8570028277F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C48E1B7AC8570028277F /* AppDelegate.swift */; };
+		E574C4C21B801DAC0028277F /* ScopeFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C4C11B801DAC0028277F /* ScopeFrameViewController.swift */; };
+		E574C4C41B81843E0028277F /* ScopeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C4C31B81843E0028277F /* ScopeFrameView.swift */; };
+		E59D2B191BC238E800B213E6 /* ScopeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D2B181BC238E800B213E6 /* ScopeViewController.swift */; };
+		E5A1C4DF1CC3365E00FC896F /* ArrowLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A1C4DE1CC3365E00FC896F /* ArrowLabelView.swift */; };
+		E5A2E4421D0C96B3001F905D /* BorderColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A2E4411D0C96B3001F905D /* BorderColor.swift */; };
+		E5AA74661DF113640083F00A /* ScopeBattery.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA74651DF113640083F00A /* ScopeBattery.swift */; };
+		E5AA74681DF1312C0083F00A /* ScopeTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AA74671DF1312C0083F00A /* ScopeTemp.swift */; };
+		E5AAB4121E6F89CF0052422B /* ScopeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */; };
+		E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */; };
+		E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B017611DDCD28F00928E98 /* ScopeCmd.swift */; };
+		E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1171B86E72800E3D63A /* Scope.swift */; };
+		E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */; };
+		E5D9E1201B86E72800E3D63A /* ScopeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */; };
+		E5DE54C01BBDFDEE00243AEB /* ScopeSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54BF1BBDFDEE00243AEB /* ScopeSettingsViewController.swift */; };
+		E5DE54C21BBDFFBD00243AEB /* ScopeWirelessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */; };
+		E5DE54C71BC1B24700243AEB /* ScopeStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */; };
+		E5DE54C81BC1B24700243AEB /* ScopeStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C61BC1B24700243AEB /* ScopeStripViewController.swift */; };
+		E5E5E7D71EA33A67009032DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E5E7D61EA33A66009032DB /* Images.xcassets */; };
+		E5EEBBDB1C8A4DAC0064D10B /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EEBBDA1C8A4DAC0064D10B /* Setting.swift */; };
+		E5F2265F1DEF43D700489194 /* ScopeTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2265E1DEF43D700489194 /* ScopeTelemetry.swift */; };
+		E5F5DB1E1C9626C000DA6199 /* ScopeUIControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F5DB1D1C9626BF00DA6199 /* ScopeUIControl.swift */; };
+		E5F5DB201C9A192900DA6199 /* VertControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F5DB1F1C9A192900DA6199 /* VertControl.swift */; };
+		E5F5DB221C9A193C00DA6199 /* HorizControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F5DB211C9A193C00DA6199 /* HorizControl.swift */; };
+		E5F5DB241C9A194900DA6199 /* OffsetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F5DB231C9A194900DA6199 /* OffsetControl.swift */; };
+		E5F5DB261C9B089A00DA6199 /* TriggerControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F5DB251C9B089A00DA6199 /* TriggerControl.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E574C49F1B7AC8570028277F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E574C4811B7AC8570028277F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E574C4881B7AC8570028277F;
+			remoteInfo = "Aeroscope Proto";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		E5205A8B1E8C2D1900271E50 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		E5005EE41B9FF8970061932F /* ScopeComms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeComms.swift; sourceTree = "<group>"; };
+		E509CDE81CEFC31A003CB77D /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
+		E5154D6D1CDF9EF100713DA5 /* Copyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Copyable.swift; sourceTree = "<group>"; };
+		E5154D711CE5910A00713DA5 /* ScopeFrameInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrameInterface.swift; sourceTree = "<group>"; };
+		E5154D731CE91BA500713DA5 /* ScopeSettingsInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeSettingsInterface.swift; sourceTree = "<group>"; };
+		E5265AD21CA1CCE900D45ECB /* WirelessControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WirelessControl.swift; sourceTree = "<group>"; };
+		E5265AD41CA1CCFD00D45ECB /* SettingsControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsControl.swift; sourceTree = "<group>"; };
+		E5265AD61CA1CD0A00D45ECB /* MeasureControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeasureControl.swift; sourceTree = "<group>"; };
+		E5360F171CB82D2700C4DEEB /* ScopeOffsetView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeOffsetView.swift; sourceTree = "<group>"; };
+		E5360F191CB82D4400C4DEEB /* ScopeOffsetViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeOffsetViewController.swift; sourceTree = "<group>"; };
+		E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeMeasSelectViewController.swift; sourceTree = "<group>"; };
+		E54DE9C01E1DFD34001CEB7D /* ScopeMeasurementCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeMeasurementCenter.swift; sourceTree = "<group>"; };
+		E54DE9C21E1E403A001CEB7D /* ScopeMeasViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeMeasViewController.swift; sourceTree = "<group>"; };
+		E5501AA91CACCFC40030440D /* RunStopControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunStopControl.swift; sourceTree = "<group>"; };
+		E56344E11DF1DE0D00BA56F6 /* ScopeButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeButton.swift; sourceTree = "<group>"; };
+		E56344E31DF224DC00BA56F6 /* ScopeBatteryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBatteryView.swift; sourceTree = "<group>"; };
+		E56B02CF1E71E05900CC2F8C /* Samples.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Samples.swift; sourceTree = "<group>"; };
+		E56B02D11E774A5B00CC2F8C /* ScopeTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeTest.swift; sourceTree = "<group>"; };
+		E56D359A1E6CD1E6001B44E6 /* HamburgerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerControl.swift; sourceTree = "<group>"; };
+		E56D359E1E6D24B4001B44E6 /* HamburgerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HamburgerViewController.swift; sourceTree = "<group>"; };
+		E57073A51D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrameInterpolator.swift; sourceTree = "<group>"; };
+		E57073A71D33FBD000CE0FF8 /* Translator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translator.swift; sourceTree = "<group>"; };
+		E57073A91D340C9300CE0FF8 /* ScopeAppSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeAppSettings.swift; sourceTree = "<group>"; };
+		E571987E1BBD376000A9B832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E574C4891B7AC8570028277F /* Aeroscope.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Aeroscope.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E574C48D1B7AC8570028277F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E574C48E1B7AC8570028277F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E574C49E1B7AC8570028277F /* Aeroscope.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Aeroscope.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E574C4A31B7AC8570028277F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = AeroscopeTests/Info.plist; sourceTree = "<group>"; };
+		E574C4A41B7AC8570028277F /* Aeroscope_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Aeroscope_Tests.swift; path = AeroscopeTests/Aeroscope_Tests.swift; sourceTree = "<group>"; };
+		E574C4C11B801DAC0028277F /* ScopeFrameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrameViewController.swift; sourceTree = "<group>"; };
+		E574C4C31B81843E0028277F /* ScopeFrameView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrameView.swift; sourceTree = "<group>"; };
+		E59D2B181BC238E800B213E6 /* ScopeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeViewController.swift; sourceTree = "<group>"; };
+		E5A1C4DE1CC3365E00FC896F /* ArrowLabelView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrowLabelView.swift; sourceTree = "<group>"; };
+		E5A2E4411D0C96B3001F905D /* BorderColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BorderColor.swift; sourceTree = "<group>"; };
+		E5AA74651DF113640083F00A /* ScopeBattery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeBattery.swift; sourceTree = "<group>"; };
+		E5AA74671DF1312C0083F00A /* ScopeTemp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeTemp.swift; sourceTree = "<group>"; };
+		E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeConnection.swift; sourceTree = "<group>"; };
+		E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStatusBarViewController.swift; sourceTree = "<group>"; };
+		E5B017611DDCD28F00928E98 /* ScopeCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeCmd.swift; sourceTree = "<group>"; };
+		E5D9E1171B86E72800E3D63A /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
+		E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrame.swift; sourceTree = "<group>"; };
+		E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeSettings.swift; sourceTree = "<group>"; };
+		E5DE54BF1BBDFDEE00243AEB /* ScopeSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeSettingsViewController.swift; sourceTree = "<group>"; };
+		E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeWirelessViewController.swift; sourceTree = "<group>"; };
+		E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStripView.swift; sourceTree = "<group>"; };
+		E5DE54C61BC1B24700243AEB /* ScopeStripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStripViewController.swift; sourceTree = "<group>"; };
+		E5E5E7D61EA33A66009032DB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		E5EEBBDA1C8A4DAC0064D10B /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
+		E5F2265E1DEF43D700489194 /* ScopeTelemetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeTelemetry.swift; sourceTree = "<group>"; };
+		E5F5DB1D1C9626BF00DA6199 /* ScopeUIControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeUIControl.swift; sourceTree = "<group>"; };
+		E5F5DB1F1C9A192900DA6199 /* VertControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VertControl.swift; sourceTree = "<group>"; };
+		E5F5DB211C9A193C00DA6199 /* HorizControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizControl.swift; sourceTree = "<group>"; };
+		E5F5DB231C9A194900DA6199 /* OffsetControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OffsetControl.swift; sourceTree = "<group>"; };
+		E5F5DB251C9B089A00DA6199 /* TriggerControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TriggerControl.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E574C4861B7AC8570028277F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E574C49B1B7AC8570028277F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E574C4801B7AC8570028277F = {
+			isa = PBXGroup;
+			children = (
+				E574C48B1B7AC8570028277F /* Aeroscope */,
+				E574C4A11B7AC8570028277F /* AeroscopeTests */,
+				E574C48A1B7AC8570028277F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E574C48A1B7AC8570028277F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E574C4891B7AC8570028277F /* Aeroscope.app */,
+				E574C49E1B7AC8570028277F /* Aeroscope.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E574C48B1B7AC8570028277F /* Aeroscope */ = {
+			isa = PBXGroup;
+			children = (
+				E5DE54BF1BBDFDEE00243AEB /* ScopeSettingsViewController.swift */,
+				E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */,
+				E54DE9C21E1E403A001CEB7D /* ScopeMeasViewController.swift */,
+				E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */,
+				E54DE9C01E1DFD34001CEB7D /* ScopeMeasurementCenter.swift */,
+				E56D359E1E6D24B4001B44E6 /* HamburgerViewController.swift */,
+				E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */,
+				E5360F191CB82D4400C4DEEB /* ScopeOffsetViewController.swift */,
+				E59D2B181BC238E800B213E6 /* ScopeViewController.swift */,
+				E57073A71D33FBD000CE0FF8 /* Translator.swift */,
+				E5DE54C61BC1B24700243AEB /* ScopeStripViewController.swift */,
+				E5005EE41B9FF8970061932F /* ScopeComms.swift */,
+				E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */,
+				E5D9E1171B86E72800E3D63A /* Scope.swift */,
+				E56B02D11E774A5B00CC2F8C /* ScopeTest.swift */,
+				E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */,
+				E509CDE81CEFC31A003CB77D /* Debug.swift */,
+				E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */,
+				E5154D711CE5910A00713DA5 /* ScopeFrameInterface.swift */,
+				E574C4C11B801DAC0028277F /* ScopeFrameViewController.swift */,
+				E574C4C31B81843E0028277F /* ScopeFrameView.swift */,
+				E5154D731CE91BA500713DA5 /* ScopeSettingsInterface.swift */,
+				E56344E11DF1DE0D00BA56F6 /* ScopeButton.swift */,
+				E57073A51D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift */,
+				E56B02CF1E71E05900CC2F8C /* Samples.swift */,
+				E57073A91D340C9300CE0FF8 /* ScopeAppSettings.swift */,
+				E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */,
+				E5B017611DDCD28F00928E98 /* ScopeCmd.swift */,
+				E5F2265E1DEF43D700489194 /* ScopeTelemetry.swift */,
+				E5AA74651DF113640083F00A /* ScopeBattery.swift */,
+				E5AA74671DF1312C0083F00A /* ScopeTemp.swift */,
+				E5154D6D1CDF9EF100713DA5 /* Copyable.swift */,
+				E5EEBBDA1C8A4DAC0064D10B /* Setting.swift */,
+				E5A1C4DE1CC3365E00FC896F /* ArrowLabelView.swift */,
+				E5360F171CB82D2700C4DEEB /* ScopeOffsetView.swift */,
+				E56344E31DF224DC00BA56F6 /* ScopeBatteryView.swift */,
+				E571987D1BBD376000A9B832 /* Main.storyboard */,
+				E5A2E4411D0C96B3001F905D /* BorderColor.swift */,
+				E574C48E1B7AC8570028277F /* AppDelegate.swift */,
+				E5F5DB1D1C9626BF00DA6199 /* ScopeUIControl.swift */,
+				E5E5E7D61EA33A66009032DB /* Images.xcassets */,
+				E5FAFADB1C9C8A8D00E81E25 /* Contols */,
+				E574C48C1B7AC8570028277F /* Supporting Files */,
+			);
+			path = Aeroscope;
+			sourceTree = "<group>";
+		};
+		E574C48C1B7AC8570028277F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E574C48D1B7AC8570028277F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E574C4A11B7AC8570028277F /* AeroscopeTests */ = {
+			isa = PBXGroup;
+			children = (
+				E574C4A41B7AC8570028277F /* Aeroscope_Tests.swift */,
+				E574C4A21B7AC8570028277F /* Supporting Files */,
+			);
+			name = AeroscopeTests;
+			path = AeroscopeProtoTests;
+			sourceTree = "<group>";
+		};
+		E574C4A21B7AC8570028277F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E574C4A31B7AC8570028277F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E5FAFADB1C9C8A8D00E81E25 /* Contols */ = {
+			isa = PBXGroup;
+			children = (
+				E5501AA91CACCFC40030440D /* RunStopControl.swift */,
+				E5F5DB1F1C9A192900DA6199 /* VertControl.swift */,
+				E5F5DB211C9A193C00DA6199 /* HorizControl.swift */,
+				E5F5DB231C9A194900DA6199 /* OffsetControl.swift */,
+				E5F5DB251C9B089A00DA6199 /* TriggerControl.swift */,
+				E5265AD21CA1CCE900D45ECB /* WirelessControl.swift */,
+				E5265AD41CA1CCFD00D45ECB /* SettingsControl.swift */,
+				E5265AD61CA1CD0A00D45ECB /* MeasureControl.swift */,
+				E56D359A1E6CD1E6001B44E6 /* HamburgerControl.swift */,
+			);
+			name = Contols;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E574C4881B7AC8570028277F /* Aeroscope */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E574C4A81B7AC8570028277F /* Build configuration list for PBXNativeTarget "Aeroscope" */;
+			buildPhases = (
+				E574C4851B7AC8570028277F /* Sources */,
+				E574C4861B7AC8570028277F /* Frameworks */,
+				E574C4871B7AC8570028277F /* Resources */,
+				E5205A8B1E8C2D1900271E50 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Aeroscope;
+			productName = "Aeroscope Proto";
+			productReference = E574C4891B7AC8570028277F /* Aeroscope.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E574C49D1B7AC8570028277F /* AeroscopeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E574C4AB1B7AC8570028277F /* Build configuration list for PBXNativeTarget "AeroscopeTests" */;
+			buildPhases = (
+				E574C49A1B7AC8570028277F /* Sources */,
+				E574C49B1B7AC8570028277F /* Frameworks */,
+				E574C49C1B7AC8570028277F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E574C4A01B7AC8570028277F /* PBXTargetDependency */,
+			);
+			name = AeroscopeTests;
+			productName = "Aeroscope ProtoTests";
+			productReference = E574C49E1B7AC8570028277F /* Aeroscope.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E574C4811B7AC8570028277F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftMigration = 0700;
+				LastSwiftUpdateCheck = 0700;
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "Jonathan Ward";
+				TargetAttributes = {
+					E574C4881B7AC8570028277F = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 2SB4764459;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+					E574C49D1B7AC8570028277F = {
+						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 2SB4764459;
+						LastSwiftMigration = 0800;
+						TestTargetID = E574C4881B7AC8570028277F;
+					};
+				};
+			};
+			buildConfigurationList = E574C4841B7AC8570028277F /* Build configuration list for PBXProject "Aeroscope" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E574C4801B7AC8570028277F;
+			productRefGroup = E574C48A1B7AC8570028277F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E574C4881B7AC8570028277F /* Aeroscope */,
+				E574C49D1B7AC8570028277F /* AeroscopeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E574C4871B7AC8570028277F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E571987F1BBD376000A9B832 /* Main.storyboard in Resources */,
+				E5E5E7D71EA33A67009032DB /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E574C49C1B7AC8570028277F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E574C4851B7AC8570028277F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E5D9E1201B86E72800E3D63A /* ScopeSettings.swift in Sources */,
+				E5154D6E1CDF9EF100713DA5 /* Copyable.swift in Sources */,
+				E5A2E4421D0C96B3001F905D /* BorderColor.swift in Sources */,
+				E574C48F1B7AC8570028277F /* AppDelegate.swift in Sources */,
+				E5154D741CE91BA500713DA5 /* ScopeSettingsInterface.swift in Sources */,
+				E57073A61D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift in Sources */,
+				E5265AD71CA1CD0A00D45ECB /* MeasureControl.swift in Sources */,
+				E574C4C21B801DAC0028277F /* ScopeFrameViewController.swift in Sources */,
+				E574C4C41B81843E0028277F /* ScopeFrameView.swift in Sources */,
+				E5AAB4121E6F89CF0052422B /* ScopeConnection.swift in Sources */,
+				E5AA74681DF1312C0083F00A /* ScopeTemp.swift in Sources */,
+				E5360F1A1CB82D4400C4DEEB /* ScopeOffsetViewController.swift in Sources */,
+				E54DE9C11E1DFD34001CEB7D /* ScopeMeasurementCenter.swift in Sources */,
+				E56B02D21E774A5B00CC2F8C /* ScopeTest.swift in Sources */,
+				E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */,
+				E56D359F1E6D24B4001B44E6 /* HamburgerViewController.swift in Sources */,
+				E5501AAA1CACCFC40030440D /* RunStopControl.swift in Sources */,
+				E5360F181CB82D2700C4DEEB /* ScopeOffsetView.swift in Sources */,
+				E5F5DB1E1C9626C000DA6199 /* ScopeUIControl.swift in Sources */,
+				E5AA74661DF113640083F00A /* ScopeBattery.swift in Sources */,
+				E509CDE91CEFC31B003CB77D /* Debug.swift in Sources */,
+				E5265AD51CA1CCFD00D45ECB /* SettingsControl.swift in Sources */,
+				E56B02D01E71E05900CC2F8C /* Samples.swift in Sources */,
+				E5F2265F1DEF43D700489194 /* ScopeTelemetry.swift in Sources */,
+				E5DE54C21BBDFFBD00243AEB /* ScopeWirelessViewController.swift in Sources */,
+				E59D2B191BC238E800B213E6 /* ScopeViewController.swift in Sources */,
+				E5DE54C71BC1B24700243AEB /* ScopeStripView.swift in Sources */,
+				E56344E41DF224DC00BA56F6 /* ScopeBatteryView.swift in Sources */,
+				E54DE9C31E1E403B001CEB7D /* ScopeMeasViewController.swift in Sources */,
+				E5154D721CE5910A00713DA5 /* ScopeFrameInterface.swift in Sources */,
+				E5DE54C81BC1B24700243AEB /* ScopeStripViewController.swift in Sources */,
+				E56344E21DF1DE0D00BA56F6 /* ScopeButton.swift in Sources */,
+				E5DE54C01BBDFDEE00243AEB /* ScopeSettingsViewController.swift in Sources */,
+				E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */,
+				E5265AD31CA1CCE900D45ECB /* WirelessControl.swift in Sources */,
+				E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */,
+				E5F5DB261C9B089A00DA6199 /* TriggerControl.swift in Sources */,
+				E5A1C4DF1CC3365E00FC896F /* ArrowLabelView.swift in Sources */,
+				E5F5DB241C9A194900DA6199 /* OffsetControl.swift in Sources */,
+				E57073AA1D340C9300CE0FF8 /* ScopeAppSettings.swift in Sources */,
+				E56D359B1E6CD1E6001B44E6 /* HamburgerControl.swift in Sources */,
+				E54DE9BF1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift in Sources */,
+				E5F5DB201C9A192900DA6199 /* VertControl.swift in Sources */,
+				E5F5DB221C9A193C00DA6199 /* HorizControl.swift in Sources */,
+				E5EEBBDB1C8A4DAC0064D10B /* Setting.swift in Sources */,
+				E57073A81D33FBD000CE0FF8 /* Translator.swift in Sources */,
+				E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */,
+				E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E574C49A1B7AC8570028277F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E574C4A01B7AC8570028277F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E574C4881B7AC8570028277F /* Aeroscope */;
+			targetProxy = E574C49F1B7AC8570028277F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E571987D1BBD376000A9B832 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E571987E1BBD376000A9B832 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E574C4A61B7AC8570028277F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Debug;
+		};
+		E574C4A71B7AC8570028277F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E574C4A91B7AC8570028277F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2SB4764459;
+				INFOPLIST_FILE = Aeroscope/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_NAME = Aeroscope;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E574C4AA1B7AC8570028277F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2SB4764459;
+				INFOPLIST_FILE = Aeroscope/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_NAME = Aeroscope;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E574C4AC1B7AC8570028277F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2SB4764459;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AeroscopeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "AeroscopeLabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Aeroscope;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeroscope.app/Aeroscope";
+			};
+			name = Debug;
+		};
+		E574C4AD1B7AC8570028277F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2SB4764459;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				INFOPLIST_FILE = AeroscopeTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "AeroscopeLabs.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = Aeroscope;
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Aeroscope.app/Aeroscope";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E574C4841B7AC8570028277F /* Build configuration list for PBXProject "Aeroscope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E574C4A61B7AC8570028277F /* Debug */,
+				E574C4A71B7AC8570028277F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E574C4A81B7AC8570028277F /* Build configuration list for PBXNativeTarget "Aeroscope" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E574C4A91B7AC8570028277F /* Debug */,
+				E574C4AA1B7AC8570028277F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E574C4AB1B7AC8570028277F /* Build configuration list for PBXNativeTarget "AeroscopeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E574C4AC1B7AC8570028277F /* Debug */,
+				E574C4AD1B7AC8570028277F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E574C4811B7AC8570028277F /* Project object */;
+}
