@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//@IBDesignable
+@IBDesignable
 class WirelessControl : ScopeUIControl {
     
     let connectStatus = Scope.sharedInstance.connection.status
@@ -89,7 +89,7 @@ class WirelessControl : ScopeUIControl {
         
         self.item = ctrlItem
 //        self.popoverType = ScopeWirelessViewController.self
-        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let myStoryboard = UIStoryboard(name: "Main", bundle: bundle)
         self.popover = myStoryboard.instantiateViewController(withIdentifier: "wirelessVC")
         self.popover.modalPresentationStyle = .popover
 
@@ -98,12 +98,12 @@ class WirelessControl : ScopeUIControl {
     }
     
     
-//    override func prepareForInterfaceBuilder() {
-//        //self.dynamicType.init(coder: NSCoder())
-//        bundle = Bundle(for: type(of: self))
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//        
-//    }
+    override func prepareForInterfaceBuilder() {
+        //self.dynamicType.init(coder: NSCoder())
+        bundle = Bundle(for: type(of: self))
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+        
+    }
     
 }

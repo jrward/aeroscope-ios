@@ -9,17 +9,23 @@
 import Foundation
 import UIKit
 
-//@IBDesignable
+@IBDesignable
 class OffsetControl : ScopeUIControl {
     
     var ctrlItem = UILabel()
+    var bundle : Bundle!
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        bundle = Bundle(for: type(of: self))
+
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        bundle = Bundle(for: type(of: self))
+
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateOffset) , name: ScopeSettings.notifications.offset, object: nil)
     }
@@ -47,7 +53,7 @@ class OffsetControl : ScopeUIControl {
         self.title = "Offset"
         self.item = ctrlItem
         
-        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let myStoryboard = UIStoryboard(name: "Main", bundle: bundle)
 
         self.popover = myStoryboard.instantiateViewController(withIdentifier: "offsetVC")
         self.popover.modalPresentationStyle = .popover
@@ -64,9 +70,9 @@ class OffsetControl : ScopeUIControl {
         ctrlItem.text = Translator.toStringFrom(voltage: offsetVolts)
     }
     
-//    override func prepareForInterfaceBuilder() {
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//    }
+    override func prepareForInterfaceBuilder() {
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+    }
     
 }

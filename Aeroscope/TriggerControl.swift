@@ -14,7 +14,7 @@ protocol CtrlItemDelegate {
 }
 
 
-//@IBDesignable
+@IBDesignable
 class TriggerControl : ScopeUIControl, CtrlItemDelegate {
     
     let triggerPopoverVC = TriggerPopoverVC()
@@ -74,12 +74,11 @@ class TriggerControl : ScopeUIControl, CtrlItemDelegate {
     }
     
     
-//    override func prepareForInterfaceBuilder() {
-//        bundle = Bundle(for: type(of: self))
-//
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//    }
+    override func prepareForInterfaceBuilder() {
+        bundle = Bundle(for: type(of: self))
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+    }
 }
 
 
