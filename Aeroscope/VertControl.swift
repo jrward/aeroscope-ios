@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//@IBDesignable
+@IBDesignable
 class VertControl : ScopeUIControl {
     
     let vertPopoverVC = VertPopoverVC()
@@ -48,11 +48,11 @@ class VertControl : ScopeUIControl {
          NotificationCenter.default.addObserver(self, selector: #selector(VertControl.updateVert) , name: ScopeSettings.notifications.vert, object: nil)
     }
     
-//    override func prepareForInterfaceBuilder() {
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//        
-//    }
+    override func prepareForInterfaceBuilder() {
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+        
+    }
     
     func updateVert() {
         ctrlItem.text = scope.settings.getVert()

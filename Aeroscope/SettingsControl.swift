@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//@IBDesignable
+@IBDesignable
 class SettingsControl : ScopeUIControl {
     
     var ctrlItem = UIImageView()
@@ -44,7 +44,7 @@ class SettingsControl : ScopeUIControl {
         self.item = ctrlItem
 
 
-        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let myStoryboard = UIStoryboard(name: "Main", bundle: bundle)
         self.popover = myStoryboard.instantiateViewController(withIdentifier: "settingsVC")
         self.popover.modalPresentationStyle = .popover
 
@@ -69,12 +69,12 @@ class SettingsControl : ScopeUIControl {
 //        sourceVC.present(popover, animated: true, completion: nil)
 //    }
     
-//    override func prepareForInterfaceBuilder() {
-//        bundle = Bundle(for: type(of: self))
-//
-//        initCtrl()
-////        self.addControlItem()
-//        super.prepareForInterfaceBuilder()
-//    }
+    override func prepareForInterfaceBuilder() {
+        bundle = Bundle(for: type(of: self))
+
+        initCtrl()
+//        self.addControlItem()
+        super.prepareForInterfaceBuilder()
+    }
     
 }

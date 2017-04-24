@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-//@IBDesignable
+@IBDesignable
 class HorizControl : ScopeUIControl {
     
     let horizPopoverVC = HorizPopoverVC()
@@ -47,11 +47,11 @@ class HorizControl : ScopeUIControl {
         self.initView()
     }
     
-//    override func prepareForInterfaceBuilder() {
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//    }
-//    
+    override func prepareForInterfaceBuilder() {
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+    }
+    
     
     func updateHoriz() {
         ctrlItem.text = scope.settings.getHoriz()

@@ -48,6 +48,7 @@ class HamburgerControl : ScopeUIControl {
         let myStoryboard = UIStoryboard(name: "Main", bundle: nil)
         self.popover = myStoryboard.instantiateViewController(withIdentifier: "hamburgerVC")
         popover.modalPresentationStyle = .popover
+        
 
 
 
@@ -72,11 +73,11 @@ class HamburgerControl : ScopeUIControl {
 //    }
     
     
-//    override func prepareForInterfaceBuilder() {
-//        bundle = Bundle(for: type(of: self))
-//        initCtrl()
-//        super.prepareForInterfaceBuilder()
-//    }
+    override func prepareForInterfaceBuilder() {
+        bundle = Bundle(for: type(of: self))
+        initCtrl()
+        super.prepareForInterfaceBuilder()
+    }
     
 }
 

@@ -15,6 +15,7 @@
 		E5265AD31CA1CCE900D45ECB /* WirelessControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD21CA1CCE900D45ECB /* WirelessControl.swift */; };
 		E5265AD51CA1CCFD00D45ECB /* SettingsControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD41CA1CCFD00D45ECB /* SettingsControl.swift */; };
 		E5265AD71CA1CD0A00D45ECB /* MeasureControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5265AD61CA1CD0A00D45ECB /* MeasureControl.swift */; };
+		E529C6F51EAE830D006C794C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E571987D1BBD376000A9B832 /* Main.storyboard */; };
 		E5360F181CB82D2700C4DEEB /* ScopeOffsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360F171CB82D2700C4DEEB /* ScopeOffsetView.swift */; };
 		E5360F1A1CB82D4400C4DEEB /* ScopeOffsetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5360F191CB82D4400C4DEEB /* ScopeOffsetViewController.swift */; };
 		E54DE9BF1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */; };
@@ -30,7 +31,6 @@
 		E57073A61D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A51D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift */; };
 		E57073A81D33FBD000CE0FF8 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A71D33FBD000CE0FF8 /* Translator.swift */; };
 		E57073AA1D340C9300CE0FF8 /* ScopeAppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57073A91D340C9300CE0FF8 /* ScopeAppSettings.swift */; };
-		E571987F1BBD376000A9B832 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E571987D1BBD376000A9B832 /* Main.storyboard */; };
 		E574C48F1B7AC8570028277F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C48E1B7AC8570028277F /* AppDelegate.swift */; };
 		E574C4C21B801DAC0028277F /* ScopeFrameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C4C11B801DAC0028277F /* ScopeFrameViewController.swift */; };
 		E574C4C41B81843E0028277F /* ScopeFrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E574C4C31B81843E0028277F /* ScopeFrameView.swift */; };
@@ -355,8 +355,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E571987F1BBD376000A9B832 /* Main.storyboard in Resources */,
 				E5E5E7D71EA33A67009032DB /* Images.xcassets in Resources */,
+				E529C6F51EAE830D006C794C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
