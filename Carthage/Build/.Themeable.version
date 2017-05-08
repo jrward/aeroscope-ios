@@ -1,0 +1,27 @@
+{
+  "iOS" : [
+    {
+      "hash" : "b159adab466861dfb3aa679fe6760d5cab1cb6922a55858dadfc3fa1d789ce5a",
+      "name" : "Themeable"
+    }
+  ],
+  "commitish" : "v0.6.0",
+  "watchOS" : [
+    {
+      "hash" : "ec51862f1433423c3715d8e8afbc45914a5ed19fcaa0d742b63e71deb5f22841",
+      "name" : "Themeable"
+    }
+  ],
+  "tvOS" : [
+    {
+      "hash" : "2f1706a6221229f11cb30626219192f23827406236f8fb3c4834efe0aaf4a292",
+      "name" : "Themeable"
+    }
+  ],
+  "Mac" : [
+    {
+      "hash" : "010b5e8f8845bb479e083c2c06ff9b2be9051eb11617ebd2fd57a748e6d7da02",
+      "name" : "Themeable"
+    }
+  ]
+}

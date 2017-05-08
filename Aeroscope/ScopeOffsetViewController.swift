@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Themeable
 
-class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource {
+class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Themeable {
     
     let scope = Scope.sharedInstance
 
@@ -41,6 +42,7 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource {
         scopeOffsetView.addGestureRecognizer(panRecognizer)
         updateSliderHeight()
         updateOffset()
+        self.apply(theme: ScopeTheme.manager.activeTheme)
 
     }
     
@@ -111,6 +113,14 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource {
         return offset
     }
 
+    func apply(theme: ScopeTheme) {
+        scopeOffsetView.sliderColor = theme.accentSecondary
+        scopeOffsetView.bgColor = theme.bgGrid
+        scopeOffsetView.gridColor = theme.grid
+        scopeOffsetView.sliderColor = theme.accentSecondary
+        scopeOffsetView.labelColor = theme.text
+        offsetLabel.textColor = theme.text
+    }
 
 
 

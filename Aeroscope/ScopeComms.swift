@@ -192,6 +192,9 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func reconnect() {
+        if !isPoweredOn() {
+            self.setDelegate()
+        }
         if let peripheral = peripheral {
             let connectedPeriphs = centralManager.retrieveConnectedPeripherals(withServices: [BLEServiceUUID])
             if connectedPeriphs.contains(peripheral.bt) {

@@ -38,7 +38,7 @@ class HorizControl : ScopeUIControl {
         ctrlItem.sizeToFit()
         ctrlItem.frame.size.width = 60
         ctrlItem.textAlignment = .center
-        ctrlItem.textColor = self.textColor//Scope.globalTintColor
+        ctrlItem.textColor = self.textColor
         self.title = "Horizontal"
         self.item = ctrlItem
         self.popover = horizPopoverVC
@@ -126,7 +126,7 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         scope.settings.setHoriz(scope.settings.getHorizSettings()[(indexPath as NSIndexPath).row])
         let mycell = tableView.cellForRow(at: indexPath)!
-        mycell.textLabel!.textColor = UIColor.white
+        mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.textSelected
         mycell.backgroundColor = UIColor.clear
         
     }
@@ -134,7 +134,7 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let mycell = tableView.cellForRow(at: indexPath)
-        mycell?.textLabel!.textColor = self.view.tintColor
+        mycell?.textLabel!.textColor = ScopeTheme.manager.activeTheme.text
         mycell?.backgroundColor = UIColor.clear
         
     }
@@ -146,14 +146,14 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
         mycell.textLabel!.text = scope.settings.getHorizSettings()[(indexPath as NSIndexPath).row]
         
         if mycell.isSelected {
-            mycell.textLabel!.textColor = UIColor.white
+            mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.textSelected
         }
         else {
-            mycell.textLabel!.textColor = self.view.tintColor
+            mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.text
         }
         mycell.backgroundColor = UIColor.clear
         mycell.selectedBackgroundView = UIView()
-        mycell.selectedBackgroundView?.backgroundColor = self.view.tintColor
+        mycell.selectedBackgroundView?.backgroundColor = ScopeTheme.manager.activeTheme.selected
         
         return mycell
     }
