@@ -28,15 +28,23 @@ protocol ScopeStripViewDataSource : class {
 class ScopeStripView: UIView {
 
     @IBInspectable
-    var fgColor : UIColor = UIColor.gray { didSet { setNeedsDisplay() } }
+    var sliderColor : UIColor = UIColor.gray { didSet { setNeedsDisplay() } }
     @IBInspectable
     var bgColor : UIColor = UIColor.black { didSet { setNeedsDisplay() } }
+    @IBInspectable
+    var borderColor : UIColor = UIColor.red { didSet { setNeedsDisplay() } }
     @IBInspectable
     var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
     @IBInspectable
     var traceColor : UIColor = UIColor.green { didSet { setNeedsDisplay() } }
     @IBInspectable
-    var triggerColor : UIColor = UIColor.red { didSet { setNeedsDisplay() }}
+    var triggerColor : UIColor = UIColor(red: 65/255, green: 0/255, blue: 0/255, alpha: 1.0) {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    @IBInspectable
+    var caretColor : UIColor = UIColor.red { didSet { setNeedsDisplay() }}
 
     
     var track_width : CGFloat {
@@ -123,15 +131,10 @@ class ScopeStripView: UIView {
         pen.close()
         pen.lineWidth = lineWidth
         bgColor.set()
-        pen.stroke()
         pen.fill()
+        //pen.stroke()
         
-
-        
-
-        
-        
-        UIColor(red: 65/255, green: 0/255, blue: 0/255, alpha: 1.0).set()
+        triggerColor.set()
         drawTrigger(10.0).fill()
         drawTrigger(50.0).fill()
         drawTrigger(90.0).fill()
@@ -144,24 +147,30 @@ class ScopeStripView: UIView {
 //        drawTouchTarget(90.0).fill()
 
         
-        //fgColor.set()
+        //sliderColor.set()
        // drawSlider(width: width, position: position).stroke()
         
         sliderLayer.path = drawSlider(width: width, position: 0.0).cgPath
-        sliderLayer.strokeColor = fgColor.cgColor
+        sliderLayer.strokeColor = sliderColor.cgColor
         sliderLayer.lineWidth = lineWidth
         sliderLayer.fillColor = nil
 
         updateSlider()
         
         triggerLayer.path = drawTrigger(50.0).cgPath
-        triggerLayer.fillColor = triggerColor.cgColor
+        triggerLayer.fillColor = caretColor.cgColor
         
         updateTrigger()
         
         traceLayer.strokeColor = traceColor.cgColor
         traceLayer.lineWidth = lineWidth
         traceLayer.fillColor = nil
+        
+        self.clipsToBounds = true
+        //self.layer.cornerRadius = 5;
+        self.layer.borderWidth = 1.0
+        self.layer.borderColor = self.borderColor.cgColor
+
         
     }
     
@@ -279,7 +288,7 @@ class ScopeStripView: UIView {
         else {
             sliderLayer.path = drawSlider(width: width!, position: 0.0).cgPath
             updateSlider()
-    //        sliderLayer.strokeColor = fgColor.cgColor
+    //        sliderLayer.strokeColor = sliderColor.cgColor
     //        sliderLayer.lineWidth = lineWidth
     //        sliderLayer.fillColor = nil
         }

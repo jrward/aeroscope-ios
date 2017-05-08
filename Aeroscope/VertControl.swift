@@ -25,8 +25,6 @@ class VertControl : ScopeUIControl {
         
     }
     
-
-    
     override func layoutSubviews() {
         initCtrl()
         super.layoutSubviews()
@@ -35,7 +33,7 @@ class VertControl : ScopeUIControl {
     func initCtrl() {
         ctrlItem.text = scope.settings.getVert()
         ctrlItem.font = UIFont(name: "Helvetica Neue", size: 18)!
-        ctrlItem.textColor = self.textColor//Scope.globalTintColor
+        ctrlItem.textColor = self.textColor
         ctrlItem.sizeToFit()
         ctrlItem.frame.size.width = 60
         ctrlItem.textAlignment = .center
@@ -74,6 +72,8 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
 //        acDC.setTitle("AC", forSegmentAtIndex: 1)
 //        acDC.insertSegmentWithTitle("DC", atIndex: 0, animated: false)
 //        acDC.insertSegmentWithTitle("DC", atIndex: 1, animated: <#T##Bool#>)
+        self.view.tintColor = ScopeTheme.manager.activeTheme.tint
+
         
         acDC = UISegmentedControl(items: ["DC", "AC"])
         acDC.addTarget(self, action: #selector(acDCPressed), for: .valueChanged);
@@ -150,13 +150,21 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
 
            }
     
-    override func viewDidLayoutSubviews() {
+//    override func viewDidLayoutSubviews() {
+//    }
+//    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        self.view.backgroundColor =
+//    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.tintColor = ScopeTheme.manager.activeTheme.tint
     }
     
     
-    
     override func viewDidAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+        super.viewDidAppear(animated)
         let myIndex = IndexPath(row: scope.settings.getVertSettings().index(of: scope.settings.getVert())!, section: 0)
         
         vertScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableViewScrollPosition.middle)
@@ -181,14 +189,14 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         scope.settings.setVert(scope.settings.getVertSettings()[(indexPath as NSIndexPath).row])
         
         let mycell = tableView.cellForRow(at: indexPath)!
-        mycell.textLabel!.textColor = UIColor.white
+        mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.textSelected
         mycell.backgroundColor = UIColor.clear
     
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let mycell = tableView.cellForRow(at: indexPath)!
-        mycell.textLabel!.textColor = self.view.tintColor
+        mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.text
         mycell.backgroundColor = UIColor.clear
         
     }
@@ -200,14 +208,14 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         
         mycell.textLabel!.text = scope.settings.getVertSettings()[(indexPath as NSIndexPath).row]
         if mycell.isSelected {
-            mycell.textLabel!.textColor = UIColor.white
+            mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.textSelected
         }
         else {
-            mycell.textLabel!.textColor = self.view.tintColor
+            mycell.textLabel!.textColor = ScopeTheme.manager.activeTheme.text
         }
         mycell.backgroundColor = UIColor.clear
         mycell.selectedBackgroundView = UIView()
-        mycell.selectedBackgroundView?.backgroundColor = self.view.tintColor
+        mycell.selectedBackgroundView?.backgroundColor = ScopeTheme.manager.activeTheme.selected
         
         return mycell
     }

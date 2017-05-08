@@ -21,6 +21,20 @@ class ScopeBatteryView : UIView {
     let battDead = UIImageView()
     let battFullCharge = UIImageView()
     let battCharging = UIImageView()
+    let battBG = UIImageView()
+    
+    var color : UIColor = UIColor.gray {
+        didSet {
+            battImage.tintColor = color
+
+        }
+    }
+    
+    var bgColor: UIColor = UIColor.clear {
+        didSet {
+            battBG.tintColor = bgColor
+        }
+    }
     
     var bundle : Bundle!
 
@@ -40,6 +54,7 @@ class ScopeBatteryView : UIView {
     func initLayers() {
         bundle = Bundle(for: type(of: self))
 
+        self.addSubview(battBG)
         self.addSubview(battImage)
         self.addSubview(battDead)
         self.addSubview(battFullCharge)
@@ -56,13 +71,16 @@ class ScopeBatteryView : UIView {
         battDead.frame = self.bounds
         battFullCharge.frame = self.bounds
         battCharging.frame = self.bounds
+        battBG.frame = self.bounds
         
         battImage.contentMode = .scaleToFill
-        battImage.tintColor = UIColor.gray
+        battImage.tintColor = color
         
         battDead.contentMode = .scaleToFill
         battFullCharge.contentMode = .scaleToFill
         battCharging.contentMode = .scaleToFill
+        battBG.contentMode = .scaleToFill
+        
         
         updateBattState()
         
@@ -78,26 +96,32 @@ class ScopeBatteryView : UIView {
             
             switch battState {
                 case .fullyCharged:
+                    battBG.image = UIImage(named: "batt_background")?.withRenderingMode(.alwaysTemplate)
                     battImage.image = UIImage(named: "batt_empty")?.withRenderingMode(.alwaysTemplate)
                     battDead.image = nil
                     battFullCharge.image = UIImage(named: "batt_fullcharge")
                 case .full:
+                    battBG.image = UIImage(named: "batt_background")?.withRenderingMode(.alwaysTemplate)
                     battImage.image = UIImage(named: "batt_full")?.withRenderingMode(.alwaysTemplate)
                     battDead.image = nil
                     battFullCharge.image = nil
                 case .mid:
+                    battBG.image = UIImage(named: "batt_background")?.withRenderingMode(.alwaysTemplate)
                     battImage.image = UIImage(named: "batt_mid")?.withRenderingMode(.alwaysTemplate)
                     battDead.image = nil
                     battFullCharge.image = nil
                 case .low:
+                    battBG.image = UIImage(named: "batt_background")?.withRenderingMode(.alwaysTemplate)
                     battImage.image = UIImage(named: "batt_low")?.withRenderingMode(.alwaysTemplate)
                     battDead.image = nil
                     battFullCharge.image = nil
                 case .dead:
+                    battBG.image = UIImage(named: "batt_background")?.withRenderingMode(.alwaysTemplate)
                     battImage.image = UIImage(named: "batt_empty")?.withRenderingMode(.alwaysTemplate)
                     battDead.image = UIImage(named: "batt_dead")
                     battFullCharge.image = nil
             case .unknown:
+                    battBG.image = nil
                     battImage.image = nil
                     battDead.image = nil
                     battFullCharge.image = nil

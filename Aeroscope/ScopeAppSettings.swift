@@ -14,7 +14,13 @@ protocol AppSettingsReader {
     var fullFrameDL : Bool {get}
 }
 
+
 class ScopeAppSettings : AppSettingsReader {
+    
+    private let interpolationIdentifier = "interpolationIdentifier"
+    private let showPtsIdentifier = "showPtsIdentifier"
+    private let fullFrameIdentifier = "fullFrameIdentifier"
+
     
     struct notifications {
         static let interpolation = Notification.Name("com.Aeroscope.interpolation")
@@ -25,16 +31,39 @@ class ScopeAppSettings : AppSettingsReader {
     var interpolation : Bool = true {
         didSet {
             NotificationCenter.default.post(name: notifications.interpolation, object: self)
+            UserDefaults.standard.set(String(interpolation), forKey: interpolationIdentifier)
         }
     }
     
     var showPts : Bool = false {
         didSet {
             NotificationCenter.default.post(name: notifications.showPts, object: self)
+            UserDefaults.standard.set(String(showPts), forKey: showPtsIdentifier)
         }
     }
     
-    var fullFrameDL : Bool = false
+    var fullFrameDL : Bool = false {
+        didSet {
+            UserDefaults.standard.set(String(fullFrameDL), forKey: fullFrameIdentifier)
+
+        }
+    }
+    
+    
+    init() {
+        if let val = UserDefaults.standard.string(forKey: interpolationIdentifier),
+            let setting = Bool(val) {
+            interpolation = setting
+        }
+        if let val = UserDefaults.standard.string(forKey: showPtsIdentifier),
+            let setting = Bool(val) {
+            showPts = setting
+        }
+        if let val = UserDefaults.standard.string(forKey: fullFrameIdentifier),
+            let setting = Bool(val) {
+            fullFrameDL = setting
+        }
+    }
     
     
 }

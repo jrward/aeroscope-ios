@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import Themeable
 
-class ScopeMeasViewController : UIViewController{
+class ScopeMeasViewController : UIViewController, Themeable{
     
     let scope = Scope.sharedInstance
     
@@ -27,6 +28,12 @@ class ScopeMeasViewController : UIViewController{
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(updateMeasLabel), name: ScopeMeasurementCenter.notifications.listChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMeasLabel), name: ScopeMeasurementCenter.notifications.measUpdated, object: nil)
+        
+        ScopeTheme.manager.register(themeable: self)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+       self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
     func updateMeasLabel() {
@@ -37,6 +44,10 @@ class ScopeMeasViewController : UIViewController{
         }
         
         //measLabel.text = String(format: "%2s %5s/div  %5s/div    FPS: %3.2f    P-P: %3i", coupling!, vertSetting!, horizSetting!, fpsCapture, peakToPeak)
+    }
+    
+    func apply(theme: ScopeTheme) {
+         measLabel.textColor = theme.textMeas
     }
     
 

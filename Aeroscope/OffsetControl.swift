@@ -49,7 +49,7 @@ class OffsetControl : ScopeUIControl {
         ctrlItem.sizeToFit()
         ctrlItem.frame.size.width = self.frame.size.width
         ctrlItem.textAlignment = .center
-        ctrlItem.textColor = self.textColor //Scope.globalTintColor
+        ctrlItem.textColor = self.textColor 
         self.title = "Offset"
         self.item = ctrlItem
         

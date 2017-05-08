@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import Themeable
 
 @IBDesignable
-class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ScanningDelegate {
+class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, ScanningDelegate, Themeable {
 
     let scope = Scope.sharedInstance
     let comms = Scope.sharedInstance.comms
@@ -18,6 +19,10 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     let prefs = UserDefaults.standard
     
     var getNameModal = UIAlertController(title: "Edit Name", message: "Enter a new name (19 characters max)", preferredStyle: .alert)
+    
+    var textColor: UIColor = ScopeTheme.manager.activeTheme.text
+    var tintColor: UIColor = ScopeTheme.manager.activeTheme.tint
+    
     
     @IBOutlet weak var scanningLabel: UILabel!
     @IBOutlet weak var scanningIndicator: UIActivityIndicatorView!
@@ -85,6 +90,8 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         
         comms.scanningDelegate = self
         
+        ScopeTheme.manager.register(themeable: self)
+        
         // Do any additional setup after loading the view.
     }
     
@@ -94,6 +101,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         comms.devices = []
+        updateTable()
         comms.startScanning()
         
         if (comms.isScanning())
@@ -113,11 +121,16 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         
         else if (scope.connection.status == .connected) {
             setConnecting()
+            addConnectedScope()
         }
             
         else {
             setDisconnected()
         }
+        
+        scanningIndicator.color = tintColor
+        wirelessTable.tintColor = tintColor
+        wirelessTable.separatorColor = tintColor
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -168,7 +181,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         connectedLabel.text = "Connecting..."
         connectedLabel.textColor = UIColor.yellow
         disconnectButton.isEnabled = true
-        disconnectButton.setTitleColor(Scope.globalTintColor, for: .normal)
+        disconnectButton.setTitleColor(tintColor, for: .normal)
 //        editNameButton.isEnabled = true
 //        editNameButton.setTitleColor(Scope.globalTintColor, for: .normal)
     }
@@ -177,9 +190,9 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         connectedLabel.text = "Connected To:"
         connectedLabel.textColor = UIColor.green
         disconnectButton.isEnabled = true
-        disconnectButton.setTitleColor(Scope.globalTintColor, for: .normal)
+        disconnectButton.setTitleColor(tintColor, for: .normal)
         editNameButton.isEnabled = true
-        editNameButton.setTitleColor(Scope.globalTintColor, for: .normal)
+        editNameButton.setTitleColor(tintColor, for: .normal)
 
     }
     
@@ -187,7 +200,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         comms.startScanning()
         
         connectedLabel.text = "Not Connected"
-        connectedLabel.textColor = UIColor.red
+        connectedLabel.textColor = textColor
         disconnectButton.isEnabled = false
         disconnectButton.setTitleColor(nil, for: .normal)
         editNameButton.isEnabled = false
@@ -249,7 +262,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     func startScanning() {
         scanningIndicator.startAnimating()
         scanningLabel.isEnabled = true
-        scanningLabel.textColor = Scope.globalTintColor
+        scanningLabel.textColor = tintColor
     }
     
     func stopScanning() {
@@ -281,6 +294,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         mycell.backgroundColor = UIColor.clear
         if comms.devices.count > indexPath.row {
             mycell.textLabel!.text = comms.devices[indexPath.row].advertisedName
+            mycell.textLabel!.textColor = textColor
             if (comms.devices[indexPath.row] == comms.peripheral && scope.connection.status == .poweredOn) {
                 mycell.accessoryType = .checkmark
             }
@@ -296,6 +310,13 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
 //        }
         
         return mycell
+    }
+    
+    
+    func apply(theme: ScopeTheme) {
+        tintColor = theme.tint
+        textColor = theme.text
+        updateTable()
     }
     
 //    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

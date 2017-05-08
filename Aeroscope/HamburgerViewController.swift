@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
+import Themeable
 
 
-class HamburgerViewController: UIViewController {
+class HamburgerViewController: UIViewController, Themeable {
 
     @IBOutlet weak var doneButton: UIButton!
     
@@ -50,8 +51,12 @@ class HamburgerViewController: UIViewController {
         
 //        hamburgerControl.registerVC(source: self)
 
-
+        ScopeTheme.manager.register(themeable: self)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +65,9 @@ class HamburgerViewController: UIViewController {
     }
     
 
-    
+    func apply(theme: ScopeTheme) {
+        self.view.backgroundColor = theme.bgApp
+    }
 
     /*
     // MARK: - Navigation

@@ -1,0 +1,3 @@
+framework module Themeable {
+    header "Themeable-Swift.h"
+}

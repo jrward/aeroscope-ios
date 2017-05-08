@@ -21,17 +21,28 @@ protocol ScopeOffsetViewDataSource : class {
 class ScopeOffsetView: UIView {
 
     @IBInspectable
-    var fgColor : UIColor = UIColor.white { didSet { setNeedsDisplay() } }
+    var gridColor : UIColor = UIColor.white { didSet { setNeedsDisplay() } }
     @IBInspectable
     var bgColor : UIColor = UIColor.black { didSet { setNeedsDisplay() } }
     @IBInspectable
-    var lineWidth: CGFloat = 1.0 { didSet { setNeedsDisplay() } }
+    var sliderColor : UIColor = UIColor.gray { didSet { setNeedsDisplay() } }
+    @IBInspectable
+    var lineWidth: CGFloat = 2.0 { didSet { setNeedsDisplay() } }
+    @IBInspectable
+    var labelColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 1.0) {
+        didSet {
+            labelFont = UIFont(name: "Helvetica Neue", size: 16)!
+            labelAttr  = [NSForegroundColorAttributeName : labelColor,
+                          NSFontAttributeName : labelFont]
+            setNeedsDisplay()
+        }
+    }
     
     weak var dataSource : ScopeOffsetViewDataSource?
     
     let sliderLayer = CAShapeLayer()
     
-    var myColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 1.0)
+    
     
     var labelFont : UIFont!
     
@@ -72,7 +83,7 @@ class ScopeOffsetView: UIView {
         sliderLayer.actions = ["position": NSNull()]
         
         labelFont = UIFont(name: "Helvetica Neue", size: 16)!
-        labelAttr  = [NSForegroundColorAttributeName : myColor,
+        labelAttr  = [NSForegroundColorAttributeName : labelColor,
         NSFontAttributeName : labelFont]
        // NSTex]
         
@@ -103,7 +114,7 @@ class ScopeOffsetView: UIView {
 //        sliderLayer.path = drawSlider(frameHeight: frameHeight, position: offset).CGPath
         sliderLayer.path = drawSlider(frameHeight: frameHeight, position: 50.0).cgPath
         
-        sliderLayer.strokeColor = UIColor.lightGray.cgColor
+        sliderLayer.strokeColor = sliderColor.cgColor
         sliderLayer.lineWidth = lineWidth
         sliderLayer.fillColor = nil
         
@@ -151,7 +162,7 @@ class ScopeOffsetView: UIView {
         pen.move(to: CGPoint(x: 40, y: 9*scale_height/10 ))
         pen.addLine(to: CGPoint(x: width, y: 9*scale_height/10 ))
         
-        fgColor.set()
+        gridColor.set()
         pen.stroke()
         
         
