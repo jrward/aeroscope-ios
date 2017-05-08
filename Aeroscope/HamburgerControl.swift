@@ -57,6 +57,7 @@ class HamburgerControl : ScopeUIControl {
 
     }
     
+    
 //    override func isPressed() {
 //        
 //        let myStoryboard = UIStoryboard(name: "Main", bundle: nil)

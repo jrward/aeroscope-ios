@@ -7,21 +7,16 @@
 //
 
 import UIKit
+import Themeable
 
-
-class ScopeSettingsViewController: UIViewController {
+class ScopeSettingsViewController: UIViewController, Themeable {
 
     let scope = Scope.sharedInstance
     let comms = Scope.sharedInstance.comms
     let frame = Scope.sharedInstance.frame
     //let fpgaUpdate = ScopeFpgaUpdate(comms: Scope.sharedInstance.comms)
     
-    @IBAction func done(_ sender: UIButton) {
-        
-        self.dismiss(animated: true, completion: nil)
-    }
     
-
     
     @IBOutlet weak var clearTraceButton: UIButton!
     
@@ -29,7 +24,6 @@ class ScopeSettingsViewController: UIViewController {
         frame.clearTrace()
         
     }
-    
     
     
     @IBOutlet weak var fullFrameSwitch: UISwitch!
@@ -100,6 +94,7 @@ class ScopeSettingsViewController: UIViewController {
     
     
     
+    @IBOutlet weak var showPtsLabel: UILabel!
     @IBOutlet weak var showPtsSwitch: UISwitch!
     @IBAction func showPtsChanged(_ sender: UISwitch) {
         if showPtsSwitch.isOn {
@@ -111,6 +106,7 @@ class ScopeSettingsViewController: UIViewController {
     }
     
     
+    @IBOutlet weak var sincInterpLabel: UILabel!
     @IBOutlet weak var sincInterpSwitch: UISwitch!
     
     @IBAction func sincInterpChanged(_ sender: UISwitch) {
@@ -125,6 +121,7 @@ class ScopeSettingsViewController: UIViewController {
     
     
     
+    @IBOutlet weak var fullFrameLabel: UILabel!
     @IBAction func fullFrameSwitchChanged(_ sender: UISwitch) {
         if fullFrameSwitch.isOn {
 //            scope.settings.settings.scopeCtrl.full_frame.value = true
@@ -165,12 +162,45 @@ class ScopeSettingsViewController: UIViewController {
 //        }
 //    }
     
+    @IBOutlet weak var themeLabel: UILabel!
+    
+    @IBOutlet weak var themeSelector: UISegmentedControl!
+    
+    @IBAction func themeSelectorChanged(_ sender: UISegmentedControl) {
+        switch sender.selectedSegmentIndex {
+        case 0: ScopeTheme.manager.activeTheme = .dark
+        case 1: ScopeTheme.manager.activeTheme = .darklight
+        case 2: ScopeTheme.manager.activeTheme = .bright
+        case 3: ScopeTheme.manager.activeTheme = .day
+        default: ScopeTheme.manager.activeTheme = .dark
+        }
+        
+        
+
+    }
+    
+    
+    
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         fullFrameSwitch.isOn = scope.appSettings.fullFrameDL
         sincInterpSwitch.isOn = scope.appSettings.interpolation
         showPtsSwitch.isOn = scope.appSettings.showPts
+        
+        ScopeTheme.manager.register(themeable: self)
+        
+        switch ScopeTheme.manager.activeTheme {
+        case ScopeTheme.dark: themeSelector.selectedSegmentIndex = 0
+        case ScopeTheme.darklight: themeSelector.selectedSegmentIndex = 1
+        case ScopeTheme.bright: themeSelector.selectedSegmentIndex = 2
+        case ScopeTheme.day: themeSelector.selectedSegmentIndex = 3
+        default: themeSelector.selectedSegmentIndex = 0
+        }
 //        if scope.settings.getWriteDepth() == 512 {
 //            memorySizeSelector.selectedSegmentIndex = 0
 //        }
@@ -188,10 +218,40 @@ class ScopeSettingsViewController: UIViewController {
 //    
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
+        ScopeTheme.manager.register(themeable: self)
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func apply(theme: ScopeTheme) {
+        clearTraceButton.borderColor = theme.tint
+        clearTraceButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        fullCalButton.borderColor = theme.tint
+        fullCalButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        clearCalButton.borderColor = theme.tint
+        clearCalButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        resetButton.borderColor = theme.tint
+        resetButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        deepSleepButton.borderColor = theme.tint
+        deepSleepButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        
+        fullFrameLabel.textColor = theme.text
+        showPtsLabel.textColor = theme.text
+        sincInterpLabel.textColor = theme.text
+        
+        themeLabel.textColor = theme.text
+        themeSelector.tintColor = theme.tint
+        
+        self.view.backgroundColor = theme.bgPrimary
+        
+        
     }
     
 

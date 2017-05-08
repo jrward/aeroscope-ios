@@ -8,10 +8,12 @@
 
 import Foundation
 import UIKit
+import Themeable
 
-class ScopeMeasSelectViewController: UIViewController {
+class ScopeMeasSelectViewController: UIViewController, Themeable {
     let scope = Scope.sharedInstance
 
+    @IBOutlet weak var vppLabel: UILabel!
     @IBOutlet weak var vppSwitch: UISwitch!
     @IBAction func vppSwitchChanged(_ sender: UISwitch) {
         if vppSwitch.isOn {
@@ -22,6 +24,7 @@ class ScopeMeasSelectViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var vmaxLabel: UILabel!
     @IBOutlet weak var vmaxSwitch: UISwitch!
     @IBAction func vmaxSwitchChanged(_ sender: UISwitch) {
         if vmaxSwitch.isOn {
@@ -32,6 +35,7 @@ class ScopeMeasSelectViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var vminLabel: UILabel!
     @IBOutlet weak var vminSwitch: UISwitch!
     @IBAction func vminSwitchChanged(_ sender: UISwitch) {
         if vminSwitch.isOn {
@@ -42,6 +46,7 @@ class ScopeMeasSelectViewController: UIViewController {
         }
     }
     
+    @IBOutlet weak var vavgLabel: UILabel!
     @IBOutlet weak var vavgSwitch: UISwitch!
     @IBAction func vavgSwitchChanged(_ sender: UISwitch) {
         if vavgSwitch.isOn {
@@ -59,6 +64,17 @@ class ScopeMeasSelectViewController: UIViewController {
         vmaxSwitch.isOn = scope.measure.measList.contains(.vmax)
         vminSwitch.isOn = scope.measure.measList.contains(.vmin)
         vavgSwitch.isOn = scope.measure.measList.contains(.vavg)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
+    }
+    
+    func apply(theme: ScopeTheme) {
+        vppLabel.textColor = theme.text
+        vmaxLabel.textColor = theme.text
+        vminLabel.textColor = theme.text
+        vavgLabel.textColor = theme.text
     }
 
 

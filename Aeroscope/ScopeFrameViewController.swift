@@ -8,6 +8,8 @@
 
 import UIKit
 import Foundation
+import Themeable
+
 fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
   switch (lhs, rhs) {
   case let (l?, r?):
@@ -21,7 +23,7 @@ fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
 
 
 @IBDesignable
-class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource  {
+class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Themeable  {
     
     let scope = Scope.sharedInstance
     
@@ -127,6 +129,8 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource  {
         let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(ScopeFrameViewController.pinch))
         scopeFrameView.addGestureRecognizer(pinchRecognizer)
         
+        
+        ScopeTheme.manager.register(themeable: self)
 
    
 
@@ -149,6 +153,11 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource  {
 //        
 //        scopeFrameView.addConstraint(Left)
 //        scopeFrameView.addConstraint(Top)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
+
     }
 
     func updateShowPts() {
@@ -952,6 +961,20 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource  {
         let time = Translator.toTimeFrom(samples: samples, conv: scope.settings.getHorizMeta().timePerSample)
         
         return Translator.toStringFrom(time: time)
+    }
+    
+    
+    func apply(theme: ScopeTheme) {
+        triggerSlider.minimumTrackTintColor = theme.accentSecondary
+        triggerSlider.maximumTrackTintColor = theme.accentSecondary
+        triggerSlider.thumbTintColor = theme.accentPrimary
+        scopeFrameView.gridColor = theme.grid
+        scopeFrameView.borderColor = theme.scopeBorder
+        scopeFrameView.bgColor = theme.bgGrid
+        scopeFrameView.traceColor = theme.trace
+        scopeFrameView.gndColor = theme.traceAccent
+        scopeFrameView.caretColor = theme.caretColor
+        
     }
 
 

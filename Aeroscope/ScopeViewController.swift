@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Themeable
 
 extension UIViewController{
     func presentViewControllerFromVisibleViewController(viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
@@ -22,7 +23,7 @@ extension UIViewController{
     }
 }
 
-class ScopeViewController: UIViewController {
+class ScopeViewController: UIViewController, Themeable {
     
     let scope = Scope.sharedInstance
 
@@ -63,8 +64,12 @@ class ScopeViewController: UIViewController {
         
         hamburgerControl.registerVC(source: self)
         
+        ScopeTheme.manager.register(themeable: self)
         
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -104,7 +109,9 @@ class ScopeViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    
+    func apply(theme: ScopeTheme) {
+        self.view.backgroundColor = theme.bgApp
+    }
     
     
 

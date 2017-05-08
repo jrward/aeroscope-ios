@@ -8,9 +8,10 @@
 
 import Foundation
 import UIKit
+import Themeable
 
 @IBDesignable
-class RunStopControl : UIControl {
+class RunStopControl : UIControl, Themeable {
     
 
     let scope = Scope.sharedInstance
@@ -25,6 +26,17 @@ class RunStopControl : UIControl {
     let separatorView = UIView()
     
     let separatorLayer = CAShapeLayer()
+    
+    var runTextColor: UIColor = ScopeTheme.manager.activeTheme.textAccent
+    var singleTextColor: UIColor = ScopeTheme.manager.activeTheme.text
+    var selectedTextColor: UIColor = ScopeTheme.manager.activeTheme.textSelected
+
+    var borderColor: UIColor = ScopeTheme.manager.activeTheme.border
+    var separatorColor: UIColor = ScopeTheme.manager.activeTheme.text
+
+    var fillColor: UIColor = ScopeTheme.manager.activeTheme.fill
+    var selectedFillColor: UIColor = ScopeTheme.manager.activeTheme.selected
+    
 
     
     override init(frame: CGRect) {
@@ -70,7 +82,7 @@ class RunStopControl : UIControl {
         
         activeLabel.text = "Stop"
         activeLabel.font = UIFont(name: "Helvetica Neue", size: 20)
-        activeLabel.textColor = UIColor.white
+        activeLabel.textColor = runTextColor
         //runLabel.textColor = self.tintColor
         activeLabel.frame = CGRect(x: 0, y: 8, width: width, height: height/4)
 //        activeLabel.frame = CGRectInset(runStop.bounds, 0, -20)
@@ -80,7 +92,7 @@ class RunStopControl : UIControl {
         
         inactiveLabel.text = "Run"
         inactiveLabel.font = UIFont(name: "Helvetica Neue", size: 14)
-        inactiveLabel.textColor = UIColor.white
+        inactiveLabel.textColor = runTextColor
         //stopLabel.textColor = self.tintColor
         inactiveLabel.frame = CGRect(x: 0, y: height/4 - 2, width: width, height: height/4)
         //inactiveLabel.frame = CGRectInset(runStop.bounds, 0, -20)
@@ -89,12 +101,12 @@ class RunStopControl : UIControl {
         inactiveLabel.alpha = 0.5
         
         singleLabel.text = "Single"
-        singleLabel.textColor = Scope.globalTintColor//self.tintColor
+        singleLabel.textColor = singleTextColor
         singleLabel.frame = CGRect(x: 0, y: height/2, width: width, height: height/2)
         singleLabel.textAlignment = .center
         
         runStop.frame = CGRect(x: 0,y: 0, width: width, height: height/2)
-        runStop.backgroundColor = self.tintColor
+        runStop.backgroundColor = fillColor
         //runStop.tintAdjustmentMode = .normal
 
         
@@ -106,9 +118,12 @@ class RunStopControl : UIControl {
         separatorLayer.path = drawSeparator().cgPath
         separatorLayer.fillColor = nil
         separatorLayer.lineWidth = 1.0
-        separatorLayer.strokeColor = Scope.globalTintColor.cgColor
+        //TODO: Do we need a new color for this?
+        separatorLayer.strokeColor = separatorColor.cgColor
 
         runStopSingleChanged()
+        
+        ScopeTheme.manager.register(themeable: self)
     }
     
 //    override var isHighlighted: Bool {
@@ -130,8 +145,8 @@ class RunStopControl : UIControl {
         
         separator.move(to: CGPoint(x: 0, y: height/2))
         separator.addLine(to: CGPoint(x: width, y: height/2))
-        separator.addLine(to: CGPoint(x: width, y: 0))
-        separator.addLine(to: CGPoint(x: 0,y: 0))
+//        separator.addLine(to: CGPoint(x: width, y: 0))
+//        separator.addLine(to: CGPoint(x: 0,y: 0))
         
         return separator
 //        separator.close()
@@ -154,12 +169,13 @@ class RunStopControl : UIControl {
         self.addSubview(activeLabel)
         self.addSubview(separatorView)
         
-        self.tintColor = Scope.globalTintColor
+//        self.tintColor = ScopeTheme.manager.activeTheme.tint
         self.layer.cornerRadius = 5;
         //self.layer.masksToBounds = true;
         self.clipsToBounds = true
         
-        self.layer.borderColor = self.tintColor.cgColor//scope.globalTintColor.CGColor //self.tintColor.CGColor
+        self.layer.borderColor = borderColor.cgColor
+            //scope.globalTintColor.CGColor //self.tintColor.CGColor
         self.layer.borderWidth = 1.0;
         self.backgroundColor = UIColor.clear
         
@@ -206,33 +222,40 @@ class RunStopControl : UIControl {
     }
     
     func setRunCtrl() {
-        runStop.backgroundColor = Scope.globalTintColor//self.tintColor
+        runStop.backgroundColor = selectedFillColor//self.tintColor
         activeLabel.text = "Run"
-        activeLabel.tintColor = UIColor.white
+//        activeLabel.tintColor = ScopeTheme.manager.activeTheme.textSelected
+        activeLabel.textColor = selectedTextColor
+        
         inactiveLabel.text = "Stop"
-        inactiveLabel.tintColor = UIColor.white
+//        inactiveLabel.tintColor = ScopeTheme.manager.activeTheme.textSelected
+        inactiveLabel.textColor = selectedTextColor
     }
     
     func setStop() {
-        runStop.backgroundColor = UIColor(red: 60/255, green: 0/255, blue: 0/255, alpha: 1.0)//Scope.globalTintColor//self.tintColor
+        runStop.backgroundColor = fillColor//Scope.globalTintColor//self.tintColor
         activeLabel.text = "Stop"
-        activeLabel.tintColor = Scope.globalTintColor//UIColor.white
+//        activeLabel.tintColor = ScopeTheme.manager.activeTheme.textAccent//UIColor.white
+        activeLabel.textColor = runTextColor
+
         inactiveLabel.text = "Run"
-        inactiveLabel.tintColor = UIColor.white
+//        inactiveLabel.tintColor = ScopeTheme.manager.activeTheme.textAccent
+        inactiveLabel.textColor = runTextColor
+
         clearSingle()
     }
     
     func setSingle() {
         setRunCtrl()
-        single.backgroundColor = Scope.globalTintColor //self.tintColor
-        singleLabel.textColor = UIColor.white
+        single.backgroundColor =  selectedFillColor//self.tintColor
+        singleLabel.textColor = selectedTextColor
         singleLabel.alpha = 1.0
     }
     
     func clearSingle() {
-        single.backgroundColor = UIColor(red: 60/255, green: 0/255, blue: 0/255, alpha: 1.0)
+        single.backgroundColor = fillColor
         //self.tintColor.colorWithAlphaComponent(0.2)
-        singleLabel.textColor = Scope.globalTintColor //self.tintColor
+        singleLabel.textColor = singleTextColor //self.tintColor
     }
     
     
@@ -263,10 +286,28 @@ class RunStopControl : UIControl {
 //        }
     }
     
+    func apply(theme: ScopeTheme) {
+        runTextColor = theme.textAccent
+        singleTextColor = theme.text
+        selectedTextColor = theme.textSelected
+        
+        borderColor = theme.border
+        self.layer.borderColor = borderColor.cgColor
+        
+        separatorColor = theme.text
+        separatorLayer.strokeColor = separatorColor.cgColor
+        
+        fillColor = theme.fill
+        selectedFillColor = theme.selected
+        
+        switch scope.settings.getRunState() {
+        case .run:
+            setRun()
+        case .stop:
+            setStop()
+        case .single:
+            setSingle()
+        }
+    }
 }
 
-class RunStopSingleVC : UIViewController {
-    
-    
-    
-}

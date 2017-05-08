@@ -8,8 +8,9 @@
 
 import UIKit
 import Foundation
+import Themeable
 
-class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSource {
+class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSource, Themeable {
     let scope = Scope.sharedInstance
     
     @IBOutlet weak var battView : ScopeBatteryView! {
@@ -38,7 +39,13 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
         NotificationCenter.default.addObserver(self, selector: #selector(updateBattery), name: ScopeBattery.notifications.update, object: nil)
 
         battView.updateBattState()
+        
+        ScopeTheme.manager.register(themeable: self)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
     func updateACDC() {
@@ -88,10 +95,26 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
     
     func battStateForBatteryView() -> ScopeBattery.BattState {
         return scope.telemetry.batt.state
+//        enum BattState {
+//            case fullyCharged
+//            case full
+//            case mid
+//            case low
+//            case dead
+//            case unknown
+//        }
+//        return .dead
     }
     func chargeStateForBatteryView() -> Bool {
         return scope.telemetry.batt.chargerConnected
+//        return true
     }
     
+    func apply(theme: ScopeTheme) {
+        statusLabel.textColor = theme.text
+        battView.color = theme.batt
+        battView.bgColor = theme.bgBatt
+        self.view.backgroundColor = theme.bgSecondary
+    }
     
 }
