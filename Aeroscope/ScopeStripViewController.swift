@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import Themeable
 
-class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
+class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Themeable {
 
     
     let scope = Scope.sharedInstance
@@ -35,7 +36,13 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(frameUpdate), name: ScopeFrame.notifications.frame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(fullFrameUpdate), name: ScopeFrame.notifications.fullFrame, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(rollFrameUpdate), name: ScopeFrame.notifications.rollFrame, object: nil)
+        
+        ScopeTheme.manager.register(themeable: self)
 
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
     func pan(_ gesture: UIPanGestureRecognizer) {
@@ -208,6 +215,20 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
     
     func traceDataForScopeStripView() -> [UInt8]? {
         return []
+    }
+    
+    func apply(theme: ScopeTheme) {
+        
+        scopeStripView.sliderColor  = theme.accentSecondary
+        
+        scopeStripView.bgColor = theme.bgGrid
+        
+        scopeStripView.borderColor = theme.stripBorder
+        
+        scopeStripView.traceColor = theme.trace
+        scopeStripView.triggerColor = theme.accentSecondary
+        
+        scopeStripView.caretColor = theme.caretColor
     }
 
     

@@ -179,7 +179,7 @@ class TriggerPopoverVC : UIViewController {
         self.preferredContentSize = CGSize(width: 300, height: 60)
 
         
-        self.view.tintColor = UIApplication.shared.delegate?.window!!.tintColor
+        self.view.tintColor = ScopeTheme.manager.activeTheme.tint
         
         let radioItems = [posTrigImg, negTrigImg, anyTrigImg]
         
@@ -197,8 +197,8 @@ class TriggerPopoverVC : UIViewController {
         lpTrigBtn.frame = CGRect(x: 10,y: 5,width: 44,height: 44)
         lpTrigBtn.layer.borderWidth = 1.0
         lpTrigBtn.layer.cornerRadius = 5
-        lpTrigBtn.layer.borderColor = UIApplication.shared.delegate?.window!!.tintColor.cgColor//self.view.tintColor.CGColor
-        lpTrigBtn.tintColor = UIApplication.shared.delegate?.window!!.tintColor
+        lpTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
+        lpTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
         lpTrigBtn.setImage(lpImg, for: UIControlState())
         lpTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.lpBtnPressed), for: UIControlEvents.touchUpInside)
 
@@ -211,8 +211,8 @@ class TriggerPopoverVC : UIViewController {
         autoTrigBtn.frame = CGRect(x: 10,y: 5,width: 44,height: 44)
         autoTrigBtn.layer.borderWidth = 1.0
         autoTrigBtn.layer.cornerRadius = 5
-        autoTrigBtn.layer.borderColor = UIApplication.shared.delegate?.window!!.tintColor.cgColor
-        autoTrigBtn.tintColor = UIApplication.shared.delegate?.window!!.tintColor
+        autoTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
+        autoTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
         autoTrigBtn.setImage(autoImg, for: UIControlState())
         //autoTrigBtn.setImage(autoImg, forState: .Highlighted)
         autoTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.autoBtnPressed), for: UIControlEvents.touchUpInside)
@@ -257,6 +257,8 @@ class TriggerPopoverVC : UIViewController {
         lpSelected = scope.settings.getLpTrig()
         
         autoSelected = scope.settings.getAutoTrig()
+        
+        trigCtrlRadio.tintColor = ScopeTheme.manager.activeTheme.tint
 
     }
     
@@ -286,14 +288,16 @@ class TriggerPopoverVC : UIViewController {
     var lpSelected : Bool = false {
         didSet {
             if (lpSelected) {
-                lpTrigBtn.tintColor = UIColor.white
-                lpTrigBtn.backgroundColor = self.view.tintColor
+                lpTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tintAccent
+                lpTrigBtn.backgroundColor = ScopeTheme.manager.activeTheme.tint
+                lpTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
                 scope.settings.lpTrigEnable()
                 
             }
             else {
-                lpTrigBtn.tintColor = self.view.tintColor
-                lpTrigBtn.backgroundColor = self.view.backgroundColor
+                lpTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
+                lpTrigBtn.backgroundColor = ScopeTheme.manager.activeTheme.bgPrimary
+                lpTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
                 scope.settings.lpTrigDisable()
             }
 
@@ -322,14 +326,16 @@ class TriggerPopoverVC : UIViewController {
     var autoSelected : Bool = true {
         didSet {
             if autoSelected {
-                autoTrigBtn.tintColor = UIColor.white
-                autoTrigBtn.backgroundColor = self.view.tintColor
+                autoTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tintAccent
+                autoTrigBtn.backgroundColor = ScopeTheme.manager.activeTheme.tint
+                autoTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
                 scope.settings.autoTrigEnable()
             }
                 
             else {
-                autoTrigBtn.tintColor = self.view.tintColor
+                autoTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
                 autoTrigBtn.backgroundColor = self.view.backgroundColor
+                autoTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
                 scope.settings.autoTrigDisable()
             }
 

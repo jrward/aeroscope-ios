@@ -27,11 +27,18 @@ class ScopeFrameView: UIView {
     var interp_en = true
 
     @IBInspectable
-    var gridColor : UIColor = UIColor.orange {didSet { setNeedsDisplay()}}
+    var gridColor : UIColor = UIColor.orange {didSet { updateColors()}}
     @IBInspectable
-    var bgColor : UIColor = UIColor.black {didSet { setNeedsDisplay()}}
+    var borderColor : UIColor = UIColor.red { didSet { updateColors() }}
     @IBInspectable
-    var traceColor : UIColor = UIColor.green {didSet { setNeedsDisplay()}}
+    var bgColor : UIColor = UIColor.black {didSet { updateColors()}}
+    @IBInspectable
+    var traceColor : UIColor = UIColor.green {didSet { updateColors()}}
+    @IBInspectable
+    var gndColor : UIColor = UIColor.green {didSet { updateColors() }}
+    @IBInspectable
+    var caretColor: UIColor = UIColor.gray {didSet { updateColors() }}
+    
     let xDiv = 10
     let yDiv = 8
     let subDiv = 5
@@ -60,6 +67,14 @@ class ScopeFrameView: UIView {
     let upGnd = ArrowLabelView(frame: CGRect(x: 4,y: 24,width: 140,height: 14),text: "Gnd: 1.99 mV", loc: .left, dir: .up, color: UIColor.green)
     
     let downGnd = ArrowLabelView(frame: CGRect(x: 4,y: 16,width: 140,height: 14),text: "Gnd: 1.99 mV", loc: .left, dir: .down, color: UIColor.green)
+    
+    func updateColors() {
+        setNeedsDisplay()
+        traceLayer.strokeColor = traceColor.cgColor
+        gndLayer.strokeColor = gndColor.cgColor
+        trigLayer.fillColor = self.caretColor.cgColor
+        trigXPosLayer.fillColor = self.caretColor.cgColor
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -98,15 +113,15 @@ class ScopeFrameView: UIView {
         gndLayer.path = drawGnd().cgPath
         gndLayer.lineWidth = 1.0
         gndLayer.fillColor = nil
-        gndLayer.strokeColor = traceColor.cgColor
+        gndLayer.strokeColor = gndColor.cgColor
         gndLayer.actions = ["position":NSNull()]
         
         trigLayer.path = drawTrig().cgPath
-        trigLayer.fillColor = self.tintColor.cgColor
+        trigLayer.fillColor = self.caretColor.cgColor
         trigLayer.actions = ["position":NSNull()]
         
         trigXPosLayer.path = drawTrigXPos().cgPath
-        trigXPosLayer.fillColor = self.tintColor.cgColor
+        trigXPosLayer.fillColor = self.caretColor.cgColor
         trigXPosLayer.actions = ["position":NSNull()]
         
         rightTrig.frame.origin.x = self.frame.size.width - rightTrig.frame.size.width - 20
@@ -141,10 +156,14 @@ class ScopeFrameView: UIView {
         self.clipsToBounds = true
         //self.layer.cornerRadius = 5;
         self.layer.borderWidth = 1.0
-        self.layer.borderColor = self.tintColor.cgColor
+        self.layer.borderColor = self.borderColor.cgColor
         grid.stroke()
         graticle.stroke()
         //self.tintColor.set()
+        leftTrig.color = caretColor
+        rightTrig.color = caretColor
+        upGnd.color = gndColor
+        downGnd.color = gndColor
 
         //drawTrace()
     }

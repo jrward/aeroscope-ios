@@ -42,6 +42,8 @@
 		E5AAB4121E6F89CF0052422B /* ScopeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */; };
 		E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */; };
 		E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B017611DDCD28F00928E98 /* ScopeCmd.swift */; };
+		E5B73EFD1EAEB80E0071AA10 /* Themeable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B73EFC1EAEB80E0071AA10 /* Themeable.framework */; };
+		E5B73F001EAEC8390071AA10 /* ScopeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B73EFF1EAEC8390071AA10 /* ScopeTheme.swift */; };
 		E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1171B86E72800E3D63A /* Scope.swift */; };
 		E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */; };
 		E5D9E1201B86E72800E3D63A /* ScopeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */; };
@@ -122,6 +124,8 @@
 		E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeConnection.swift; sourceTree = "<group>"; };
 		E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStatusBarViewController.swift; sourceTree = "<group>"; };
 		E5B017611DDCD28F00928E98 /* ScopeCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeCmd.swift; sourceTree = "<group>"; };
+		E5B73EFC1EAEB80E0071AA10 /* Themeable.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Themeable.framework; path = Carthage/Build/iOS/Themeable.framework; sourceTree = "<group>"; };
+		E5B73EFF1EAEC8390071AA10 /* ScopeTheme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeTheme.swift; sourceTree = "<group>"; };
 		E5D9E1171B86E72800E3D63A /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrame.swift; sourceTree = "<group>"; };
 		E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeSettings.swift; sourceTree = "<group>"; };
@@ -144,6 +148,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5B73EFD1EAEB80E0071AA10 /* Themeable.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +168,7 @@
 				E574C48B1B7AC8570028277F /* Aeroscope */,
 				E574C4A11B7AC8570028277F /* AeroscopeTests */,
 				E574C48A1B7AC8570028277F /* Products */,
+				E5B73EFB1EAEB80E0071AA10 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -178,6 +184,7 @@
 		E574C48B1B7AC8570028277F /* Aeroscope */ = {
 			isa = PBXGroup;
 			children = (
+				E5B73EFF1EAEC8390071AA10 /* ScopeTheme.swift */,
 				E5DE54BF1BBDFDEE00243AEB /* ScopeSettingsViewController.swift */,
 				E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */,
 				E54DE9C21E1E403A001CEB7D /* ScopeMeasViewController.swift */,
@@ -251,6 +258,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		E5B73EFB1EAEB80E0071AA10 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E5B73EFC1EAEB80E0071AA10 /* Themeable.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E5FAFADB1C9C8A8D00E81E25 /* Contols */ = {
 			isa = PBXGroup;
 			children = (
@@ -278,6 +293,7 @@
 				E574C4861B7AC8570028277F /* Frameworks */,
 				E574C4871B7AC8570028277F /* Resources */,
 				E5205A8B1E8C2D1900271E50 /* CopyFiles */,
+				E5B73EFE1EAEB93A0071AA10 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -369,6 +385,24 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		E5B73EFE1EAEB93A0071AA10 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Themeable.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		E574C4851B7AC8570028277F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -377,6 +411,7 @@
 				E5D9E1201B86E72800E3D63A /* ScopeSettings.swift in Sources */,
 				E5154D6E1CDF9EF100713DA5 /* Copyable.swift in Sources */,
 				E5A2E4421D0C96B3001F905D /* BorderColor.swift in Sources */,
+				E5B73F001EAEC8390071AA10 /* ScopeTheme.swift in Sources */,
 				E574C48F1B7AC8570028277F /* AppDelegate.swift in Sources */,
 				E5154D741CE91BA500713DA5 /* ScopeSettingsInterface.swift in Sources */,
 				E57073A61D2E129D00CE0FF8 /* ScopeFrameInterpolator.swift in Sources */,
@@ -551,6 +586,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2SB4764459;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -570,6 +609,10 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = 2SB4764459;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

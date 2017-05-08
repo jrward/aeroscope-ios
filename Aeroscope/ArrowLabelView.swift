@@ -35,7 +35,12 @@ class ArrowLabelView: UIView {
     let arrowView = UIView()
     let arrowLayer = CAShapeLayer()
     @IBInspectable
-    var color : UIColor!
+    var color : UIColor! {
+        didSet {
+            arrowLayer.strokeColor = color.cgColor
+            label.textColor = color
+        }
+    }
     
     var location : Location = .left
     
