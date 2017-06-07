@@ -158,7 +158,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
 
     
     func framePositionForScopeStripView() -> CGFloat? {
-        let windowPos = CGFloat(scope.frame.getScaledFramePos())
+        let windowPos = CGFloat(scope.frame.getScaledWindowStart())
 //        if scope.settings.getRunState() == .stop {
 //            windowPos = CGFloat(scope.settings.getStoppedWindowPos() + scope.frame.getScaledSubFramePos())
 //        }
@@ -171,7 +171,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
     
     func frameWidthForScopeStripView() -> CGFloat? {
         //return CGFloat(scope.settings.settings.readDepth.value)/4096.0 * 100.0
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {
@@ -185,11 +185,11 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource {
     
     
     func tracePositionForScopeStripView() -> CGFloat? {
-        return CGFloat(scope.frame.getScaledTracePos()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
+        return CGFloat(scope.frame.getScaledTraceStart()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
     }
     
     func traceWidthForScopeStripView() -> CGFloat? {
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {

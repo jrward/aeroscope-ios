@@ -9,14 +9,6 @@
 //import UIKit
 import Foundation
 
-//protocol FrameSettingsReader {
-//    func getSubFrameSize() -> Int
-//    func getTrigMemPos() -> Int
-//    func getWindowPos() -> Int
-//    func getRunState() -> RunState
-//    func getStoppedWindowPos() -> Int
-//    func getStoppedTrigMemPos() -> Int
-//}
 
 typealias frameData = (frame: Samples, frameSize: Int, xPos: Int, subTrig: Float)
 
@@ -25,66 +17,66 @@ class SubFrame {
     
 }
 
-class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
+class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
     
     struct notifications {
         static let updateSubFrame = Notification.Name("com.Aeroscope.updateSubFrame")
     }
     
-    var scopeFrame : ScopeFrame!
-    fileprivate var frameInterpolator = ScopeFrameInterpolator()
+    var frame : ScopeFrame!
+    private var frameSettings: ScopeSettings!
     
+    private var frameInterpolator = ScopeFrameInterpolator()
     
 //    let settings : ScopeSettingsInterface
-    var settings : ScopeSettingsInterface// Scope.sharedInstance.settings
-    var appSettings : AppSettingsReader!// Scope.sharedInstance.appSettings
+    var settings : ScopeSettingsInterface
+    var appSettings : AppSettingsReader!
 
-    var offset : Int = 0
-   // var subFrameSize: Int = 500
-    var subFramePosition: Int = 6
-//        didSet {
-//            NotificationCenter.default.post(name: notifications.updateSubFramePos, object: self)
-//        }
-    
-    
-//    var subFrameSize : Int = 500
-//    var subFramePosition : Int
-    
-    //windowPosition = stoppedWindowPosition + subFramePosition - subFrameOffset
-    var stoppedSubFramePosition: Int = 6
     let displayedFrameSize = 500
+    
+    //offset from center of frame
+    
+    private(set) var yOffset : Int = 0
+    private(set) var xOffset: Int = 0
     
     //xScale and yScale are as follows:
     //Bigger numbers : zoomed out
     //Smaller numbers : zoomed in
     private(set) var xScale : Float = 1.0
-    var yScale : Float = 1.0
+    private(set) var yScale : Float = 1.0
+    
+
     
 
     init(settings: ScopeSettingsInterface, appSettings: AppSettingsReader)
     {
         self.settings = settings
+        self.frameSettings = settings.nextFrameSettings
         self.settings.frameSettingsDelegate = self
         self.appSettings = appSettings
-        self.scopeFrame = ScopeFrame(interface: self)
+        self.frame = ScopeFrame(interface: self)
         //self.scopeFrame.frameDelegate = self
 
     }
     
     func clearTrace() {
-        scopeFrame.clearFrame()
+        frame.clearFrame()
     }
     
     func getRawFrame() -> [UInt8] {
-        return scopeFrame.frame
+        return frame.frame
     }
     
     func getFrameSize() -> Int {
-        return scopeFrame.frameSize
+        return frame.frameSize
     }
     
     func getSubTrig() -> Float {
-        return scopeFrame.subTrig
+        return frame.subTrig
+    }
+    
+    func subFrameDidUpdate() {
+        NotificationCenter.default.post(name: notifications.updateSubFrame, object: self)
     }
     
  /*   func getScaledTrigXPos() -> Int {
@@ -106,92 +98,51 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
     }*/
     
     func getScaledSubFrameSize() -> Int {
-        if settings.getRunState() == .stop {
-            if xScale < 1.0 {
-                return Int(ceil(Float(settings.getSubFrameSize()) * xScale))
-            }
-            else if xScale >= 1.0 {
-                //return min(Int(ceil(Float(settings.getStoppedSubFrameSize()) * xScale)),displayedFrameSize)
-                return settings.getSubFrameSize()
-            }
-        }
+
+        return Int(ceil(Float(frameSettings.horiz.mappedSetting().subFrameSize) * xScale))
         
-        //else {
-            return settings.getSubFrameSize()
-       // }
-        
-    }
-//    
-//    let subFrameMid = subFramePosition + (settings.getStoppedSubFrameSize()/2)
-//    let scaledSubFrameSize = max(Int(round(Float(settings.getStoppedSubFrameSize()) * xScale)),1)
-//    let scaledSubFramePos = subFrameMid - Int(round(Float(settings.getStoppedSubFrameSize()) * xScale/2.0))
-    
-    func getScaledSubFramePos() -> Int {
-        if xScale < 1.0 {
-            let subFrameSize = settings.getSubFrameSize()
-            let subFrameMid = subFramePosition + subFrameSize/2
-            let scaledSubFramePos = subFrameMid - Int(round(Float(subFrameSize)*xScale/2))
-            return scaledSubFramePos
-        }
-        else if xScale > 1.0 {
-//            subFrameMid = subFramePosition + (settings.getSubFrameSize()/2)
-//            scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
-//            scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
-            
-            let subFrameSize = settings.getSubFrameSize()
-            let windowPos = settings.getStoppedWindowPos()
-            let subFrameMidMem = windowPos + subFramePosition + subFrameSize/2
-            let trigPos = settings.getStoppedTrigMemPos()
-            let trigDiff =  subFrameMidMem - trigPos
-            
-            //TODO: replace this with current subframe pos that is set to this
-            //value previously
-            return subFramePosition - Int(Float(trigDiff)*(1-1/xScale))
-        }
-            
-        else {
-            return subFramePosition
-        }
-        
-    }
-    
-    func getScaledFramePos() -> Int {
-        let windowPos : Int
-        if settings.getRunState() == .stop {
-//            if scopeFrame.frameSize == 4096 {
-//                windowPos = getScaledSubFramePos()
-//            }
-//            else {
-                windowPos = settings.getStoppedWindowPos() + getScaledSubFramePos()
-//            }
-        }
-        else {
-            windowPos = settings.getWindowPos() + subFramePosition
-        }
-        
-        return windowPos
     }
 
+    //returns start index of subframe in frame reference
+    func getScaledSubFrameStart() -> Int {
+        let subFrameSize = displayedFrameSize
+        let frameSize = frameSettings.readDepth.value
+        let subFrameMid = xOffset + frameSize/2
+        let subFrameStart = subFrameMid - Int(round(Float(subFrameSize)*xScale/2))
+  
+        return subFrameStart
+    }
     
-    func getScaledTracePos() -> Int {
-        if settings.getRunState() != .stop{
-            return settings.getWindowPos()
+    //****************************************
+    //MARK: - Strip View Functions
+    func getScaledWindowSize() -> Int {
+        //should frame representation be modified in viewcontroller?
+        //zoomed in, window size is smaller
+        if xScale < 1.0 {
+            return Int(ceil(Float(displayedFrameSize) * xScale))
         }
-        else if xScale > 1.0 {
-            let trigPos = settings.getStoppedTrigMemPos()
-            let tracePos = settings.getStoppedWindowPos()
-            let newPos = Int(ceil(Float(tracePos - trigPos)) / xScale) + trigPos
-            return newPos
-        }
-            
+        
         else {
-                return settings.getStoppedWindowPos()
+            return frameSettings.readDepth.value
         }
     }
     
+    //start index of subframe in scope memory reference
+    func getScaledWindowStart() -> Int {
+        return frameSettings.window_pos.value + frameSettings.readDepth.value
+            - getScaledWindowSize()/2
+    }
+
     func getScaledTraceSize() -> Int {
-        if xScale > 1.0 {
-            let newSize = Int(ceil(Float(scopeFrame.frameSize) / xScale))
+        
+        if xScale <= 1.0 {
+            //return frameSettings.readDepth.value
+            return frame.frameSize
+        }
+            
+        //zoomed out, size is smaller
+        else {
+            let newSize = Int(round(Float(frame.frameSize) / xScale))
             if newSize == 0 {
                 return 1
             }
@@ -199,20 +150,28 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
                 return newSize
             }
         }
-        else {
-            return scopeFrame.frameSize
-        }
+        
     }
+    
+    //start index of frame in scope memory reference
+    func getScaledTraceStart() -> Int {
+        return frameSettings.window_pos.value + frame.frameSize/2 - getScaledTraceSize()/2
+        
+    }
+    
+
+    //MARK: -
+    //****************************************
     
     func getDisplayedFrame() ->  frameData? {
         
-        let myFrame = scopeFrame.frame
-        let rollFrame = scopeFrame.rollFrame
+        let myFrame = frame.frame
+        let frameType = frame.type
         var returnedFrame = Samples()//[Float]() //frame may be interpolated or not
        // var samples = [Float]() //Just the original samples with offsets but no interpolation
         let xPos : Int
         let frameStartIndex : Int
-        var subTrig = scopeFrame.subTrig
+        var subTrig = frame.subTrig
         let frameSize : Int
         
         //Convert to Float
@@ -223,11 +182,11 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
 //            returnedFrame.append(Float(max(min(Int(el) + offset, 255),0)))
 //        }
         
-        if rollFrame {
+        if frameType == .roll {
             frameSize = self.displayedFrameSize
             let frameOverrun : Int = frameSize - myFrame.count
             xPos = max(frameOverrun, 0)
-            subTrig = 0.5
+            subTrig = 0.0
             if frameOverrun < 0 {
                 let absFrameOverrun = abs(frameOverrun)
                 let myFrameFloat = myFrame.suffix(from: absFrameOverrun).map { (el) in Float(el) }
@@ -242,12 +201,12 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
             let scaledSubFramePos : Int
             
             if (settings.getRunState() == .stop) {
-                subFrameMid = subFramePosition + (settings.getSubFrameSize()/2)
+                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
                 scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
                 scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
             }
             else {
-                subFrameMid = subFramePosition + (settings.getSubFrameSize()/2)
+                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
                 scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
                 scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
                 
@@ -264,7 +223,7 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
             else {
                 xPos = 0
                 //frameStartIndex = max(min(abs(self.subFramePosition), scopeFrame.frameSize),0)
-                frameStartIndex = max(min(abs(scaledSubFramePos), scopeFrame.frameSize),0)
+                frameStartIndex = max(min(abs(scaledSubFramePos), frame.frameSize),0)
 
             }
             
@@ -284,8 +243,7 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
                 
                 
                 
-                if (appSettings.interpolation && settings.getRunState() != .stop && settings.getSubFrameSize() < displayedFrameSize) ||
-                    (appSettings.interpolation && settings.getRunState() == .stop && settings.getStoppedHorizMeta().divRatio <= 1 && settings.getSubFrameSize() < displayedFrameSize) {
+                if (appSettings.interpolation &&  frameSettings.horiz.mappedSetting().divRatio <= 1 && frameSettings.horiz.mappedSetting().subFrameSize < displayedFrameSize) {
                     
                     let factor = Int(displayedFrameSize/self.settings.getSubFrameSize())
                     let interpFactor :  InterpFactor
@@ -307,10 +265,10 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
                     frameSize = max(Int(Float(self.settings.getSubFrameSize()) * xScale), 1)
                     subTrig = subTrig * xScale
                 }
-                
-                
+            
+            
                 //clip final returned frame
-                returnedFrame.addOffset(Float(offset))
+                returnedFrame.addOffset(Float(yOffset))
                 returnedFrame.clipToBounds()
                 //returnedFrame = returnedFrame.data.map{ (el) in Float(max(min(Int(el.value) + offset, 255),0)) }
                 
@@ -321,6 +279,7 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
         }
     }
     
+
 //    func zoomX() {
 //        xScale = Float(settings.getHorizMeta().divRatio) / Float(settings.getStoppedHorizMeta().divRatio)
 //        let scaledWindowPos = Int(Float(settings.getWindowPos()) * xScale)
@@ -330,87 +289,164 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
 //        subFramePosition = (scaledWindowPos - stoppedWindowPos) + (scaledStoppedFramePos)
 //
 //    }
-    
-    func zoomY(_ amount: Float) {
-        
-    }
-    
-    
+
+
+//    func zoomX(_ amount: Float) {
+//        xScale *= amount
+//    }
+//
+//    func zoomY(_ amount: Float) {
+//        yScale *= amount
+//    }
+//
+//    func panX(_ amount: Float) {
+//        xOffset += amount
+//    }
+//
+//    func panY(_ amount: Float) {
+//        yOffset += amount
+//    }
+
+
+
     func incrementSubFramePos(delta: Float) -> Float {
 //        let maxPos = settings.getWindowPosMax() + scopeFrame.frameSize - settings.getSubFrameSize() - settings.getWindowPos()
 //        let minPos =  -1 * settings.getWindowPos()
         
         let intDelta = Int(round(delta * xScale))
-        let scopeStopped = settings.getRunState() == .stop
-        let subFrameWinMid : Int
+
+        //Increment window position until it maxes out, then increment xOffset.
+        //When incrementing/decrementing, make sure xOffset zeroes out before
+        //changing window position
+
+        if intDelta > 0 {
+            //increment window position and send leftovers to xOffset
+            if settings.getWindowPos() + intDelta > settings.getWindowPosMax() {
+                settings.setWindowPos(settings.getWindowPosMax())
+                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMax()
+
+            }
+            
+            else if xOffset < 0 {
+                if xOffset + intDelta <= 0 {
+                    xOffset = xOffset + intDelta
+                }
+                else {
+                    settings.setWindowPos(settings.getWindowPosMin() + xOffset + intDelta)
+                    xOffset = 0
+                }
+            }
+            
+            else {
+                settings.setWindowPos(settings.getWindowPos() + intDelta)
+            }
+            
+        }
         
-        if scopeStopped {
-            self.setSubFramePos(Float(self.subFramePosition + intDelta))
-            subFrameWinMid = settings.getStoppedWindowPos() + subFramePosition + settings.getSubFrameSize()/2
+        else if intDelta < 0 {
+            if settings.getWindowPos() + intDelta < settings.getWindowPosMin() {
+                settings.setWindowPos(settings.getWindowPosMin())
+                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMin()
+            }
+            
+            else if xOffset > 0 {
+                if xOffset + intDelta >= 0 {
+                    xOffset = xOffset + intDelta
+                }
+                else {
+                    settings.setWindowPos(settings.getWindowPosMax() + xOffset + intDelta)
+                    xOffset = 0
+                }
+            }
+            
+            else {
+                settings.setWindowPos(settings.getWindowPos() + intDelta)
+            }
         }
-        else {
-            subFrameWinMid = settings.getWindowPos() + subFramePosition + settings.getSubFrameSize()/2
-        }
-    
-        let windowMax = settings.getWindowPosMax()
-        let windowMin = settings.getWindowPosMin()
-        let windowMid = settings.getWindowPos() + settings.getReadDepth()/2
-        let winDelta =  subFrameWinMid - windowMid
         
-       // getScaledSubFramePos()
+//        //increment window position and send leftovers to xOffset
+//        if settings.getWindowPos() + intDelta > settings.getWindowPosMax() {
+//            remainingDelta = settings.getWindowPos() + intDelta - settings.getWindowPosMax()
+//            settings.setWindowPos(settings.getWindowPosMax())
+//        }
+//        
+//        else if settings.getWindowPos() + intDelta < settings.getWindowPosMin(){
+//            remainingDelta = settings.getWindowPos() + intDelta - settings.getWindowPosMin()
+//            settings.setWindowPos(settings.getWindowPosMin())
+//        }
+//        
+//        else {
+//            remainingDelta = 0
+//            settings.setWindowPos(intDelta)
+//        }
+//        
+//        
+//        //if window setting is at limits, increment xOffset
+//        if settings.getWindowPos() == settings.getWindowPosMax() ||
+//            settings.getWindowPos() == settings.getWindowPosMin() {
+//            let maxOffset = settings.getReadDepth()/2
+//            let minOffset = -maxOffset
+//            xOffset = max(min(xOffset + intDelta, maxOffset), minOffset)
+//        }
+//        
         
-        if (scopeStopped) {
-            settings.setWindowPos(max(min(settings.getWindowPos() + Int(round(delta)), windowMax), windowMin))
-        }
-        else {
-            settings.setWindowPos(max(min(settings.getWindowPos() + Int(round(delta)), windowMax), windowMin))
-        }
+//        let subFrameWinMid : Int
+//        
+//        if scopeStopped {
+//            self.setSubFramePos(Float(self.xOffset + intDelta))
+//            subFrameWinMid = settings.getStoppedWindowPos() + xOffset + settings.getSubFrameSize()/2
+//        }
+//        else {
+//            subFrameWinMid = settings.getWindowPos() + xOffset + settings.getSubFrameSize()/2
+//        }
+//    
+//        let windowMax = settings.getWindowPosMax()
+//        let windowMin = settings.getWindowPosMin()
+//        let windowMid = settings.getWindowPos() + settings.getReadDepth()/2
+//        let winDelta =  subFrameWinMid - windowMid
+//        
+//       // getScaledSubFramePos()
+//        
+//        if (scopeStopped) {
+//            settings.setWindowPos(max(min(settings.getWindowPos() + Int(round(delta)), windowMax), windowMin))
+//        }
+//        else {
+//            settings.setWindowPos(max(min(settings.getWindowPos() + Int(round(delta)), windowMax), windowMin))
+//        }
 
     
         //return Float(intDelta) - (delta*xScale)
         return (Float(round(delta)) - delta)/xScale
     }
     
-    func setSubFramePos(_ position: Float) {
-        let windowPos : Int
-        if settings.getRunState() == .stop {
-            windowPos = settings.getStoppedWindowPos()
-        }
-        else {
-            windowPos = settings.getWindowPos()
-        }
-        
-        let maxPos = settings.getWriteDepth() - windowPos - Int(Float(settings.getSubFrameSize())/2)
-
-        let minPos =  -1 * windowPos - Int(Float(settings.getSubFrameSize())/2)
-
-        //let maxPos = settings.getWriteDepth()
-        //let minPos = 0
-        var newPosition = Int(position)
-        
-        if newPosition > maxPos {
-            newPosition = maxPos
-            print("*******MAX SUBFRAME HIT******")
-        }
-        else if newPosition < minPos {
-            newPosition = minPos
-            print("*******MIN SUBFRAME HIT******")
-        }
-        subFramePosition = newPosition
-        
-        NotificationCenter.default.post(name: notifications.updateSubFrame, object: self)
-
-    }
+//    func setSubFramePos(_ position: Float) {
+//        let windowPos : Int
+//        windowPos = settings.getWindowPos()
+//        
+//        let maxPos = settings.getWriteDepth() - windowPos - Int(Float(settings.getSubFrameSize())/2)
+//
+//        let minPos =  -1 * windowPos - Int(Float(settings.getSubFrameSize())/2)
+//
+//        //let maxPos = settings.getWriteDepth()
+//        //let minPos = 0
+//        var newPosition = Int(position)
+//        
+//        if newPosition > maxPos {
+//            newPosition = maxPos
+//            print("*******MAX SUBFRAME HIT******")
+//        }
+//        else if newPosition < minPos {
+//            newPosition = minPos
+//            print("*******MIN SUBFRAME HIT******")
+//        }
+//        xOffset = newPosition
+//        
+//        NotificationCenter.default.post(name: notifications.updateSubFrame, object: self)
+//
+//    }
     
     func setSubFramePosToCenter() {
-        if settings.getRunState() == .stop {
-            let subFramePosAbs = settings.getStoppedWindowPos() + subFramePosition
-            let frameMid = settings.getWriteDepth()/2 - settings.getSubFrameSize()/2
-            
-            let diff = frameMid - subFramePosAbs
-            
-            setSubFramePos(Float(subFramePosition + diff))
-        }
+        xOffset = 0
  
         
 //        let currSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()))),1)
@@ -419,105 +455,153 @@ class ScopeFrameInterface: FrameInterfaceDelegate, FrameSettingsDelegate {
         //subFramePosition = (scopeFrame.frameSize - Int(Float(currSubFrameSize)*xScale)) / 2
     }
     
-    //increment offset by delta and return leftover
-    func incrementOffset(delta: Float) -> Float {
-     
-        return 0.0
-    }
+//    //increment offset by delta and return leftover
+//    func incrementOffset(delta: Float) -> Float {
+//     
+//        return 0.0
+//    }
+//    
+//    func setOffset(_: Float) {
+//
+//    }
+//    
     
-    func setOffset(_: Float) {
-        
-    }
-    
-    
-    func resetFrameMeta()
-    {
-        offset = 0
+    func resetFrameMeta() {
+        yOffset = 0
+        xOffset = 0
         xScale = 1.0
         yScale = 1.0
-        //subFrameSize = settings.getSubFrameSize()
-        stoppedSubFramePosition = subFramePosition
-
+    }
+    
+    func captureFrameSettings() {
+        self.frameSettings = settings.nextFrameSettings
     }
 
+    //MARK: - FrameInterfaceDelegate Methods
     func didReceiveFrame() {
         resetFrameMeta()
-        setSubFramePos(Float(scopeFrame.frameSize - settings.getSubFrameSize()) / 2)
-        if settings.getRunState() == .single  {
-            settings.setRunState(.stop)
-        }
+        captureFrameSettings()
     }
     
     func didReceiveFullFrame() {
         resetFrameMeta()
-        settings.setCurrFrameToFullFrame()
+        captureFrameSettings()
 
-        setSubFramePos(Float(settings.getWindowPos() + subFramePosition))
+        xOffset += frameSettings.window_pos.value
+//        setSubFramePos(Float(settings.getWindowPos() + xOffset))
     }
     
     func didReceiveRollFrame() {
         resetFrameMeta()
-        setSubFramePos(Float(settings.getWindowPos() + 6))
+        captureFrameSettings()
+//        setSubFramePos(Float(settings.getWindowPos() + 6))
     }
     
-    func didChangeHoriz(oldValue: horiz_mapping) {
-        let oldSubFrameSize = oldValue.subFrameSize
-        let currSubFrameSize = settings.getSubFrameSize()
+    //********************************************************
+    //MARK: -
+    
+    //MARK: - FrameSettingseDelegate Methods
+
+    func didChangeVert() {
+        let zoom : Double = settings.nextFrameSettings.vert.mappedSetting().toReal /
+            frameSettings.vert.mappedSetting().toReal
+            
+        yScale = Float(1/zoom)
+    }
+
+    func didChangeHoriz() {
+        let zoom : Double = settings.nextFrameSettings.horiz.mappedSetting().toReal /
+            frameSettings.horiz.mappedSetting().toReal
+            
+        xScale = Float(1/zoom)
+    }
+
+    func didChangeOffset() {
+        //TODO: Do we need to calculate offsetConvGain lime timeGain in didChangeWindowPos?
+        let offsetDiff = settings.nextFrameSettings.offset.value -
+            frameSettings.offset.value
         
-        if (settings.getRunState() == .stop) {
-            let xScaleOld = xScale
-            
-//            xScale =  Float((Double(settings.getHorizMeta().subFrameSize) / Double(settings.getStoppedHorizMeta().divRatio)) /  (Double(settings.getStoppedHorizMeta().subFrameSize) / Double(settings.getHorizMeta().divRatio)))
-            
-            xScale = Float (Double(settings.getHorizMeta().divRatio) / Double(settings.getStoppedHorizMeta().divRatio))
-            
+        let offsetConv = settings.nextFrameSettings.vert.mappedSetting().offsetConv
+        yOffset = Int(Double(offsetDiff) / offsetConv)
+        
+    }
+    
+    func didChangeWindowPos() {
+//        let timeDiff =  Double(settings.nextFrameSettings.window_pos.value) * settings.nextFrameSettings.horiz.mappedSetting().timePerSample -
+//            Double(frameSettings.window_pos.value) * frameSettings.horiz.mappedSetting().timePerSample
+//        let sampleConv = settings.nextFrameSettings.horiz.mappedSetting().timePerSample
+//        xOffset = Int(timeDiff / sampleConv)
+        //Faster method:
+        let timeGain = settings.nextFrameSettings.horiz.mappedSetting().timePerSample /
+            frameSettings.horiz.mappedSetting().timePerSample
+        
+        xOffset = settings.nextFrameSettings.window_pos.value - Int(timeGain * Double(frameSettings.window_pos.value))
+    }
+     //********************************************************
+     //MARK: -
+    
+    
+
+//    func didChangeSettings
+//    
+//    func didChangeHoriz(oldValue: horiz_mapping) {
+//        let oldSubFrameSize = oldValue.subFrameSize
+//        let currSubFrameSize = settings.getSubFrameSize()
+//        
+//        if (settings.getRunState() == .stop) {
+//            let xScaleOld = xScale
+//            
+////            xScale =  Float((Double(settings.getHorizMeta().subFrameSize) / Double(settings.getStoppedHorizMeta().divRatio)) /  (Double(settings.getStoppedHorizMeta().subFrameSize) / Double(settings.getHorizMeta().divRatio)))
+//            
+//            xScale = Float (Double(settings.getHorizMeta().divRatio) / Double(settings.getStoppedHorizMeta().divRatio))
+//            
+////            if oldSubFrameSize != currSubFrameSize {
+////                //subFramePosition += (scopeFrame.frameSize - (oldValue - currSubFrameSize)) / 2
+////                setSubFramePos(Float(subFramePosition + oldSubFrameSize/2 - currSubFrameSize/2))
+////            }
+//            
+//           
+//            let frameSize = settings.getReadDepth()
+//            let windowPos = settings.getWindowPos()
+//            let windowMid = windowPos + frameSize/2
+//            let trigPos = settings.getTrigMemPos()
+//            let trigDiff =  windowMid - trigPos
+//            
+//                //TODO: replace this with current subframe pos that is set to this
+//                //value previously
+////                 settings.setWindowPos(windowPos - Int(round(Float(trigDiff)*(1-1/xScale))))
+//            //settings.setWindowPos(windowPos + Int(round(Float(trigDiff)*(1/xScale))))
+//            
+//
+//        }
+//        
+////        else {
+//            let tempXScale = Float (Double(settings.getHorizMeta().divRatio) / Double(oldValue.divRatio))
+//            
+//            
+//            
+//            let frameSize = settings.getReadDepth()
+//            let windowPos = settings.getWindowPos()
+//            let windowMid = windowPos + frameSize/2
+//            let trigPos = settings.getTrigMemPos()
+//            let trigDiff =  windowMid - trigPos
+//            
+//            //TODO: replace this with current subframe pos that is set to this
+//            //value previously
+//            settings.setWindowPos(windowPos - Int(round(Float(trigDiff)*(1-1/tempXScale))))
+//            
 //            if oldSubFrameSize != currSubFrameSize {
 //                //subFramePosition += (scopeFrame.frameSize - (oldValue - currSubFrameSize)) / 2
-//                setSubFramePos(Float(subFramePosition + oldSubFrameSize/2 - currSubFrameSize/2))
+//                setSubFramePos(Float(xOffset + oldSubFrameSize/2 - currSubFrameSize/2))
 //            }
-            
-           
-            let frameSize = settings.getReadDepth()
-            let windowPos = settings.getWindowPos()
-            let windowMid = windowPos + frameSize/2
-            let trigPos = settings.getTrigMemPos()
-            let trigDiff =  windowMid - trigPos
-            
-                //TODO: replace this with current subframe pos that is set to this
-                //value previously
-//                 settings.setWindowPos(windowPos - Int(round(Float(trigDiff)*(1-1/xScale))))
-            //settings.setWindowPos(windowPos + Int(round(Float(trigDiff)*(1/xScale))))
-            
-
-        }
-        
-//        else {
-            let tempXScale = Float (Double(settings.getHorizMeta().divRatio) / Double(oldValue.divRatio))
-            
-            
-            
-            let frameSize = settings.getReadDepth()
-            let windowPos = settings.getWindowPos()
-            let windowMid = windowPos + frameSize/2
-            let trigPos = settings.getTrigMemPos()
-            let trigDiff =  windowMid - trigPos
-            
-            //TODO: replace this with current subframe pos that is set to this
-            //value previously
-            settings.setWindowPos(windowPos - Int(round(Float(trigDiff)*(1-1/tempXScale))))
-            
-            if oldSubFrameSize != currSubFrameSize {
-                //subFramePosition += (scopeFrame.frameSize - (oldValue - currSubFrameSize)) / 2
-                setSubFramePos(Float(subFramePosition + oldSubFrameSize/2 - currSubFrameSize/2))
-            }
-            
-            NotificationCenter.default.post(name: notifications.updateSubFrame, object: self)
-//        }
-        
-    }
-    func didChangeVert() {
-        
-    }
+//            
+//            NotificationCenter.default.post(name: notifications.updateSubFrame, object: self)
+////        }
+//        
+//    }
+//    func didChangeVert() {
+//        
+//    }
 
     
 

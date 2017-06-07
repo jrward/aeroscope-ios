@@ -15,21 +15,23 @@ enum ACDC {
 
 
 protocol FrameSettingsDelegate : class {
-    func didChangeHoriz(oldValue: horiz_mapping)
+    func didChangeHoriz()
     func didChangeVert()
+    func didChangeOffset()
+    func didChangeWindowPos()
+    
 }
 
 class ScopeSettingsInterface {
     let cmd : ScopeCmd
     let nextFrameSettings : ScopeSettings
-    var currFrameSettings : ScopeSettings
+    //var currFrameSettings : ScopeSettings
     
     var frameSettingsDelegate : FrameSettingsDelegate?
     
     init(comms: ScopeComms, appSettings: ScopeAppSettings) {
         nextFrameSettings = ScopeSettings(comms: comms)
         cmd = ScopeCmd(comms: comms, appSettings: appSettings)
-        currFrameSettings = nextFrameSettings.copy()
     }
     
     func updateSettings() {
@@ -98,29 +100,21 @@ class ScopeSettingsInterface {
     }
     
     func incrementHoriz() {
-        let oldValue = nextFrameSettings.horiz.mappedSetting()
         nextFrameSettings.horiz.increment()
-        frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
+        frameSettingsDelegate?.didChangeHoriz()
 
     }
     
     func decrementHoriz() {
-        let oldValue = nextFrameSettings.horiz.mappedSetting()
-
         nextFrameSettings.horiz.decrement()
-        frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
+        frameSettingsDelegate?.didChangeHoriz()
 
     }
     
     func setHoriz(_ setting: String) {
-        //let oldValue = settings.horiz.mappedSetting().subFrameSize
-        let oldValue = nextFrameSettings.horiz.mappedSetting()
         nextFrameSettings.horiz.value = setting
-        frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
-//        if settings.horiz.mappedSetting().subFrameSize != oldValue
-//        {
-//            frameSettingsDelegate?.didChangeSubFrameSize(oldValue: oldValue)
-//        }
+        frameSettingsDelegate?.didChangeHoriz()
+
     }
     
     func getTrigRange() -> Range<Int> {
@@ -206,19 +200,12 @@ class ScopeSettingsInterface {
     }
     
     func setRunState(_ state: RunState) {
-        if state == .stop {
-            currFrameSettings = nextFrameSettings.copy()
-        }
         cmd.runStopSingle = state
         
     }
     
     //TODO: Add copy command to copy frame settings on frame reception
     
-    
-    func setCurrFrameToFullFrame() {
-        currFrameSettings.window_pos.value = 0
-    }
     
     func autoTrigEnable() {
         nextFrameSettings.trigCtrl.autoTrig.value = true
@@ -260,29 +247,29 @@ class ScopeSettingsInterface {
         nextFrameSettings.readDepth.value = depth
     }
     
-    func getStoppedSubFrameSize() -> Int {
-        return currFrameSettings.horiz.mappedSetting().subFrameSize
-    }
-    
-    func getStoppedTrigMemPos() -> Int {
-        return currFrameSettings.trigger_x_pos.value
-    }
-    
-    func getStoppedWindowPos() -> Int {
-        return currFrameSettings.window_pos.value
-    }
-    
-    func getStoppedOffset() -> Int {
-        return currFrameSettings.offset.value
-    }
-    
-    func getStoppedHorizMeta() -> horiz_mapping {
-        return currFrameSettings.horiz.mappedSetting()
-    }
-    
-    func getStoppedVertMeta() -> vert_mapping {
-        return currFrameSettings.vert.mappedSetting()
-    }
+//    func getStoppedSubFrameSize() -> Int {
+//        return currFrameSettings.horiz.mappedSetting().subFrameSize
+//    }
+//    
+//    func getStoppedTrigMemPos() -> Int {
+//        return currFrameSettings.trigger_x_pos.value
+//    }
+//    
+//    func getStoppedWindowPos() -> Int {
+//        return currFrameSettings.window_pos.value
+//    }
+//    
+//    func getStoppedOffset() -> Int {
+//        return currFrameSettings.offset.value
+//    }
+//    
+//    func getStoppedHorizMeta() -> horiz_mapping {
+//        return currFrameSettings.horiz.mappedSetting()
+//    }
+//    
+//    func getStoppedVertMeta() -> vert_mapping {
+//        return currFrameSettings.vert.mappedSetting()
+//    }
     
     func getACDC() -> ACDC {
         if nextFrameSettings.dc_en.value == true {
