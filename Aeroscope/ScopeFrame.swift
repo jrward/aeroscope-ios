@@ -8,12 +8,13 @@
 
 import Foundation
 
-enum scopeDataType {
-    case live
+enum FrameType {
+    case roll
+    case normal
     case full
 }
 
-protocol FrameInterfaceDelegate: class {
+protocol FrameDelegate: class {
     func didReceiveFrame()
     func didReceiveFullFrame()
     func didReceiveRollFrame()
@@ -28,12 +29,14 @@ class ScopeFrame : PacketDelegate{
         static let rollFrame = Notification.Name("com.Aeroscope.updateRoll")
     }
     
-    var frameInterfaceDelegate : FrameInterfaceDelegate?
+    var frameDelegate : FrameDelegate?
     var frame : [UInt8] = []
     var frameSize : Int = 0
     var subTrig : Float = 0.0
     
-    var rollFrame : Bool = false
+    var paused : Bool = false
+    
+    var type : FrameType = .normal
     
 //    var drawnSize : Float //size of frame to be displayed
 //    var drawnLoc : Float //offset from front of
@@ -41,7 +44,8 @@ class ScopeFrame : PacketDelegate{
     
     fileprivate let maxSubTrig = 63
     fileprivate var _frame : [UInt8] = []
-    fileprivate var _rollFrame : Bool = false
+    fileprivate var _type : FrameType = .normal
+
     
     fileprivate var _subTrig : Float = 0.0
     
@@ -65,28 +69,15 @@ class ScopeFrame : PacketDelegate{
     
     
     //TODO: delete interface: from init function. add delegate manually after init
-    init(interface: FrameInterfaceDelegate?) {
+    init(interface: FrameDelegate?) {
         //frame = [UInt8](count: frameSize, repeatedValue: 175)
         //myframe = [UInt8](count: frameSize, repeatedValue: 0)
         
         _frame.reserveCapacity(4096)
         frame.reserveCapacity(4096)
-        frameInterfaceDelegate = interface
-        
-//        Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(testFrame), userInfo: nil, repeats: false)
-        
-
-        
+        frameDelegate = interface
     }
     
-    @objc func testFrame() {
-        _frameSize = 512
-        _subTrig = 0
-        _rollFrame = false
-        _frame = [127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 127, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200, 200]
-        
-        updateFrame()
-    }
     
     func didReceive(packet: [UInt8], type: PacketType) {
         assert(packet.count == packet_length, "Packet Wrong Size! \(packet.count) : \(packet_length)")
@@ -108,7 +99,7 @@ class ScopeFrame : PacketDelegate{
             _subTrig = Float(packet[1]) / Float(maxSubTrig)
             
             if _frameSize == 16 {
-                _rollFrame = true
+                _type = .roll
                 _frame.append(contentsOf: packet[2..<18])
                 if _frame.count > 10000 {
                     _frame = Array(_frame[_frame.count - 10000 ..< _frame.count])
@@ -118,7 +109,8 @@ class ScopeFrame : PacketDelegate{
             }
             
             else {
-                _rollFrame = false
+                _type = _frameSize > 512 ? .full : .normal
+                
                 _frame.removeAll(keepingCapacity: true)
                 //_frame.appendContentsOf(packet[frame_portion])
                 _frame.append(contentsOf: packet[2..<20])
@@ -146,7 +138,7 @@ class ScopeFrame : PacketDelegate{
     func clearFrame() {
         _frame = []
         _frameSize = 512
-        _rollFrame = false
+        _type = .normal
         _subTrig = 0.0
         updateFrame()
     }
@@ -154,26 +146,28 @@ class ScopeFrame : PacketDelegate{
     
     func updateFrame()
     {
-        frame = _frame
-        frameSize = _frameSize
-        subTrig = _subTrig
-        rollFrame = _rollFrame
-        //_frame.removeAll(keepCapacity: true)
-        
-        if _frameSize == 4096 {
+        if !paused {
+            frame = _frame
+            frameSize = _frameSize
+            subTrig = _subTrig
+            type = _type
+            //_frame.removeAll(keepCapacity: true)
             
-            frameInterfaceDelegate?.didReceiveFullFrame()
-            NotificationCenter.default.post(name: notifications.fullFrame, object: self)
-        }
+            if _frameSize > 512 {
+                
+                frameDelegate?.didReceiveFullFrame()
+                NotificationCenter.default.post(name: notifications.fullFrame, object: self)
+            }
+                
+            else if _frameSize == 16 {
+                frameDelegate?.didReceiveRollFrame()
+                NotificationCenter.default.post(name: notifications.rollFrame, object: self)
+            }
             
-        else if _frameSize == 16 {
-            frameInterfaceDelegate?.didReceiveRollFrame()
-            NotificationCenter.default.post(name: notifications.rollFrame, object: self)
-        }
-        
-        else {
-            frameInterfaceDelegate?.didReceiveFrame()
-            NotificationCenter.default.post(name: notifications.frame, object: self)
+            else {
+                frameDelegate?.didReceiveFrame()
+                NotificationCenter.default.post(name: notifications.frame, object: self)
+            }
         }
     }
 }

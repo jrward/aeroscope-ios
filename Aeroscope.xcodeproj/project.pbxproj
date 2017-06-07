@@ -42,6 +42,7 @@
 		E5AAB4121E6F89CF0052422B /* ScopeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */; };
 		E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */; };
 		E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B017611DDCD28F00928E98 /* ScopeCmd.swift */; };
+		E5C5808E1ECCCF3700181B3A /* FrameSettingsMediator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5C5808D1ECCCF3700181B3A /* FrameSettingsMediator.swift */; };
 		E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1171B86E72800E3D63A /* Scope.swift */; };
 		E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */; };
 		E5D9E1201B86E72800E3D63A /* ScopeSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */; };
@@ -122,6 +123,7 @@
 		E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeConnection.swift; sourceTree = "<group>"; };
 		E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStatusBarViewController.swift; sourceTree = "<group>"; };
 		E5B017611DDCD28F00928E98 /* ScopeCmd.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeCmd.swift; sourceTree = "<group>"; };
+		E5C5808D1ECCCF3700181B3A /* FrameSettingsMediator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FrameSettingsMediator.swift; sourceTree = "<group>"; };
 		E5D9E1171B86E72800E3D63A /* Scope.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scope.swift; sourceTree = "<group>"; };
 		E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeFrame.swift; sourceTree = "<group>"; };
 		E5D9E1191B86E72800E3D63A /* ScopeSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeSettings.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */,
 				E509CDE81CEFC31A003CB77D /* Debug.swift */,
 				E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */,
+				E5C5808D1ECCCF3700181B3A /* FrameSettingsMediator.swift */,
 				E5154D711CE5910A00713DA5 /* ScopeFrameInterface.swift */,
 				E574C4C11B801DAC0028277F /* ScopeFrameViewController.swift */,
 				E574C4C31B81843E0028277F /* ScopeFrameView.swift */,
@@ -404,6 +407,7 @@
 				E56344E41DF224DC00BA56F6 /* ScopeBatteryView.swift in Sources */,
 				E54DE9C31E1E403B001CEB7D /* ScopeMeasViewController.swift in Sources */,
 				E5154D721CE5910A00713DA5 /* ScopeFrameInterface.swift in Sources */,
+				E5C5808E1ECCCF3700181B3A /* FrameSettingsMediator.swift in Sources */,
 				E5DE54C81BC1B24700243AEB /* ScopeStripViewController.swift in Sources */,
 				E56344E21DF1DE0D00BA56F6 /* ScopeButton.swift in Sources */,
 				E5DE54C01BBDFDEE00243AEB /* ScopeSettingsViewController.swift in Sources */,
@@ -554,7 +558,7 @@
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AeroscopeLabs.Aeroscope-test";
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -573,7 +577,7 @@
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AeroscopeLabs.Aeroscope-test";
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

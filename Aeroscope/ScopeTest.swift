@@ -37,7 +37,7 @@ class ScopeTest {
     }
     
     @objc func testFrame() {
-        scope.frame.scopeFrame.didReceive(packet: nextPacket(packetNum: packetNum), type: .data)
+        scope.frame.frame.didReceive(packet: nextPacket(packetNum: packetNum), type: .data)
          packetNum+=1
         if packetNum < 27 {
             Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(testFrame), userInfo: nil, repeats: false)

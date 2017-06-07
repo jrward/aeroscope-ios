@@ -112,7 +112,7 @@ import UIKit
     func didReceive(packet: [UInt8], type: PacketType) {
         switch type {
         case .comms: telemetry.didReceive(packet: packet, type: type)
-        case .data: frame.scopeFrame.didReceive(packet: packet, type: type)
+        case .data: frame.frame.didReceive(packet: packet, type: type)
         case .fpga: break
         }
     }
