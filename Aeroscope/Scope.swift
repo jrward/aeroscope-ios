@@ -54,6 +54,7 @@ import UIKit
         
         //frame = ScopeFrameInterface(comms: comms, settings: settings)
         frame = ScopeFrameInterface(settings: settings, appSettings: appSettings)
+        settings.frame = frame
         
         telemetry = ScopeTelemetry(settings: settings)
         

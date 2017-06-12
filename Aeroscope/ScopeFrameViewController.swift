@@ -224,6 +224,8 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource  {
     
     func updateTracePos() {
         
+        scopeFrameView.updateTrace()
+        
         //TODO: Refactor this jankey method. Push this into model
         //
         if scope.settings.getRunState() == .stop {
