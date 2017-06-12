@@ -36,14 +36,34 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
     
     //offset from center of frame
     
-    private(set) var yOffset : Int = 0
-    private(set) var xOffset: Int = 0
+    private(set) var yOffset : Int = 0 {
+        didSet {
+            print("yOffset: \(yOffset)")
+            subFrameDidUpdate()
+        }
+    }
+    private(set) var xOffset: Int = 0 {
+        didSet {
+            print("xOffset: \(xOffset)")
+            subFrameDidUpdate()
+        }
+    }
     
     //xScale and yScale are as follows:
     //Bigger numbers : zoomed out
     //Smaller numbers : zoomed in
-    private(set) var xScale : Float = 1.0
-    private(set) var yScale : Float = 1.0
+    private(set) var xScale : Float = 1.0 {
+        didSet {
+            print("xScale: \(xScale)")
+            subFrameDidUpdate()
+        }
+    }
+    private(set) var yScale : Float = 1.0 {
+        didSet {
+            print("yScale: \(yScale)")
+            subFrameDidUpdate()
+        }
+    }
     
 
     
@@ -51,12 +71,24 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
     init(settings: ScopeSettingsInterface, appSettings: AppSettingsReader)
     {
         self.settings = settings
-        self.frameSettings = settings.nextFrameSettings
+        self.frameSettings = settings.nextFrameSettings.copy()
         self.settings.frameSettingsDelegate = self
         self.appSettings = appSettings
         self.frame = ScopeFrame(interface: self)
         //self.scopeFrame.frameDelegate = self
 
+    }
+    
+    func isPaused() -> Bool {
+        return frame.paused
+    }
+    
+    func pause() {
+        frame.paused = true
+    }
+    
+    func resume() {
+        frame.paused = false
     }
     
     func clearTrace() {
@@ -200,17 +232,21 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
             let scaledSubFrameSize : Int
             let scaledSubFramePos : Int
             
-            if (settings.getRunState() == .stop) {
-                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
-                scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
-                scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
-            }
-            else {
-                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
-                scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
-                scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
-                
-            }
+//            if (settings.getRunState() == .stop) {
+//                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
+//                scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
+//                scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
+//            }
+//            else {
+//                subFrameMid = xOffset + (settings.getSubFrameSize()/2)
+//                scaledSubFrameSize = max(Int(round(Float(settings.getSubFrameSize()) * xScale)),1)
+//                scaledSubFramePos = subFrameMid - Int(round(Float(settings.getSubFrameSize()) * xScale/2.0))
+            
+//            }
+            
+            subFrameMid = xOffset + (frameSettings.horiz.mappedSetting().subFrameSize/2)
+            scaledSubFrameSize = max(Int(round(Float(frameSettings.horiz.mappedSetting().subFrameSize) * xScale)),1)
+            scaledSubFramePos = subFrameMid - Int(round(Float(frameSettings.horiz.mappedSetting().subFrameSize) * xScale/2.0))
             
             //if self.subFramePosition < 0 {
             if scaledSubFramePos < 0 {
@@ -238,8 +274,12 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
                 
             
             else {
+                returnedFrame = Samples(rawData: Array(myFrame[frameStartIndex ..< maxIndex]))
+                returnedFrame.addOffset(Float(yOffset))
+
+                returnedFrame.zoomY(Float(yScale))
+
                 
-                returnedFrame = Samples(rawData: myFrame[frameStartIndex ..< maxIndex].map { (el) in Float(el) * yScale })
                 
                 
                 
@@ -268,7 +308,7 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
             
             
                 //clip final returned frame
-                returnedFrame.addOffset(Float(yOffset))
+                
                 returnedFrame.clipToBounds()
                 //returnedFrame = returnedFrame.data.map{ (el) in Float(max(min(Int(el.value) + offset, 255),0)) }
                 
@@ -318,51 +358,54 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
         //Increment window position until it maxes out, then increment xOffset.
         //When incrementing/decrementing, make sure xOffset zeroes out before
         //changing window position
-
-        if intDelta > 0 {
-            //increment window position and send leftovers to xOffset
-            if settings.getWindowPos() + intDelta > settings.getWindowPosMax() {
-                settings.setWindowPos(settings.getWindowPosMax())
-                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMax()
-
-            }
-            
-            else if xOffset < 0 {
-                if xOffset + intDelta <= 0 {
-                    xOffset = xOffset + intDelta
-                }
-                else {
-                    settings.setWindowPos(settings.getWindowPosMin() + xOffset + intDelta)
-                    xOffset = 0
-                }
-            }
-            
-            else {
-                settings.setWindowPos(settings.getWindowPos() + intDelta)
-            }
-            
-        }
         
-        else if intDelta < 0 {
-            if settings.getWindowPos() + intDelta < settings.getWindowPosMin() {
-                settings.setWindowPos(settings.getWindowPosMin())
-                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMin()
-            }
-            
-            else if xOffset > 0 {
-                if xOffset + intDelta >= 0 {
-                    xOffset = xOffset + intDelta
-                }
-                else {
-                    settings.setWindowPos(settings.getWindowPosMax() + xOffset + intDelta)
-                    xOffset = 0
-                }
-            }
-            
-            else {
-                settings.setWindowPos(settings.getWindowPos() + intDelta)
-            }
-        }
+        settings.setWindowPos(settings.getWindowPos() + intDelta)
+
+//        if intDelta > 0 {
+//            //increment window position and send leftovers to xOffset
+//            if settings.getWindowPos() + intDelta > settings.getWindowPosMax() {
+//                settings.setWindowPos(settings.getWindowPosMax())
+//                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMax()
+//
+//            }
+//            
+//            else if xOffset < 0 {
+//                if xOffset + intDelta <= 0 {
+//                    xOffset = xOffset + intDelta
+//                }
+//                else {
+//                    settings.setWindowPos(settings.getWindowPosMin() + xOffset + intDelta)
+//                    xOffset = 0
+//                }
+//            }
+//            
+//            else {
+//                settings.setWindowPos(settings.getWindowPos() + intDelta)
+//            }
+//            
+//        }
+//        
+//        else if intDelta < 0 {
+//            if settings.getWindowPos() + intDelta < settings.getWindowPosMin() {
+//                settings.setWindowPos(settings.getWindowPosMin())
+//                xOffset = settings.getWindowPos() + intDelta - settings.getWindowPosMin()
+//            }
+//            
+//            else if xOffset > 0 {
+//                if xOffset + intDelta >= 0 {
+//                    xOffset = xOffset + intDelta
+//                }
+//                else {
+//                    settings.setWindowPos(settings.getWindowPosMax() + xOffset + intDelta)
+//                    xOffset = 0
+//                }
+//            }
+//            
+//            else {
+//                settings.setWindowPos(settings.getWindowPos() + intDelta)
+//            }
+//        }
+        
         
 //        //increment window position and send leftovers to xOffset
 //        if settings.getWindowPos() + intDelta > settings.getWindowPosMax() {
@@ -474,12 +517,16 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
     }
     
     func captureFrameSettings() {
-        self.frameSettings = settings.nextFrameSettings
+        self.frameSettings = settings.nextFrameSettings.copy()
+        self.didChangeVert()
+        self.didChangeHoriz()
+        self.didChangeOffset()
+        self.didChangeWindowPos()
     }
 
     //MARK: - FrameInterfaceDelegate Methods
     func didReceiveFrame() {
-        resetFrameMeta()
+        //resetFrameMeta()
         captureFrameSettings()
     }
     
@@ -506,23 +553,25 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
         let zoom : Double = settings.nextFrameSettings.vert.mappedSetting().toReal /
             frameSettings.vert.mappedSetting().toReal
             
-        yScale = Float(1/zoom)
+        yScale = 1/Float(zoom)
     }
 
     func didChangeHoriz() {
         let zoom : Double = settings.nextFrameSettings.horiz.mappedSetting().toReal /
             frameSettings.horiz.mappedSetting().toReal
             
-        xScale = Float(1/zoom)
+        xScale = Float(zoom)
     }
 
     func didChangeOffset() {
         //TODO: Do we need to calculate offsetConvGain lime timeGain in didChangeWindowPos?
+        
         let offsetDiff = settings.nextFrameSettings.offset.value -
             frameSettings.offset.value
         
         let offsetConv = settings.nextFrameSettings.vert.mappedSetting().offsetConv
-        yOffset = Int(Double(offsetDiff) / offsetConv)
+        //invert
+        yOffset = -1 * Int(Double(offsetDiff) / offsetConv)
         
     }
     
@@ -535,7 +584,7 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
         let timeGain = settings.nextFrameSettings.horiz.mappedSetting().timePerSample /
             frameSettings.horiz.mappedSetting().timePerSample
         
-        xOffset = settings.nextFrameSettings.window_pos.value - Int(timeGain * Double(frameSettings.window_pos.value))
+        xOffset = Int(timeGain * Double(settings.nextFrameSettings.window_pos.value - frameSettings.window_pos.value))
     }
      //********************************************************
      //MARK: -

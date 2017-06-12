@@ -24,10 +24,31 @@ protocol FrameSettingsDelegate : class {
 
 class ScopeSettingsInterface {
     let cmd : ScopeCmd
-    let nextFrameSettings : ScopeSettings
+    var nextFrameSettings : ScopeSettings
+
     //var currFrameSettings : ScopeSettings
+    var settingsTimer = Timer()
+    var frame : ScopeFrameInterface?
     
     var frameSettingsDelegate : FrameSettingsDelegate?
+    
+    func stopAcquisition() {
+        settingsTimer.invalidate()
+        if let frame = frame {
+            if !frame.isPaused() {
+                cmd.stop()
+                cmd.cancelFrame()
+                frame.pause()
+            }
+        }
+        settingsTimer = Timer.scheduledTimer(timeInterval: 0.09, target: self, selector: #selector(resumeAcquisition), userInfo: nil, repeats: false)
+    }
+    
+    @objc func resumeAcquisition() {
+        frame?.resume()
+        updateSettings()
+        updateRunState()
+    }
     
     init(comms: ScopeComms, appSettings: ScopeAppSettings) {
         nextFrameSettings = ScopeSettings(comms: comms)
@@ -82,36 +103,42 @@ class ScopeSettingsInterface {
     }
     
     func setVert(_ setting: String) {
+        stopAcquisition()
         nextFrameSettings.vert.value = setting
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func incrementVert() {
+        stopAcquisition()
         nextFrameSettings.vert.increment()
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func decrementVert() {
+        stopAcquisition()
         nextFrameSettings.vert.decrement()
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func incrementHoriz() {
+        stopAcquisition()
         nextFrameSettings.horiz.increment()
         frameSettingsDelegate?.didChangeHoriz()
 
     }
     
     func decrementHoriz() {
+        stopAcquisition()
         nextFrameSettings.horiz.decrement()
         frameSettingsDelegate?.didChangeHoriz()
 
     }
     
     func setHoriz(_ setting: String) {
+        stopAcquisition()
         nextFrameSettings.horiz.value = setting
         frameSettingsDelegate?.didChangeHoriz()
 
@@ -138,6 +165,7 @@ class ScopeSettingsInterface {
     }
     
     func setTrigMemPos(_ position: Int) {
+        stopAcquisition()
         nextFrameSettings.trigger_x_pos.value = position
     }
     
@@ -167,7 +195,9 @@ class ScopeSettingsInterface {
     }
     
     func setWindowPos(_ position: Int) {
+        stopAcquisition()
         nextFrameSettings.window_pos.value = max(min(position,getWindowPosMax()),getWindowPosMin())
+        frameSettingsDelegate?.didChangeWindowPos()
     }
     
     func getOffset() -> Int {
@@ -192,7 +222,9 @@ class ScopeSettingsInterface {
     }
     
     func setOffset(_ value: Int) {
+        stopAcquisition()
         nextFrameSettings.offset.value = value
+        frameSettingsDelegate?.didChangeOffset()
     }
     
     func getRunState() -> RunState {
