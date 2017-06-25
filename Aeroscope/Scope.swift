@@ -54,6 +54,7 @@ import UIKit
         
         //frame = ScopeFrameInterface(comms: comms, settings: settings)
         frame = ScopeFrameInterface(settings: settings, appSettings: appSettings)
+        settings.frame = frame
         
         telemetry = ScopeTelemetry(settings: settings)
         
@@ -61,7 +62,7 @@ import UIKit
 
         measure = ScopeMeasurementCenter(settings: settings, frame: frame)
         
-        //scopeTest = ScopeTest(scopeToTest: self)
+        scopeTest = ScopeTest(scopeToTest: self)
         
         //frame = ScopeFrame(comms: comms)
         
@@ -112,7 +113,7 @@ import UIKit
     func didReceive(packet: [UInt8], type: PacketType) {
         switch type {
         case .comms: telemetry.didReceive(packet: packet, type: type)
-        case .data: frame.scopeFrame.didReceive(packet: packet, type: type)
+        case .data: frame.frame.didReceive(packet: packet, type: type)
         case .fpga: break
         }
     }

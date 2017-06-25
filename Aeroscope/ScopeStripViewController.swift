@@ -64,7 +64,8 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 
         let windowFloatTranslation : CGFloat  = (translation.x * translationGain)
 
-        let remainingX = CGFloat(scope.frame.incrementSubFramePos(delta: Float(windowFloatTranslation))) / translationGain
+        let remainingX = CGFloat(scope.frame.incrementSubFramePos(delta: Float(windowFloatTranslation), respectScaling: false))
+            / translationGain
         
         let remaining = CGPoint(x: remainingX, y: 0)
         
@@ -165,24 +166,17 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 
     
     func framePositionForScopeStripView() -> CGFloat? {
-        let windowPos = CGFloat(scope.frame.getScaledFramePos())
-//        if scope.settings.getRunState() == .stop {
-//            windowPos = CGFloat(scope.settings.getStoppedWindowPos() + scope.frame.getScaledSubFramePos())
-//        }
-//        else {
-//            windowPos = CGFloat(scope.settings.getWindowPos() + scope.frame.getScaledSubFramePos())
-//        }
-  
-        return (windowPos / CGFloat(scope.settings.getWriteDepth())) * 100.0
+        let framePos = CGFloat(scope.frame.getScaledFrameStart())
+        return (framePos / CGFloat(scope.settings.getWriteDepth())) * 100.0
     }
     
     func frameWidthForScopeStripView() -> CGFloat? {
         //return CGFloat(scope.settings.settings.readDepth.value)/4096.0 * 100.0
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {
-            return CGFloat(scope.frame.getScaledSubFrameSize()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
+            return CGFloat(scope.frame.getScaledFrameSize()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
         }
     }
     
@@ -192,11 +186,11 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
     
     
     func tracePositionForScopeStripView() -> CGFloat? {
-        return CGFloat(scope.frame.getScaledTracePos()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
+        return CGFloat(scope.frame.getScaledTraceStart()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
     }
     
     func traceWidthForScopeStripView() -> CGFloat? {
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {

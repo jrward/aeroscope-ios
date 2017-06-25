@@ -46,7 +46,7 @@ class ScopeViewController: UIViewController, Themeable {
         
         
         //TODO: Move this into Scope Top model
-        Timer.scheduledTimer(timeInterval: 0.09, target: self, selector: #selector(ScopeViewController.updateSettings), userInfo: nil, repeats: true)
+        //Timer.scheduledTimer(timeInterval: 0.09, target: self, selector: #selector(ScopeViewController.updateSettings), userInfo: nil, repeats: true)
 
         vertControl.registerVC(source: self)
         

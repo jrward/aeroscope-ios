@@ -31,13 +31,13 @@ class ScopeTest {
     
     @objc func initScope() {
         //scope = Scope.sharedInstance
-        scope.settings.setHoriz("1us")
+        scope.settings.setHoriz("5us")
         scope.settings.cmd.runStopSingle = .run
         Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(testFrame), userInfo: nil, repeats: false)
     }
     
     @objc func testFrame() {
-        scope.frame.scopeFrame.didReceive(packet: nextPacket(packetNum: packetNum), type: .data)
+        scope.frame.frame.didReceive(packet: nextPacket(packetNum: packetNum), type: .data)
          packetNum+=1
         if packetNum < 27 {
             Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(testFrame), userInfo: nil, repeats: false)
