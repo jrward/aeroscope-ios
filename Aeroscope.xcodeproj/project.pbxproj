@@ -593,7 +593,7 @@
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AeroscopeLabs.Aeroscope-test";
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -616,7 +616,7 @@
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.AeroscopeLabs.Aeroscope-test";
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -19,6 +19,7 @@ struct Sample {
 }
 
 struct Samples  {
+    let midRange : Float = 128
     var data : [Sample] = []
     var raw : [Float] {
         get {
@@ -51,6 +52,12 @@ struct Samples  {
         }
     }
     
+    init(rawData: [UInt8]) {
+        for el in rawData {
+            self.data.append(Sample(Float(el), isValid: true))
+        }
+    }
+    
     init(interpData: [Float]) {
         for el in interpData {
             self.data.append(Sample(el, isValid: false))
@@ -79,6 +86,10 @@ struct Samples  {
     
     mutating func addOffset(_ offset: Float) {
         self.data = self.data.map{ (el) in Sample(el.value + offset, isValid: el.isValid) }
+    }
+    
+    mutating func zoomY(_ yScale: Float) {
+        self.data = self.data.map{ (el) in Sample(((el.value - midRange) * yScale) + midRange, isValid: el.isValid) }
     }
     
     mutating func append(_ newElement: Float) {

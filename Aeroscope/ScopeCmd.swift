@@ -27,7 +27,10 @@ class ScopeCmd : PowerRequesting {
             case .run:
                 run()
             case .stop:
-                stop()
+                if oldValue != .stop {
+                    stop()
+                }
+
             case .single:
                 if oldValue == .run {
                     softStop()
@@ -56,7 +59,7 @@ class ScopeCmd : PowerRequesting {
 
         if appSettings.fullFrameDL {
             reqFullFrame()
-            cancelFrameTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(cancelFrame), userInfo: nil, repeats: false)
+
         }
         else {
             cancelFrame()
@@ -69,8 +72,16 @@ class ScopeCmd : PowerRequesting {
     }
     
     func reqFullFrame() {
-        send(cmd: "L")
         cancelFrameTimer?.invalidate()
+        send(cmd: "L")
+        cancelFrameTimer = Timer.scheduledTimer(timeInterval: 5.0, target: self, selector: #selector(cancelFrame), userInfo: nil, repeats: false)
+    }
+    
+    func pause() {
+        softStop()
+        if runStopSingle != .stop {
+            cancelFrame()
+        }
     }
     
     func reqVersion() {
