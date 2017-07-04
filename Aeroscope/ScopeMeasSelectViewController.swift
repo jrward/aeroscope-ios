@@ -64,6 +64,7 @@ class ScopeMeasSelectViewController: UIViewController, Themeable {
         vmaxSwitch.isOn = scope.measure.measList.contains(.vmax)
         vminSwitch.isOn = scope.measure.measList.contains(.vmin)
         vavgSwitch.isOn = scope.measure.measList.contains(.vavg)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateMeasList), name: ScopeMeasurementCenter.notifications.listChanged, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -75,6 +76,13 @@ class ScopeMeasSelectViewController: UIViewController, Themeable {
         vmaxLabel.textColor = theme.text
         vminLabel.textColor = theme.text
         vavgLabel.textColor = theme.text
+    }
+    
+    func updateMeasList() {
+        vppSwitch.setOn(scope.measure.measList.contains(.vpp), animated: true)
+        vmaxSwitch.setOn(scope.measure.measList.contains(.vmax), animated: true)
+        vminSwitch.setOn(scope.measure.measList.contains(.vmin), animated: true)
+        vavgSwitch.setOn(scope.measure.measList.contains(.vavg), animated: true)
     }
 
 

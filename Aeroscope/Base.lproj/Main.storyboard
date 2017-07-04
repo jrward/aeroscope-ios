@@ -51,17 +51,34 @@
                                             <view multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LmZ-Gl-pYE" customClass="ScopeFrameView" customModule="Aeroscope" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="822" height="616.5"/>
                                                 <subviews>
-                                                    <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZDq-Am-boA">
-                                                        <rect key="frame" x="32" y="553" width="756" height="56"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZDq-Am-boA">
+                                                        <rect key="frame" x="0.0" y="552.5" width="822" height="40"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="eSr-xG-zM7"/>
+                                                        </constraints>
                                                         <connections>
                                                             <segue destination="MDe-su-KVX" kind="embed" id="dTS-YB-fIc"/>
+                                                        </connections>
+                                                    </containerView>
+                                                    <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQM-PP-Dzm">
+                                                        <rect key="frame" x="32" y="40" width="758" height="32"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="32" id="59Z-aa-NOX"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <segue destination="AfN-me-kRp" kind="embed" id="VHD-2X-nxc"/>
                                                         </connections>
                                                     </containerView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="ZDq-Am-boA" secondAttribute="trailing" id="5v3-5e-5Sw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="IQM-PP-Dzm" secondAttribute="trailing" constant="32" id="BRm-rI-Xff"/>
                                                     <constraint firstAttribute="width" secondItem="LmZ-Gl-pYE" secondAttribute="height" multiplier="4:3" id="NU7-u6-BnL"/>
+                                                    <constraint firstAttribute="bottom" secondItem="ZDq-Am-boA" secondAttribute="bottom" constant="24" id="Rqf-Rk-P8J"/>
+                                                    <constraint firstItem="ZDq-Am-boA" firstAttribute="leading" secondItem="LmZ-Gl-pYE" secondAttribute="leading" id="Xhu-g4-Sp9"/>
+                                                    <constraint firstItem="IQM-PP-Dzm" firstAttribute="leading" secondItem="LmZ-Gl-pYE" secondAttribute="leading" constant="32" id="ghw-yf-waY"/>
+                                                    <constraint firstItem="IQM-PP-Dzm" firstAttribute="top" secondItem="LmZ-Gl-pYE" secondAttribute="top" constant="40" id="kWY-Wm-sYn"/>
                                                 </constraints>
                                                 <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
                                                 <userDefinedRuntimeAttributes>
@@ -144,7 +161,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XS1-VH-ZKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="704" y="377"/>
+            <point key="canvasLocation" x="703.7109375" y="376.5625"/>
         </scene>
         <!--ScopeViewController-->
         <scene sceneID="mx8-TI-kmO">
@@ -1126,6 +1143,38 @@
             </objects>
             <point key="canvasLocation" x="1765.4296875" y="331.25"/>
         </scene>
+        <!--Scope Message View Controller-->
+        <scene sceneID="Y7k-7e-jaS">
+            <objects>
+                <viewController id="AfN-me-kRp" customClass="ScopeMessageViewController" customModule="Aeroscope" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="nuV-Wy-ZT3"/>
+                        <viewControllerLayoutGuide type="bottom" id="qZ1-ar-Ido"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x7t-b4-Ngo">
+                        <rect key="frame" x="0.0" y="0.0" width="758" height="32"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KcS-ix-2MX">
+                                <rect key="frame" x="353.5" y="6.5" width="51.5" height="20"/>
+                                <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="KcS-ix-2MX" firstAttribute="centerX" secondItem="x7t-b4-Ngo" secondAttribute="centerX" id="11c-dn-TbJ"/>
+                            <constraint firstItem="KcS-ix-2MX" firstAttribute="centerY" secondItem="x7t-b4-Ngo" secondAttribute="centerY" id="cdY-1e-HfE"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="messageLabel" destination="KcS-ix-2MX" id="zXk-MW-kac"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="URe-M9-mgz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="352" y="1748"/>
+        </scene>
         <!--Scope Strip View Controller-->
         <scene sceneID="dpy-9v-38N">
             <objects>
@@ -1166,17 +1215,20 @@
                         <viewControllerLayoutGuide type="bottom" id="IMk-vn-PV1"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yga-Yu-V8f">
-                        <rect key="frame" x="0.0" y="0.0" width="756" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="822" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLf-bF-FmM">
-                                <rect key="frame" x="20" y="18" width="694" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oLf-bF-FmM">
+                                <rect key="frame" x="20" y="0.0" width="51.5" height="20"/>
                                 <fontDescription key="fontDescription" name="Menlo-Regular" family="Menlo" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <constraints>
+                            <constraint firstItem="oLf-bF-FmM" firstAttribute="top" secondItem="W9h-hl-BPs" secondAttribute="bottom" id="MqS-Ig-PiU"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="oLf-bF-FmM" secondAttribute="leading" id="kQd-1p-NYc"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="measLabel" destination="oLf-bF-FmM" id="tuF-fV-FhI"/>

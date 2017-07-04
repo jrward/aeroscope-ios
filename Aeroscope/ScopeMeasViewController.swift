@@ -30,6 +30,20 @@ class ScopeMeasViewController : UIViewController, Themeable{
         NotificationCenter.default.addObserver(self, selector: #selector(updateMeasLabel), name: ScopeMeasurementCenter.notifications.measUpdated, object: nil)
         
         ScopeTheme.manager.register(themeable: self)
+        
+        if self.view.bounds.width < 600 {
+            scope.measure.maxMeasurements = 2
+        }
+        
+        else if self.view.bounds.width < 900 {
+            scope.measure.maxMeasurements = 3
+        }
+        else {
+            scope.measure.maxMeasurements = 4
+
+        }
+        
+        print("measwidth: \(self.view.bounds.width)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -40,7 +54,7 @@ class ScopeMeasViewController : UIViewController, Themeable{
         measLabel.text = nil
         //statusLabel.text = String(format: "%s\t\t", scope.measure.getText(meas: el)))
         for el in scope.measure.measList {
-            measLabel.text = (measLabel.text ?? "") + scope.measure.getText(meas: el).padding(toLength: 18, withPad: " ", startingAt: 0)
+            measLabel.text = (measLabel.text ?? "") + scope.measure.getText(meas: el).padding(toLength: 16, withPad: " ", startingAt: 0)
         }
         
         //measLabel.text = String(format: "%2s %5s/div  %5s/div    FPS: %3.2f    P-P: %3i", coupling!, vertSetting!, horizSetting!, fpsCapture, peakToPeak)

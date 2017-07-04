@@ -51,6 +51,8 @@
 		E5DE54C21BBDFFBD00243AEB /* ScopeWirelessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */; };
 		E5DE54C71BC1B24700243AEB /* ScopeStripView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */; };
 		E5DE54C81BC1B24700243AEB /* ScopeStripViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5DE54C61BC1B24700243AEB /* ScopeStripViewController.swift */; };
+		E5E5545D1F0AE76500A5455E /* ScopeMessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5545C1F0AE76300A5455E /* ScopeMessageViewController.swift */; };
+		E5E5545F1F0AEC3C00A5455E /* ScopeMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5E5545E1F0AEC3C00A5455E /* ScopeMessage.swift */; };
 		E5E5E7D71EA33A67009032DB /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5E5E7D61EA33A66009032DB /* Images.xcassets */; };
 		E5EEBBDB1C8A4DAC0064D10B /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5EEBBDA1C8A4DAC0064D10B /* Setting.swift */; };
 		E5F2265F1DEF43D700489194 /* ScopeTelemetry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5F2265E1DEF43D700489194 /* ScopeTelemetry.swift */; };
@@ -133,6 +135,8 @@
 		E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeWirelessViewController.swift; sourceTree = "<group>"; };
 		E5DE54C51BC1B24700243AEB /* ScopeStripView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStripView.swift; sourceTree = "<group>"; };
 		E5DE54C61BC1B24700243AEB /* ScopeStripViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeStripViewController.swift; sourceTree = "<group>"; };
+		E5E5545C1F0AE76300A5455E /* ScopeMessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeMessageViewController.swift; sourceTree = "<group>"; };
+		E5E5545E1F0AEC3C00A5455E /* ScopeMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeMessage.swift; sourceTree = "<group>"; };
 		E5E5E7D61EA33A66009032DB /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		E5EEBBDA1C8A4DAC0064D10B /* Setting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		E5F2265E1DEF43D700489194 /* ScopeTelemetry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeTelemetry.swift; sourceTree = "<group>"; };
@@ -188,7 +192,9 @@
 				E5DE54BF1BBDFDEE00243AEB /* ScopeSettingsViewController.swift */,
 				E54DE9BE1E1DF3E7001CEB7D /* ScopeMeasSelectViewController.swift */,
 				E54DE9C21E1E403A001CEB7D /* ScopeMeasViewController.swift */,
+				E5E5545E1F0AEC3C00A5455E /* ScopeMessage.swift */,
 				E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */,
+				E5E5545C1F0AE76300A5455E /* ScopeMessageViewController.swift */,
 				E54DE9C01E1DFD34001CEB7D /* ScopeMeasurementCenter.swift */,
 				E56D359E1E6D24B4001B44E6 /* HamburgerViewController.swift */,
 				E5DE54C11BBDFFBD00243AEB /* ScopeWirelessViewController.swift */,
@@ -424,12 +430,14 @@
 				E54DE9C11E1DFD34001CEB7D /* ScopeMeasurementCenter.swift in Sources */,
 				E56B02D21E774A5B00CC2F8C /* ScopeTest.swift in Sources */,
 				E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */,
+				E5E5545D1F0AE76500A5455E /* ScopeMessageViewController.swift in Sources */,
 				E56D359F1E6D24B4001B44E6 /* HamburgerViewController.swift in Sources */,
 				E5501AAA1CACCFC40030440D /* RunStopControl.swift in Sources */,
 				E5360F181CB82D2700C4DEEB /* ScopeOffsetView.swift in Sources */,
 				E5F5DB1E1C9626C000DA6199 /* ScopeUIControl.swift in Sources */,
 				E5AA74661DF113640083F00A /* ScopeBattery.swift in Sources */,
 				E509CDE91CEFC31B003CB77D /* Debug.swift in Sources */,
+				E5E5545F1F0AEC3C00A5455E /* ScopeMessage.swift in Sources */,
 				E5265AD51CA1CCFD00D45ECB /* SettingsControl.swift in Sources */,
 				E56B02D01E71E05900CC2F8C /* Samples.swift in Sources */,
 				E5F2265F1DEF43D700489194 /* ScopeTelemetry.swift in Sources */,
