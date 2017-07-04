@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aeroscope/ScopeFrameInterface.swift"
-            timestampString = "520054770.563368"
+            timestampString = "520837794.284809"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "648"
-            endingLineNumber = "648"
-            landmarkName = "didChangeWindowPos()"
+            startingLineNumber = "807"
+            endingLineNumber = "807"
+            landmarkName = "didChangeWindowPos(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aeroscope/ScopeFrameInterface.swift"
-            timestampString = "519511421.345665"
+            timestampString = "520836059.427843"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "287"
-            endingLineNumber = "287"
+            startingLineNumber = "344"
+            endingLineNumber = "344"
             landmarkName = "getDisplayedFrame()"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,12 +42,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Aeroscope/ScopeFrameInterface.swift"
-            timestampString = "519511421.345665"
+            timestampString = "520837794.284809"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "582"
-            endingLineNumber = "582"
+            startingLineNumber = "697"
+            endingLineNumber = "697"
             landmarkName = "didReceiveFullFrame()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Aeroscope/ScopeFrameInterface.swift"
+            timestampString = "520836059.427843"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
+            landmarkName = "incrementSubFramePos(delta:respectScaling:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

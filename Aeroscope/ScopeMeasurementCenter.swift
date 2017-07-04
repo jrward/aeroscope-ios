@@ -29,8 +29,9 @@ class ScopeMeasurementCenter {
     
     let settings : ScopeSettingsInterface
     let frame : ScopeFrameInterface
-    
+
     var  measList = [Measurement]()
+    var maxMeasurements : Int = 4
     
     var vpp : Double?
     var vmin : Double?
@@ -50,6 +51,10 @@ class ScopeMeasurementCenter {
     
     func add(meas: Measurement) {
         measList.append(meas)
+        while measList.count > maxMeasurements {
+            measList.removeFirst()
+        }
+        updateMeasurements()
         NotificationCenter.default.post(name: notifications.listChanged, object: nil)
     }
     
@@ -71,17 +76,17 @@ class ScopeMeasurementCenter {
     
     var signedOffset : Double {
         get {
-            return Double(settings.getOffset() - defines.offsetZero)
+            return Double(frame.frameSettings.offset.value - defines.offsetZero)
         }
     }
     var offsetConv : Double {
         get {
-            return Double(settings.getVertMeta().offsetConv)
+            return Double(frame.frameSettings.vert.mappedSetting().offsetConv)
         }
     }
     var voltConv : Double {
         get {
-            return Double(settings.getVertMeta().voltsPerBit)
+            return Double(frame.frameSettings.vert.mappedSetting().voltsPerBit)
         }
     }
     
@@ -115,7 +120,7 @@ class ScopeMeasurementCenter {
     
     @objc func updateMeasurements() {
         let currFrame = frame.getRawFrame()
-        if currFrame.count > 0 {
+        if currFrame.count > 0 && measList.count != 0{
         
             rawVmax = Int(currFrame.max() ?? 0)
             rawVmin = Int(currFrame.min() ?? 0)
@@ -127,12 +132,10 @@ class ScopeMeasurementCenter {
             }
             rawVavg = accum / currFrame.count
             
-            let signedOffset = Double(settings.getOffset() - defines.offsetZero)
-            let offsetConv = Double(settings.getVertMeta().offsetConv )
             let rawVmaxRel = Double(rawVmax - defines.adcZero)
             let rawVminRel = Double(rawVmin - defines.adcZero)
             let rawVavgRel = Double(rawVavg - defines.adcZero)
-            let voltConv = Double(settings.getVertMeta().voltsPerBit)
+         
             
             let scaledOffset = (signedOffset / offsetConv).rounded(.toNearestOrAwayFromZero)
             //let scaledOffset = signedOffset / offsetConv

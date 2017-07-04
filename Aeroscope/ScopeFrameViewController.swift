@@ -299,7 +299,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     }
     
     func getTrigDiff() -> CGFloat {
-        let trigXPos = CGFloat(scope.settings.getTrigMemPos())
+        let trigXPos = CGFloat(scope.frame.frameSettings.trigger_x_pos.value)//CGFloat(scope.settings.getTrigMemPos())
 //        let scaledSubFrameStart = CGFloat(scope.frame.getScaledSubFrameStart())
 //        let scaledSubFrameSize = CGFloat(scope.frame.getScaledSubFrameSize())
 //        let offset = CGFloat(scope.frame.xOffset)
@@ -335,12 +335,14 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     func dataForTrigXLabel() -> String? {
 
         let trigDiff : CGFloat
-        if (scope.frame.xScale < 1.0) {
-            trigDiff = getTrigDiff() / CGFloat(scope.frame.xScale)
-        }
-        else {
-            trigDiff = getTrigDiff()
-        }
+//        if (scope.frame.xScale < 1.0) {
+//            trigDiff = getTrigDiff() / CGFloat(scope.frame.xScale)
+//        }
+//        else {
+//            trigDiff = getTrigDiff()
+//        }
+        
+        trigDiff = getTrigDiff()
         
         let halfWindow = Double(scope.settings.getHorizMeta().toReal*5)
 
@@ -356,7 +358,8 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
          
  */
         
-        let time = Translator.toTimeFrom(samples: abs(Int(trigDiff)), conv: scope.settings.getHorizMeta().timePerSample)
+        let time = Translator.toTimeFrom(samples: abs(Int(trigDiff)),
+                conv: scope.frame.frameSettings.horiz.mappedSetting().timePerSample)
         return Translator.toStringFrom(time: time - halfWindow)
         
     }
