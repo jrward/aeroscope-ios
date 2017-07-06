@@ -233,40 +233,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     
     func updateTracePos() {
         
-        //TODO: Refactor this jankey method. Push this into model
-        //
-        if scope.settings.getRunState() == .stop {
-            //print("stoppedSubFramePosition: \(frame.stoppedSubFramePosition) subframeposition: \(frame.subFramePosition)")
-            //print("stoppedWindowPos: \(scope.settings.getStoppedWindowPos()) windowPos: \(scope.settings.getWindowPos())")
-            //print("stoppedTrigMemPos: \(scope.settings.getStoppedTrigMemPos()) TrigMemPos: \(scope.settings.getTrigMemPos())")
-            
-//            frame.xScale = Float(scope.settings.getHorizMeta().divRatio) / Float(scope.settings.getStoppedHorizMeta().divRatio)
-            
-            frame.yScale = Float(scope.settings.getStoppedVertMeta().voltsPerBit) / Float(scope.settings.getVertMeta().voltsPerBit)
-
-            
-            let scaledTrigMemPos = Int(Float(scope.settings.getTrigMemPos()) * frame.xScale)
-            let scaledWindowPos = Int(Float(scope.settings.getWindowPos()) * frame.xScale)
-            let scaledStoppedFramePos = Int(Float(frame.stoppedSubFramePosition) * frame.xScale)
-            let stoppedTrigMemPos = scope.settings.getStoppedTrigMemPos()
-            let stoppedWindowPos = scope.settings.getStoppedWindowPos()
-            
-            //frame.subFramePosition = (scaledWindowPos - stoppedWindowPos) - (scaledTrigMemPos - stoppedTrigMemPos) +  (scaledStoppedFramePos)
-            
-            /*+ (frame.frame_size - scope.settings.horiz.mappedSetting().subFrameSize)/2 */
-            
-//            frame.subFramePosition = frame.stoppedSubFramePosition + (scope.settings.getStoppedTrigMemPos() - scope.settings.getTrigMemPos() - (scope.settings.getStoppedWindowPos() - scope.settings.getWindowPos())
-//            
-//            frame.subFramePosition = Int(Float(frame.subFramePosition) * frame.xScale)
-
-            let stoppedChange = Float(translateStoppedOffset())
-            frame.offset = Int(stoppedChange - (frame.yScale - 1.0) * 127)
-                //Int(stoppedChange)//Int(offsetTranslation())
-                
-            // -  offsetTranslation()
-
-            scopeFrameView.updateTrace()
-        }
+        scopeFrameView.updateTrace()
     }
     
     
@@ -300,9 +267,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
             position = ((offset + 127) / 255.0) * 100
         }
         
-//        print("offset: \(offset)")
-//        print("position: \(position)")
-        
+   
         return position
     }
     
@@ -311,22 +276,14 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     }
     
     func getTrigDiff() -> CGFloat {
-        let trigXPos = CGFloat(scope.settings.getTrigMemPos())
-        let scaledSubFramePos = CGFloat(scope.frame.getScaledSubFramePos())
-        let scaledSubFrameSize = CGFloat(scope.frame.getScaledSubFrameSize())
-//        let subFrameMid = scope.frame.subFramePosition + (scope.settings.getStoppedSubFrameSize()/2)
-//        let scaledSubFrameSize = CGFloat(max(Int(round(Float(scope.settings.getStoppedSubFrameSize()) * scope.frame.xScale)),1))
-//        let scaledSubFramePos = CGFloat(subFrameMid - Int(round(Float(scope.settings.getStoppedSubFrameSize()) * scope.frame.xScale/2.0)))
-        let windowPos : CGFloat
+        let trigXPos = CGFloat(scope.frame.frameSettings.trigger_x_pos.value)//CGFloat(scope.settings.getTrigMemPos())
+//        let scaledSubFrameStart = CGFloat(scope.frame.getScaledSubFrameStart())
+//        let scaledSubFrameSize = CGFloat(scope.frame.getScaledSubFrameSize())
+//        let offset = CGFloat(scope.frame.xOffset)
+        let subFrameMid = CGFloat(scope.frame.getSubFrameMidInMemCoords())
+
         
-        if scope.settings.getRunState() == .stop {
-            windowPos = CGFloat(scope.settings.getStoppedWindowPos())
-        }
-        else {
-            windowPos = CGFloat(scope.settings.getWindowPos())
-        }
-        
-        let trigDiff = trigXPos - (windowPos + scaledSubFramePos + scaledSubFrameSize/2)
+        let trigDiff = trigXPos - (subFrameMid)
         
         return trigDiff
     }
@@ -353,28 +310,16 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     }
     
     func dataForTrigXLabel() -> String? {
-      /*  let trigXPos = Float(scope.settings.getTrigMemPos())
-        let windowPos = Int(scope.settings.getWindowPos())
-        let frameSize = Int( scope.settings.getSubFrameSize() )
-        let windowSize = Int( (frame.getFrameSize()) )
-        let scaledSubFramePos = Float(scope.frame.getScaledSubFramePos())
-        let scaledSubFrameSize = Float(scope.frame.getScaledSubFrameSize())
 
-    //        let trigDiffLeft = abs(windowPos + (windowSize - frameSize)/2 - trigXPos)
-    //        let trigDiffRight = abs((windowPos + (windowSize - frameSize)/2 + frameSize) - trigXPos)
-//        let trigDiffLeft = abs(windowPos  - trigXPos)
-//        let trigDiffRight = abs((windowPos + frameSize) - trigXPos)
-        let trigDiffLeft = abs(scaledSubFramePos  - trigXPos*frame.xScale)
-        let trigDiffRight = abs((scaledSubFramePos + scaledSubFrameSize) - trigXPos*frame.xScale)
-        */
-        
         let trigDiff : CGFloat
-        if (scope.frame.xScale < 1.0) {
-            trigDiff = getTrigDiff() / CGFloat(scope.frame.xScale)
-        }
-        else {
-            trigDiff = getTrigDiff()
-        }
+//        if (scope.frame.xScale < 1.0) {
+//            trigDiff = getTrigDiff() / CGFloat(scope.frame.xScale)
+//        }
+//        else {
+//            trigDiff = getTrigDiff()
+//        }
+        
+        trigDiff = getTrigDiff()
         
         let halfWindow = Double(scope.settings.getHorizMeta().toReal*5)
 
@@ -390,7 +335,8 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
          
  */
         
-        let time = Translator.toTimeFrom(samples: abs(Int(trigDiff)), conv: scope.settings.getHorizMeta().timePerSample)
+        let time = Translator.toTimeFrom(samples: abs(Int(trigDiff)),
+                conv: scope.frame.frameSettings.horiz.mappedSetting().timePerSample)
         return Translator.toStringFrom(time: time - halfWindow)
         
     }
@@ -421,7 +367,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
 
     func pan(_ gesture: UIPanGestureRecognizer) {
         let yTranslationGain : CGFloat = 256 //30
-        let xTranslationGain = CGFloat(scope.settings.getSubFrameSize()) / scopeFrameView.x_size
+        let xTranslationGain = CGFloat(scope.frame.displayedFrameSize) / scopeFrameView.x_size
         var remainingX : CGFloat = 0
         var remainingY : CGFloat = 0
         
@@ -434,49 +380,19 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
             let windowTranslation : Int = Int(-1 * translation.x / scopeFrameView.x_size * xTranslationGain)
             let windowMax = scope.settings.getWindowPosMax()
             let windowMin = scope.settings.getWindowPosMin()
-//            scope.settings.setWindowPos(max(min(scope.settings.getWindowPos() + windowTranslation, windowMax), windowMin))
-            
-//            remainingX =  scopeFrameView.x_size/xTranslationGain * CGFloat(frame.incrementSubFramePos(delta: Float(windowFloatTranslation))) - windowFloatTranslation
-            
-//            frame.incrementSubFramePos(delta: Float(windowFloatTranslation))
 
-                                //
-                                //            if scope.settings.getRunState() == .stop {
-                                //                //TODO: Need a min/max on subframeposition
-                                //                print("subframePos: \(frame.subFramePosition)")
-                                ////                updateTracePos()
-                                //            }
-                                //            print(translation.x)
-                                //            print(scopeFrameView.x_size)
-                                //            print(triggerTranslation)
-                                //            print(scope.settings.trigger_x_pos.value)
-                                //            framePosition = min(max((framePosition + frameTranslation),0),100)
-//            remainingX = scopeFrameView.x_size/xTranslationGain * (CGFloat(windowTranslation) - windowFloatTranslation)
             
-            
-            remainingX = CGFloat(frame.incrementSubFramePos(delta: Float(windowFloatTranslation))) / xTranslationGain
+            remainingX = CGFloat(frame.incrementSubFramePos(delta: Float(windowFloatTranslation), respectScaling: true))
+                / xTranslationGain
 
-                                //remainingX = (triggerFloatTranslation - CGFloat(triggerTranslation))
             remainingY = 0
-            
-                            //                                let triggerFloatTranslation : CGFloat  = -1 * (translation.x / scopeFrameView.x_size * xTranslationGain)
-                            //                                let triggerTranslation = Int(-1 * translation.x / scopeFrameView.x_size * xTranslationGain)
-                            //                                let triggerXMax = scope.settings.window_pos.range.endIndex - 1
-                            //                                let triggerXMin = scope.settings.window_pos.range.startIndex
-                            //                                scope.settings.window_pos.value = max(min(scope.settings.window_pos.value + triggerTranslation, triggerXMax), triggerXMin)
-                            //                                print(scope.settings.window_pos.value)
-                            //                                //framePosition = min(max((framePosition + frameTranslation),0),100)
-                            //                                remainingX = scopeFrameView.x_size/xTranslationGain * (triggerFloatTranslation - CGFloat(triggerTranslation))
-                            //                                //remainingX = (triggerFloatTranslation - CGFloat(triggerTranslation))
-                            //                                remainingY = 0
             
         }
         
         else { //offset
             let offsetFloatTranslation : CGFloat = (translation.y * yTranslationGain / scopeFrameView.y_size)
             let offsetTranslation : Int = Int(translation.y * yTranslationGain  / scopeFrameView.y_size)
-//            print ("raw offset: \(translation.y) / \(scopeFrameView.y_size)")
-//            print ("offset Translation: Float: \(offsetFloatTranslation) Int: \(offsetTranslation)")
+
             
             
             remainingY = scopeFrameView.y_size/yTranslationGain * setOffset(translationInView: offsetFloatTranslation)
@@ -821,38 +737,19 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     
     }
     
-    func translateStoppedOffset() -> CGFloat {
-//        let offsetDiff = -10 * ((0.000152588 * Double(scope.settings.getOffset() - scope.settings.getStoppedOffset())))
-//        var fullscaleVoltage : Double
+//    func translateStoppedOffset() -> CGFloat {
+//
 //        
-//        switch scope.settings.getVert() {
-//        case "20mV": fullscaleVoltage = 0.08
-//        case "50mV":  fullscaleVoltage = 0.2
-//        case "100mV": fullscaleVoltage = 0.4
-//        case "200mV": fullscaleVoltage = 0.8
-//        case "500mV":  fullscaleVoltage = 2.0
-//        case "1V":  fullscaleVoltage = 4.0
-//        case "2V": fullscaleVoltage = 8.0
-//        case "5V":  fullscaleVoltage = 20.0
-//        case "10V": fullscaleVoltage = 40.0
-//        default: fullscaleVoltage = 4.0
-//        }
+//        //TODO: Refactor this into model!!
+//        let offsetDiff = scope.settings.getStoppedOffset() - scope.settings.getOffset()
 //        
-//        return CGFloat(offsetDiff/fullscaleVoltage) * (255/2)
-        
-        //TODO: Refactor this into model!!
-        let offsetDiff = scope.settings.getStoppedOffset() - scope.settings.getOffset()
-        
-//        let stoppedOffsetDouble = Translator.toVoltsFrom(
-//                offset: offsetDiff,
-//                conv: scope.settings.getVertMeta().offsetConv,
-//                voltConv: scope.settings.getVertMeta().voltsPerBit)
-        
-        let doubleOffsetDiff = Double(offsetDiff) / scope.settings.getVertMeta().offsetConv
-        
-        return CGFloat(doubleOffsetDiff)
-            
-    }
+//      voltConv: scope.settings.getVertMeta().voltsPerBit)
+//        
+//        let doubleOffsetDiff = Double(offsetDiff) / scope.settings.getVertMeta().offsetConv
+//        
+//        return CGFloat(doubleOffsetDiff)
+//            
+//    }
     
 //    func trigDelayLabelTranslated() -> String {
 //        let normalizedDelay = Double(scope.settings.getTrigMemPos() - 2048) / 51.2

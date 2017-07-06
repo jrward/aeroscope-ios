@@ -18,6 +18,7 @@ struct ScopeTheme: Theme {
     let textAccent: UIColor
     let textSelected : UIColor
     let textMeas: UIColor
+    let textMessage: UIColor
     let tint: UIColor
     let tintAccent: UIColor
     let border: UIColor
@@ -44,6 +45,7 @@ struct ScopeTheme: Theme {
         textAccent: UIColor.black,
         textSelected: UIColor.white,
         textMeas: UIColor.darkGray,
+        textMessage: UIColor.darkGray,
         tint: UIColor.black,
         tintAccent: UIColor.white,
         border: UIColor.black,
@@ -71,6 +73,7 @@ struct ScopeTheme: Theme {
         textAccent: UIColor.white,
         textSelected: UIColor.white,
         textMeas: UIColor.gray,
+        textMessage: UIColor.gray,
         tint: UIColor(red: 240/255, green: 0.0, blue: 0.0, alpha: 1.0),
         tintAccent: UIColor.white,
         border: UIColor(red: 240/255, green: 0.0, blue: 0.0, alpha: 1.0),
@@ -99,6 +102,7 @@ struct ScopeTheme: Theme {
         textAccent: UIColor.white,
         textSelected: UIColor.white,
         textMeas: UIColor.gray,
+        textMessage: UIColor.gray,
         tint: UIColor.white,
         tintAccent: UIColor.black,
         border: UIColor(red: 240/255, green: 0.0, blue: 0.0, alpha: 1.0),
@@ -136,6 +140,7 @@ struct ScopeTheme: Theme {
         textAccent: UIColor.white,
         textSelected: UIColor.white,
         textMeas: UIColor.white,
+        textMessage: UIColor.white,
         tint: UIColor.white,
         tintAccent: UIColor.black,
         border: UIColor.clear,

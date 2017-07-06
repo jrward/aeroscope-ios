@@ -29,9 +29,7 @@ import UIKit
     let connection : ScopeConnection
     let measure : ScopeMeasurementCenter
     
-
-    
-    var scopeTest : ScopeTest! = nil
+//    var scopeTest : ScopeTest! = nil
     
     var runState : RunState {
         get {
@@ -46,14 +44,13 @@ import UIKit
     init() {
         comms = ScopeComms()
 
-        
-//        settings = ScopeSettings()
         appSettings = ScopeAppSettings()
         settings = ScopeSettingsInterface(comms: comms, appSettings: appSettings)
         
         
         //frame = ScopeFrameInterface(comms: comms, settings: settings)
         frame = ScopeFrameInterface(settings: settings, appSettings: appSettings)
+        settings.frame = frame
         
         telemetry = ScopeTelemetry(settings: settings)
         
@@ -62,12 +59,7 @@ import UIKit
         measure = ScopeMeasurementCenter(settings: settings, frame: frame)
         
         //scopeTest = ScopeTest(scopeToTest: self)
-        
-        //frame = ScopeFrame(comms: comms)
-        
-     //   stoppedSettings = ScopeSettings(scope: self)
 
-//        scopeTest = ScopeTest(scopeToTest: self)
         comms.packetDelegate = self
         comms.connectionDelegate = self
         telemetry.powerDelegate = self
@@ -112,7 +104,7 @@ import UIKit
     func didReceive(packet: [UInt8], type: PacketType) {
         switch type {
         case .comms: telemetry.didReceive(packet: packet, type: type)
-        case .data: frame.scopeFrame.didReceive(packet: packet, type: type)
+        case .data: frame.frame.didReceive(packet: packet, type: type)
         case .fpga: break
         }
     }

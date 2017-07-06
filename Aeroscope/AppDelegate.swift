@@ -20,11 +20,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         UIApplication.shared.statusBarStyle = .lightContent
         application.statusBarStyle = .lightContent
-        let globalTint = UIColor(red: 200/255, green: 0/255, blue: 0/255, alpha: 1.0)
-        UIApplication.shared.keyWindow?.tintColor = globalTint
-        self.window?.tintColor = globalTint
+//        let globalTint = UIColor(red: 200/255, green: 0/255, blue: 0/255, alpha: 1.0)
+//        UIApplication.shared.keyWindow?.tintColor = globalTint
+//        self.window?.tintColor = globalTint
         
         scope.comms.setDelegate()
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            scope.measure.maxMeasurements = 4
+        }
 
         return true
     }
