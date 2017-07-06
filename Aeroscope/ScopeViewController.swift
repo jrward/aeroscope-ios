@@ -81,9 +81,7 @@ class ScopeViewController: UIViewController, Themeable {
 //            self.present(alertView, animated: true, completion: nil)
 //        }
         
-        //scope.comms.startScanning()
-        print("view appeared")
-        
+        //scope.comms.startScanning()        
     }
     
     

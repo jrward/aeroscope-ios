@@ -234,29 +234,6 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     func updateTracePos() {
         
         scopeFrameView.updateTrace()
-        
-        //TODO: Refactor this jankey method. Push this into model
-        //
-        if scope.settings.getRunState() == .stop {
-
-//            
-//            frame.yScale = Float(scope.settings.getStoppedVertMeta().voltsPerBit) / Float(scope.settings.getVertMeta().voltsPerBit)
-//
-//            
-//            let scaledTrigMemPos = Int(Float(scope.settings.getTrigMemPos()) * frame.xScale)
-//            let scaledWindowPos = Int(Float(scope.settings.getWindowPos()) * frame.xScale)
-//            let scaledStoppedFramePos = Int(Float(frame.stoppedSubFramePosition) * frame.xScale)
-//            let stoppedTrigMemPos = scope.settings.getStoppedTrigMemPos()
-//            let stoppedWindowPos = scope.settings.getStoppedWindowPos()
-//            
-// 
-//
-//            let stoppedChange = Float(translateStoppedOffset())
-//            frame.offset = Int(stoppedChange - (frame.yScale - 1.0) * 127)
-
-
-            scopeFrameView.updateTrace()
-        }
     }
     
     

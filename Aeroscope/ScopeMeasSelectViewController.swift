@@ -13,6 +13,9 @@ import Themeable
 class ScopeMeasSelectViewController: UIViewController, Themeable {
     let scope = Scope.sharedInstance
 
+    @IBOutlet weak var instructionLabel: UILabel!
+    
+    
     @IBOutlet weak var vppLabel: UILabel!
     @IBOutlet weak var vppSwitch: UISwitch!
     @IBAction func vppSwitchChanged(_ sender: UISwitch) {
@@ -65,6 +68,9 @@ class ScopeMeasSelectViewController: UIViewController, Themeable {
         vminSwitch.isOn = scope.measure.measList.contains(.vmin)
         vavgSwitch.isOn = scope.measure.measList.contains(.vavg)
         NotificationCenter.default.addObserver(self, selector: #selector(updateMeasList), name: ScopeMeasurementCenter.notifications.listChanged, object: nil)
+        
+        
+        instructionLabel.text = "Screen size limited to \(scope.measure.maxMeasurements) measurements"
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -76,6 +82,7 @@ class ScopeMeasSelectViewController: UIViewController, Themeable {
         vmaxLabel.textColor = theme.text
         vminLabel.textColor = theme.text
         vavgLabel.textColor = theme.text
+        instructionLabel.textColor = theme.text
     }
     
     func updateMeasList() {
