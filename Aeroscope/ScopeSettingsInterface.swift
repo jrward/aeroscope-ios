@@ -17,19 +17,41 @@ enum ACDC {
 protocol FrameSettingsDelegate : class {
     func didChangeHoriz(oldValue: horiz_mapping)
     func didChangeVert()
+    func didChangeOffset()
+    func didChangeWindowPos()
+    
 }
 
 class ScopeSettingsInterface {
     let cmd : ScopeCmd
-    let nextFrameSettings : ScopeSettings
-    var currFrameSettings : ScopeSettings
+    var nextFrameSettings : ScopeSettings
+
+    //var currFrameSettings : ScopeSettings
+    var settingsTimer = Timer()
+    var frame : ScopeFrameInterface?
     
     var frameSettingsDelegate : FrameSettingsDelegate?
+    
+    func stopAcquisition() {
+        settingsTimer.invalidate()
+        if let frame = frame {
+            if !frame.isPaused() {
+                cmd.pause()
+                frame.pause()
+            }
+        }
+        settingsTimer = Timer.scheduledTimer(timeInterval: 0.090, target: self, selector: #selector(resumeAcquisition), userInfo: nil, repeats: false)
+    }
+    
+    @objc func resumeAcquisition() {
+        frame?.resume()
+        updateSettings()
+        updateRunState()
+    }
     
     init(comms: ScopeComms, appSettings: ScopeAppSettings) {
         nextFrameSettings = ScopeSettings(comms: comms)
         cmd = ScopeCmd(comms: comms, appSettings: appSettings)
-        currFrameSettings = nextFrameSettings.copy()
     }
     
     func updateSettings() {
@@ -80,24 +102,28 @@ class ScopeSettingsInterface {
     }
     
     func setVert(_ setting: String) {
+        stopAcquisition()
         nextFrameSettings.vert.value = setting
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func incrementVert() {
+        stopAcquisition()
         nextFrameSettings.vert.increment()
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func decrementVert() {
+        stopAcquisition()
         nextFrameSettings.vert.decrement()
         frameSettingsDelegate?.didChangeVert()
 
     }
     
     func incrementHoriz() {
+        stopAcquisition()
         let oldValue = nextFrameSettings.horiz.mappedSetting()
         nextFrameSettings.horiz.increment()
         frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
@@ -105,22 +131,19 @@ class ScopeSettingsInterface {
     }
     
     func decrementHoriz() {
+        stopAcquisition()
         let oldValue = nextFrameSettings.horiz.mappedSetting()
-
         nextFrameSettings.horiz.decrement()
         frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
 
     }
     
     func setHoriz(_ setting: String) {
-        //let oldValue = settings.horiz.mappedSetting().subFrameSize
+        stopAcquisition()
         let oldValue = nextFrameSettings.horiz.mappedSetting()
         nextFrameSettings.horiz.value = setting
         frameSettingsDelegate?.didChangeHoriz(oldValue: oldValue)
-//        if settings.horiz.mappedSetting().subFrameSize != oldValue
-//        {
-//            frameSettingsDelegate?.didChangeSubFrameSize(oldValue: oldValue)
-//        }
+
     }
     
     func getTrigRange() -> Range<Int> {
@@ -136,6 +159,7 @@ class ScopeSettingsInterface {
     }
     
     func setTrig(_ value: Int) {
+        stopAcquisition()
         nextFrameSettings.trigger.value = value
     }
     
@@ -144,6 +168,7 @@ class ScopeSettingsInterface {
     }
     
     func setTrigMemPos(_ position: Int) {
+        stopAcquisition()
         nextFrameSettings.trigger_x_pos.value = position
     }
     
@@ -173,7 +198,20 @@ class ScopeSettingsInterface {
     }
     
     func setWindowPos(_ position: Int) {
+        stopAcquisition()
+        if position >= getWindowPosMax() || position <= getWindowPosMin() {
+            if nextFrameSettings.window_pos.value < getWindowPosMax() &&
+                nextFrameSettings.window_pos.value > getWindowPosMin() {
+                ScopeMessage.default.set(message: "Trigger Offset Limit Reached")
+            }
+        }
         nextFrameSettings.window_pos.value = max(min(position,getWindowPosMax()),getWindowPosMin())
+        
+        frameSettingsDelegate?.didChangeWindowPos()
+    }
+    
+    func incrementWindowPos(_ delta: Int) {
+        setWindowPos(self.getWindowPos() + delta)
     }
     
     func getOffset() -> Int {
@@ -198,7 +236,9 @@ class ScopeSettingsInterface {
     }
     
     func setOffset(_ value: Int) {
+        stopAcquisition()
         nextFrameSettings.offset.value = value
+        frameSettingsDelegate?.didChangeOffset()
     }
     
     func getRunState() -> RunState {
@@ -206,9 +246,6 @@ class ScopeSettingsInterface {
     }
     
     func setRunState(_ state: RunState) {
-        if state == .stop {
-            currFrameSettings = nextFrameSettings.copy()
-        }
         cmd.runStopSingle = state
         
     }
@@ -216,15 +253,15 @@ class ScopeSettingsInterface {
     //TODO: Add copy command to copy frame settings on frame reception
     
     
-    func setCurrFrameToFullFrame() {
-        currFrameSettings.window_pos.value = 0
-    }
-    
     func autoTrigEnable() {
+        stopAcquisition()
+
         nextFrameSettings.trigCtrl.autoTrig.value = true
     }
     
     func autoTrigDisable() {
+        stopAcquisition()
+
         nextFrameSettings.trigCtrl.autoTrig.value = false
     }
     
@@ -233,10 +270,14 @@ class ScopeSettingsInterface {
     }
     
     func lpTrigEnable() {
+        stopAcquisition()
+
         nextFrameSettings.trigCtrl.lowPassTrig.value = true
     }
     
     func lpTrigDisable() {
+        stopAcquisition()
+
         nextFrameSettings.trigCtrl.lowPassTrig.value = false
     }
     
@@ -260,29 +301,29 @@ class ScopeSettingsInterface {
         nextFrameSettings.readDepth.value = depth
     }
     
-    func getStoppedSubFrameSize() -> Int {
-        return currFrameSettings.horiz.mappedSetting().subFrameSize
-    }
-    
-    func getStoppedTrigMemPos() -> Int {
-        return currFrameSettings.trigger_x_pos.value
-    }
-    
-    func getStoppedWindowPos() -> Int {
-        return currFrameSettings.window_pos.value
-    }
-    
-    func getStoppedOffset() -> Int {
-        return currFrameSettings.offset.value
-    }
-    
-    func getStoppedHorizMeta() -> horiz_mapping {
-        return currFrameSettings.horiz.mappedSetting()
-    }
-    
-    func getStoppedVertMeta() -> vert_mapping {
-        return currFrameSettings.vert.mappedSetting()
-    }
+//    func getStoppedSubFrameSize() -> Int {
+//        return currFrameSettings.horiz.mappedSetting().subFrameSize
+//    }
+//    
+//    func getStoppedTrigMemPos() -> Int {
+//        return currFrameSettings.trigger_x_pos.value
+//    }
+//    
+//    func getStoppedWindowPos() -> Int {
+//        return currFrameSettings.window_pos.value
+//    }
+//    
+//    func getStoppedOffset() -> Int {
+//        return currFrameSettings.offset.value
+//    }
+//    
+//    func getStoppedHorizMeta() -> horiz_mapping {
+//        return currFrameSettings.horiz.mappedSetting()
+//    }
+//    
+//    func getStoppedVertMeta() -> vert_mapping {
+//        return currFrameSettings.vert.mappedSetting()
+//    }
     
     func getACDC() -> ACDC {
         if nextFrameSettings.dc_en.value == true {
@@ -294,6 +335,7 @@ class ScopeSettingsInterface {
     }
     
     func setACDC(_ state: ACDC) {
+        stopAcquisition()
         if state == .dc {
             nextFrameSettings.dc_en.value = true
         }
@@ -303,6 +345,8 @@ class ScopeSettingsInterface {
     }
     
     func setTrigMode(_ mode: TriggerMode) {
+        stopAcquisition()
+
         switch mode {
             case .pos:  nextFrameSettings.trigCtrl.posSlopeTrig.value = true
                         nextFrameSettings.trigCtrl.negSlopeTrig.value = false

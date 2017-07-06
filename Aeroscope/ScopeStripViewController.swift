@@ -64,7 +64,8 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 
         let windowFloatTranslation : CGFloat  = (translation.x * translationGain)
 
-        let remainingX = CGFloat(scope.frame.incrementSubFramePos(delta: Float(windowFloatTranslation))) / translationGain
+        let remainingX = CGFloat(scope.frame.incrementSubFramePos(delta: Float(windowFloatTranslation), respectScaling: false))
+            / translationGain
         
         let remaining = CGPoint(x: remainingX, y: 0)
         
@@ -94,21 +95,18 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         let width = scopeStripView.bounds.size.width
         
         if location.x <= width/8 && location.x >= width/16 {
-            scope.settings.setTrigMemPos(scope.settings.getTrigMemPosRange().upperBound / 10)
+            scope.settings.setTrigMemPos(scope.settings.getTrigMemPosMax() / 10)
         }
         
         else if location.x <= (width/2 + width/16) && location.x >= (width/2 - width/16) {
-            scope.settings.setTrigMemPos(scope.settings.getTrigMemPosRange().upperBound / 2)
-            
-            //TODO: Move window through subframepos
-            scope.settings.setWindowPos(scope.settings.getWindowPosRange().upperBound / 2)
+            scope.settings.setTrigMemPos((scope.settings.getTrigMemPosMax() + 1) / 2)
             scope.frame.setSubFramePosToCenter()
         }
         
         else if location.x >= scopeStripView.bounds.size.width*7/8 {
-            scope.settings.setTrigMemPos(scope.settings.getTrigMemPosRange().upperBound * 9/10)
+            scope.settings.setTrigMemPos(scope.settings.getTrigMemPosMax() * 9/10)
         }
-        print(location)
+//        print(location)
     }
     
     func triggerXPosUpdate() {
@@ -165,24 +163,17 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 
     
     func framePositionForScopeStripView() -> CGFloat? {
-        let windowPos = CGFloat(scope.frame.getScaledFramePos())
-//        if scope.settings.getRunState() == .stop {
-//            windowPos = CGFloat(scope.settings.getStoppedWindowPos() + scope.frame.getScaledSubFramePos())
-//        }
-//        else {
-//            windowPos = CGFloat(scope.settings.getWindowPos() + scope.frame.getScaledSubFramePos())
-//        }
-  
-        return (windowPos / CGFloat(scope.settings.getWriteDepth())) * 100.0
+        let framePos = CGFloat(scope.frame.getScaledFrameStart())
+        return (framePos / CGFloat(scope.settings.getWriteDepth())) * 100.0
     }
     
     func frameWidthForScopeStripView() -> CGFloat? {
         //return CGFloat(scope.settings.settings.readDepth.value)/4096.0 * 100.0
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {
-            return CGFloat(scope.frame.getScaledSubFrameSize()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
+            return CGFloat(scope.frame.getScaledFrameSize()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
         }
     }
     
@@ -192,11 +183,11 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
     
     
     func tracePositionForScopeStripView() -> CGFloat? {
-        return CGFloat(scope.frame.getScaledTracePos()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
+        return CGFloat(scope.frame.getScaledTraceStart()) / CGFloat(scope.settings.getWriteDepth()) * 100.0
     }
     
     func traceWidthForScopeStripView() -> CGFloat? {
-        if scope.frame.scopeFrame.rollFrame {
+        if scope.frame.frame.type == .roll {
             return nil
         }
         else {
