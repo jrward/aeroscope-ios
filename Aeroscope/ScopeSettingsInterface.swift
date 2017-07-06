@@ -210,8 +210,8 @@ class ScopeSettingsInterface {
         frameSettingsDelegate?.didChangeWindowPos(position)
     }
     
-    func incrementWindowPos(intDelta) {
-        setWindowPos(self.getWindowPos() intDelta)
+    func incrementWindowPos(_ delta: Int) {
+        setWindowPos(self.getWindowPos() + delta)
     }
     
     func getOffset() -> Int {
