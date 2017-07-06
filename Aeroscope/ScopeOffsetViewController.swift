@@ -100,7 +100,9 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
         default: fullScaleVoltage = 8.0
         }
         
-        return fullScaleVoltage / 80.0 * 100.0
+        //It is /100.0 because while the offset numbers go from -40 -> +40,
+        //the end of the scale is -50 -> +50
+        return fullScaleVoltage / 100.0 * 100.0
     }
     
     //0.0 - 100.0

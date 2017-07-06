@@ -28,11 +28,8 @@ import UIKit
     let comms : ScopeComms
     let connection : ScopeConnection
     let measure : ScopeMeasurementCenter
-    let message: ScopeMessage
     
-
-    
-    var scopeTest : ScopeTest! = nil
+//    var scopeTest : ScopeTest! = nil
     
     var runState : RunState {
         get {
@@ -47,8 +44,6 @@ import UIKit
     init() {
         comms = ScopeComms()
 
-        
-//        settings = ScopeSettings()
         appSettings = ScopeAppSettings()
         settings = ScopeSettingsInterface(comms: comms, appSettings: appSettings)
         
@@ -63,15 +58,8 @@ import UIKit
 
         measure = ScopeMeasurementCenter(settings: settings, frame: frame)
         
-        message = ScopeMessage()
-        
         //scopeTest = ScopeTest(scopeToTest: self)
-        
-        //frame = ScopeFrame(comms: comms)
-        
-     //   stoppedSettings = ScopeSettings(scope: self)
 
-        scopeTest = ScopeTest(scopeToTest: self)
         comms.packetDelegate = self
         comms.connectionDelegate = self
         telemetry.powerDelegate = self

@@ -18,7 +18,7 @@ protocol FrameSettingsDelegate : class {
     func didChangeHoriz(oldValue: horiz_mapping)
     func didChangeVert()
     func didChangeOffset()
-    func didChangeWindowPos(_: Int)
+    func didChangeWindowPos()
     
 }
 
@@ -207,7 +207,7 @@ class ScopeSettingsInterface {
         }
         nextFrameSettings.window_pos.value = max(min(position,getWindowPosMax()),getWindowPosMin())
         
-        frameSettingsDelegate?.didChangeWindowPos(position)
+        frameSettingsDelegate?.didChangeWindowPos()
     }
     
     func incrementWindowPos(_ delta: Int) {

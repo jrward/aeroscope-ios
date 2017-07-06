@@ -43,7 +43,7 @@ class ScopeMeasViewController : UIViewController, Themeable{
 
         }
         
-        print("measwidth: \(self.view.bounds.width)")
+//        print("measwidth: \(self.view.bounds.width)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
