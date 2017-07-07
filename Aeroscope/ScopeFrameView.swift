@@ -21,8 +21,78 @@ protocol ScopeFrameViewDataSource : class {
     func highlightSamples() -> Bool?
 }
 
+class TraceWriter : NSObject, CALayerDelegate {
+    
+    weak var dataSource : ScopeFrameViewDataSource?     //data source delegate
+    var borderSize : CGFloat = 1
+    var bounds: CGRect = CGRect()
+//    var x_size : CGFloat = 0
+//    var y_size : CGFloat = 0
+
+    init(borderSize: CGFloat, bounds: CGRect, dataSource: ScopeFrameViewDataSource?) {
+        self.borderSize = borderSize
+        self.bounds = bounds
+        self.dataSource = dataSource
+    }
+    
+    override init() {
+        
+    }
+    
+    func display(_ layer: CALayer)  {
+        if let tracelayer = layer as? CAShapeLayer {
+            tracelayer.path = drawTrace().cgPath
+        }
+    }
+    
+    func drawTrace() -> UIBezierPath{
+        let x_size = bounds.size.width
+        let y_size = bounds.size.height
+        let trace = UIBezierPath()
+        let frameData = dataSource?.dataForScopeFrameView()
+        let highlight = dataSource?.highlightSamples() ?? false
+        //        let frame : [UInt8] = dataSource?.dataForScopeFrameView()?.frame ?? [UInt8](count: 500, repeatedValue: 0)
+        var frame : Samples = frameData?.frame ?? Samples()//[UInt8](count: 500, repeatedValue: 128)
+        let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
+        let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
+        let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)
+        
+        let xstep : CGFloat
+        if frameSize < 2 {
+            xstep = (x_size - 2*borderSize)
+        }
+            
+        else {
+            xstep = (x_size - 2*borderSize) / (frameSize - 1)
+        }
+        
+        let subTrigOffset = xstep * subTrig
+        
+        let scale : CGFloat = CGFloat((y_size - 2*borderSize)/255)
+        
+        if !frame.data.isEmpty {
+            trace.move(to: CGPoint(x: borderSize + (frameXOffset * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
+            if frameSize < 2 {
+                trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + xstep + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
+            }
+            else {
+                
+                for i in 1 ..< frame.data.count {
+                    trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale))
+                    if frame.data[i].isValid && highlight {
+                        trace.addArc(withCenter: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale), radius: 1.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
+                    }
+                }
+            }
+        }
+        
+        return trace
+    }
+}
+
+
 @IBDesignable
-class ScopeFrameView: UIView {
+class ScopeFrameView: UIView{
     
     var interp_en = true
 
@@ -52,6 +122,8 @@ class ScopeFrameView: UIView {
     let borderSize : CGFloat = 1
     
     let traceLayer = CAShapeLayer()
+    let traceWriter = TraceWriter()
+    
     let gndLayer = CAShapeLayer()
     let trigLayer = CAShapeLayer()
     let trigXPosLayer = CAShapeLayer()
@@ -103,12 +175,19 @@ class ScopeFrameView: UIView {
         x_size = bounds.size.width
         y_size = bounds.size.height
         
-        traceLayer.path = drawTrace().cgPath
+        
         traceLayer.strokeColor = traceColor.cgColor
         traceLayer.lineJoin = kCALineJoinRound
         traceLayer.lineWidth = 3.0
         traceLayer.fillColor = nil
         traceLayer.actions = ["position":NSNull()]
+        traceLayer.delegate = traceWriter
+        traceWriter.dataSource = dataSource
+        traceWriter.bounds = bounds
+        traceLayer.path = traceWriter.drawTrace().cgPath
+
+
+        
         
         gndLayer.path = drawGnd().cgPath
         gndLayer.lineWidth = 1.0
@@ -255,144 +334,57 @@ class ScopeFrameView: UIView {
     }
     
     func updateTrace() {
-        traceLayer.path = drawTrace().cgPath
+//        traceLayer.path = drawTrace().cgPath
+        traceLayer.setNeedsDisplay()
+        
     }
+//    
+//    override func display(_ layer: CALayer)  {
+//        traceLayer.path = drawTrace().cgPath
+//    }
+//    
     
-    
-    func drawTrace() -> UIBezierPath{
-        let trace = UIBezierPath()
-        let frameData = dataSource?.dataForScopeFrameView()
-        let highlight = dataSource?.highlightSamples() ?? false
-//        let frame : [UInt8] = dataSource?.dataForScopeFrameView()?.frame ?? [UInt8](count: 500, repeatedValue: 0)
-        var frame : Samples = frameData?.frame ?? Samples()//[UInt8](count: 500, repeatedValue: 128)
-        let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
-        let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
-        let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)
-        
-//        print("***FRAME***")
-//        print(frame)
-//        print("***********")
-//        var frame_sf = [Float]()
-//        for el in frame {
-//            frame_sf = (Float(el))
-//        }
-        
-        //        let xstep = (x_size - 2*borderSize) / CGFloat(frame.count - 1)
-        
-        //TODO: Check on xstep. It may not need (frameSize - 1)
-      //  var interp : Bool = false
-        
-        //var frame_f = [Float]()
-     //   var qs = [Float]()
-        
-//        if (interp_en) {
-//            if frameSize == 50 {
-//                interp = true
-//                frameSize = 500
-//                var frame_sf = [Float]()
-//                for el in frame {
-//                    frame_sf.append(Float(el))
-//                }
-//                qs = interpolate(frame, factor: 10)
-//                frame = []
-//                for el in qs {
-//                    frame.append(UInt8(min(max(round(abs(el)),0),255)))
-//                }
-//                
-//                subTrig *= 10
-//            }
-//            
-//            else if frameSize == 100 {
-//                interp = true
-//                frameSize = 500
-//                var frame_sf = [Float]()
-//                for el in frame {
-//                    frame_sf.append(Float(el))
-//                }
-//                qs = interpolate(frame, factor: 5)
-//                frame = []
-//                for el in qs {
-//                    frame.append(UInt8(min(max(round(abs(el)),0),255)))
-//                }
-//                
-//                subTrig *= 5
-//            }
-//            
-//            else if frameSize == 250 {
-//                interp = true
-//                frameSize = 500
-//                var frame_sf = [Float]()
-//                for el in frame {
-//                    frame_sf.append(Float(el))
-//                }
-//                qs = interpolate(frame, factor: 2)
-//                frame = []
-//                for el in qs {
-//                    frame.append(UInt8(min(max(round(abs(el)),0),255)))
-//                }
-//                
-//                subTrig *= 2
-//            }
+//    func drawTrace() -> UIBezierPath{
+//        let trace = UIBezierPath()
+//        let frameData = dataSource?.dataForScopeFrameView()
+//        let highlight = dataSource?.highlightSamples() ?? false
+//        var frame : Samples = frameData?.frame ?? Samples()//[UInt8](count: 500, repeatedValue: 128)
+//        let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
+//        let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
+//        let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)
+//        
+//    
+//        let xstep : CGFloat
+//        if frameSize < 2 {
+//            xstep = (x_size - 2*borderSize)
 //        }
 //        
-//        if interp {
-//            for el in qs {
-//                frame_f.append(min(max(el,0),255))
-//            }
-//        }
-        
 //        else {
-//            for el in frame  {
-//                frame_f.append(Float(min(max(el,0),255)))
-//            }
+//            xstep = (x_size - 2*borderSize) / (frameSize - 1)
 //        }
-    
-        let xstep : CGFloat
-        if frameSize < 2 {
-            xstep = (x_size - 2*borderSize)
-        }
-        
-        else {
-            xstep = (x_size - 2*borderSize) / (frameSize - 1)
-        }
-
-        let subTrigOffset = xstep * subTrig
-        
-        let scale : CGFloat = CGFloat((y_size - 2*borderSize)/255)
-        
-        if !frame.data.isEmpty {
-            trace.move(to: CGPoint(x: borderSize + (frameXOffset * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
-            if frameSize < 2 {
-                trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + xstep + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
-            }
-            else {
-                
-                for i in 1 ..< frame.data.count {
-                    trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale))
-                    if frame.data[i].isValid && highlight {
-                        trace.addArc(withCenter: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale), radius: 1.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
-                    }
-                }
-            }
-        }
-        
-
-//        if highlight {
+//
+//        let subTrigOffset = xstep * subTrig
 //        
-//            let highlightStep : CGFloat = (x_size - 2*borderSize) / CGFloat(samples.count - 1)
-//            if !samples.isEmpty {
-//                trace.move(to: CGPoint(x: borderSize + (frameXOffset * highlightStep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(samples[0]) * scale))
-//                for i in 1 ..< samples.count {
-//                    //trace.addLineToPoint(CGPoint(x: borderSize + (frameXOffset * highlightStep) + (CGFloat(i) * highlightStep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(samples[i]) * scale))
-//                    //trace.addArcWithCenter(withCenter: CGPoint(x: borderSize + (frameXOffset * highlightStep) + (CGFloat(i) * highlightStep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(samples[i]) * scale), radius: 2.0, startAngle:0, endAngle: 2*M_PI, clockwise: true)
-//                    trace.addArc(withCenter: CGPoint(x: borderSize + (frameXOffset * highlightStep) + (CGFloat(i) * highlightStep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(samples[i]) * scale), radius: 1.0, startAngle: 0, endAngle: 2*CGFloat(M_PI), clockwise: true)
+//        let scale : CGFloat = CGFloat((y_size - 2*borderSize)/255)
+//        
+//        if !frame.data.isEmpty {
+//            trace.move(to: CGPoint(x: borderSize + (frameXOffset * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
+//            if frameSize < 2 {
+//                trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + xstep + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
+//            }
+//            else {
+//                
+//                for i in 1 ..< frame.data.count {
+//                    trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale))
+//                    if frame.data[i].isValid && highlight {
+//                        trace.addArc(withCenter: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale), radius: 1.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
+//                    }
 //                }
 //            }
-//            
 //        }
-//        
-        return trace
-    }
+//     
+//        return trace
+//    }
     
     
     func drawGnd() -> UIBezierPath {
