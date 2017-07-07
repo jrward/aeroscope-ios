@@ -356,8 +356,8 @@ class ScopeFrameInterface: FrameDelegate, FrameSettingsDelegate {
                 
                 
                 
-                
-                if (appSettings.interpolation &&  frameSettings.horiz.mappedSetting().divRatio <= 1 && frameSettings.horiz.mappedSetting().subFrameSize < displayedFrameSize) {
+                                                    //xScale < 1?
+                if (appSettings.interpolation &&  frameSettings.horiz.mappedSetting().divRatio <= 1 && settings.getHorizMeta().subFrameSize < displayedFrameSize) {
                     
                     let factor = Int(displayedFrameSize/self.settings.getSubFrameSize())
                     let interpFactor :  InterpFactor

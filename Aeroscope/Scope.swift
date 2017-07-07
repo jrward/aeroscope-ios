@@ -58,7 +58,7 @@ import UIKit
 
         measure = ScopeMeasurementCenter(settings: settings, frame: frame)
         
-        //scopeTest = ScopeTest(scopeToTest: self)
+//        scopeTest = ScopeTest(scopeToTest: self)
 
         comms.packetDelegate = self
         comms.connectionDelegate = self
