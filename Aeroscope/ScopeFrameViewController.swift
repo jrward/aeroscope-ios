@@ -347,8 +347,8 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     
     func updateFPS() {
         fpsCapture = Double(fps) / 2.0
+//        print("fps: \(fpsCapture)")
         fps = 0
-//        updateStatusLabel()
     }
   
 //    
