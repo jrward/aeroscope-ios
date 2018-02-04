@@ -598,7 +598,7 @@
 				DEVELOPMENT_TEAM = 2SB4764459;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
 				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
@@ -621,7 +621,7 @@
 				DEVELOPMENT_TEAM = 2SB4764459;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
 				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
