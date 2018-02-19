@@ -44,10 +44,6 @@ class ScopeViewController: UIViewController, Themeable {
         
         NotificationCenter.default.addObserver(self, selector: #selector(showError(_:)), name: ScopeTelemetry.notifications.error, object: nil)
         
-        
-        //TODO: Move this into Scope Top model
-        //Timer.scheduledTimer(timeInterval: 0.09, target: self, selector: #selector(ScopeViewController.updateSettings), userInfo: nil, repeats: true)
-
         vertControl.registerVC(source: self)
         
         horizControl.registerVC(source: self)
@@ -73,15 +69,7 @@ class ScopeViewController: UIViewController, Themeable {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-//        if !scope.comms.isPoweredOn() {
-//            let alertView = UIAlertController(title: "Error", message: "Bluetooth is not enabled. Please enable bluetooth to connect to Aeroscope.", preferredStyle: .alert)
-//            alertView.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in }))
-//            print("presenting BTLE warning")
-//            //self.presentViewControllerFromVisibleViewController(viewControllerToPresent: alertView, animated: true)
-//            self.present(alertView, animated: true, completion: nil)
-//        }
-        
-        //scope.comms.startScanning()        
+    
     }
     
     

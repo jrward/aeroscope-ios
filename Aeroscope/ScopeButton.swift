@@ -23,9 +23,8 @@ class ScopeButton {
     func pressed() {
         NotificationCenter.default.post(name: notifications.buttonDown, object: self)
         
-        
         if settings.cmd.runStopSingle == .stop { settings.setRunState(.run) }
-//
+
         else { settings.setRunState(.stop) }
         
         

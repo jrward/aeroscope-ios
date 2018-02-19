@@ -47,18 +47,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
     
     @objc func pan(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: scopeStripView)
-                //print(translation.x)
-                //let frameTranslation = (translation.x / scopeStripView.track_width) * 100.0
-                //framePosition = min(max((framePosition + frameTranslation),0),100)
-//        let rangeMax = scope.settings.getWindowPosRange().upperBound - 1
-//        let rangeMin = scope.settings.getWindowPosRange().lowerBound
-//        
-//        let frameTranslation = Int(translation.x / scopeStripView.track_width * CGFloat(rangeMax))
-//        let frameFloatTranslation = translation.x / scopeStripView.track_width * CGFloat(rangeMax)
         
-        //scope.settings.setWindowPos(max(min(scope.settings.getWindowPos() + frameTranslation, rangeMax), rangeMin) )
-        
-    
         let rangeMax = CGFloat(scope.settings.getWriteDepth())
         let translationGain = rangeMax / scopeStripView.track_width
 
@@ -69,23 +58,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         
         let remaining = CGPoint(x: remainingX, y: 0)
         
-                //        let remainingX = scopeStripView.track_width * (frameFloatTranslation - CGFloat(frameTranslation))
-        
-
-        
         gesture.setTranslation(remaining, in: scopeStripView)
-                //updateUI()
-                
-        //        let triggerFloatTranslation : CGFloat  = -1 * (translation.x / scopeFrameView.x_size * xTranslationGain)
-        //        let triggerTranslation = Int(-1 * translation.x / scopeFrameView.x_size * xTranslationGain)
-        //        let triggerXMax = scope.settings.window_pos.range.endIndex - 1
-        //        let triggerXMin = scope.settings.window_pos.range.startIndex
-        //        scope.settings.window_pos.value = max(min(scope.settings.window_pos.value + triggerTranslation, triggerXMax), triggerXMin)
-        //        print(scope.settings.window_pos.value)
-        //        //framePosition = min(max((framePosition + frameTranslation),0),100)
-        //        remainingX = scopeFrameView.x_size/xTranslationGain * (triggerFloatTranslation - CGFloat(triggerTranslation))
-        //        //remainingX = (triggerFloatTranslation - CGFloat(triggerTranslation))
-        //        remainingY = 0
 
     }
     
@@ -106,7 +79,6 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         else if location.x >= scopeStripView.bounds.size.width*7/8 {
             scope.settings.setTrigMemPos(scope.settings.getTrigMemPosMax() * 9/10)
         }
-//        print(location)
     }
     
     @objc func triggerXPosUpdate() {
@@ -124,10 +96,6 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         scopeStripView.updateSliderWidth()
         scopeStripView.updateTrace()
 
-        
-//        if scope.settings.getRunState() == .stop {
-//            scopeStripView.updateTrace()
-//        }
     }
     
     @objc func subFrameUpdate() {
@@ -154,13 +122,6 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         scopeStripView.updateTrace()
         scopeStripView.updateSliderWidth()
     }
-
-    
-//    func updateUI() {
-//        scopeStripView.updateSlider()
-//        //scopeStripView.setNeedsDisplay()
-//    }
-
     
     func framePositionForScopeStripView() -> CGFloat? {
         let framePos = CGFloat(scope.frame.getScaledFrameStart())

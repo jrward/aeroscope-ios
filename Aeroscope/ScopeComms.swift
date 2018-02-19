@@ -9,30 +9,6 @@
 import Foundation
 import CoreBluetooth
 
-//protocol FpgaUpdateDelegate : class {
-//    func didConnect()
-//    //func didDisconnect()
-//    func didReceive(packet: [UInt8])
-//}
-//
-//protocol ScopeFrameDelegate : class {
-//    func didConnect()
-//    func didDisconnect()
-//    func didReceive(packet: [UInt8])
-//}
-//
-//protocol ScopeTelemetryDelegate : class {
-//    func didConnect()
-//    func didDisconnect()
-//    func didReceive(packet: [UInt8])
-//}
-//
-//protocol ScopeCommsDelegate : class {
-//    func didConnect()
-//    func didDisconnect()
-//    func didReceive(packet: [UInt8])
-//}
-
 protocol ConnectionDelegate : class {
     func didConnect()
     func didReconnect()
@@ -53,10 +29,6 @@ protocol ScanningDelegate : class {
     func startScanning()
     func stopScanning()
 }
-
-
-
-
 
 class ScopeDevice : Equatable
 {
@@ -126,17 +98,9 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     var fpgaInChar : CBCharacteristic?
     var fpgaOutChar : CBCharacteristic?
     
-//    weak var fpgaUpdateDelegate : FpgaUpdateDelegate?
-//    weak var scopeFrameDelegate : ScopeFrameDelegate?
-//    weak var telemetryDelegate : ScopeTelemetryDelegate?
-//    weak var scopeCommsDelegate : ScopeCommsDelegate?
-//    weak var scopeConnectionDelegate : ScopeConnectionDelegate?
-    
     weak var connectionDelegate : ConnectionDelegate?
     weak var scanningDelegate : ScanningDelegate?
     weak var packetDelegate : PacketDelegate?
-    
-    //var connected = false
     
     var isReconnected = false
     
@@ -229,7 +193,6 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func sendFpgaUpdate(_ packet: [UInt8]) {
-        //let fpgaUpdateData = Data(bytes: UnsafePointer<UInt8>(packet), count: packet.count)
         print("FPGAUPDATE SENT: \(packet)")
         let fpgaUpdateData = Data(bytes: packet)
         if let scope = peripheral, let char = fpgaInChar {
@@ -237,21 +200,8 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         }
         
         
-//        peripheral?.writeValue(fpgaUpdateData, for: fpgaInChar!, type: CBCharacteristicWriteType.withResponse)
         
     }
-    
-//    
-//    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor characteristic: CBCharacteristic, error: Error?) {
-//
-//        if characteristic.uuid == fpgaInCharUUID {
-//            print("fpga update packet written")
-//        }
-//
-//    }
-//    
-//    
-    
     
     //-------CBCentralManagerDelegate Functions---------//
     
@@ -289,18 +239,13 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         print("Discovered \(peripheral.name ?? "nil") at RSSI: \(RSSI)")
         print(peripheral.description)
         print("Advertised Name: \(advertisementData[CBAdvertisementDataLocalNameKey] as? String ?? "nil")")
-        //print("Other Name: \(advertisementData[CBUUIDDeviceNameString])")
         let newPeripheral = ScopeDevice(with: peripheral, advertisementData: advertisementData, rssi: RSSI)
         
         if devices.contains(newPeripheral) == false {
             devices.append(ScopeDevice(with: peripheral, advertisementData: advertisementData, rssi: RSSI))
             NotificationCenter.default.post(name: ScopeComms.notifications.peripheral, object: self)
         }
-        
-//        if devices.contains(newPeripheral) == false {
-//            devices.append(newPeripheral)
-//            NotificationCenter.default.post(name: ScopeComms.notifications.peripheral, object: self)
-//        }
+
         
         let prefs = UserDefaults.standard
         if let myNSUUID = prefs.value(forKey: "My Aeroscope") {
@@ -321,10 +266,7 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         //TODO: Clean this up
         //we check peripheral but dont do anything if it isnt true
         if (peripheral == self.peripheral?.bt) {
-            
-            //self.connected = true
             print("connected to: \(self.peripheral?.advertisedName ?? "nil")")
-            
             if (peripheral.services != nil) {
                 print("services already exist")
             }
@@ -336,9 +278,6 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         
         let prefs = UserDefaults.standard
         prefs.set(peripheral.identifier.uuidString, forKey: "My Aeroscope")
-        
-        
-        //central.stopScan()
         stopScanning()
     }
     
@@ -397,7 +336,6 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         for service in peripheral.services! {
             if service.uuid == BLEServiceUUID {
                 print("found scope service: \(service.uuid)")
-                //peripheral.discoverCharacteristics(uuidsForBTService, forService: service as CBService)
                 peripheral.discoverCharacteristics(uuidsForBTService, for: service)
             }
             else if service.uuid == fpgaUpdateServiceUUID {
@@ -531,9 +469,6 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     func peripheralDidUpdateName(_ peripheral: CBPeripheral) {
         print("**************NAME CHANGE*****************")
     }
-    
-    //    func peripheral(peripheral: CBPeripheral, didWriteValueForCharacteristic characteristic: CBCharacteristic, error: NSError?) {
-    
     
 }
 

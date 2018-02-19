@@ -11,15 +11,12 @@ import Foundation
 class ScopeCmd : PowerRequesting {
     
     var comms: ScopeComms
-    
     var appSettings : AppSettingsReader
-    
     var cancelFrameTimer : Timer?
     
     struct notifications {
         static let runState = Notification.Name("com.Aeroscope.runState")
     }
-    
     
     var runStopSingle : RunState {
         didSet {
@@ -137,7 +134,6 @@ class ScopeCmd : PowerRequesting {
     }
     
     private func addPaddingTo(packet: [UInt8]) -> [UInt8] {
-        //assert(packet.count <= 20)
         if (packet.count <= 20) {
             let paddingSize = comms.commsOutCharLength - packet.count
             return packet + [UInt8](repeating: 0, count: paddingSize)
@@ -146,9 +142,7 @@ class ScopeCmd : PowerRequesting {
         else {
             return Array(packet[0..<20])
         }
-
     }
-    
     
     init(comms: ScopeComms, appSettings: AppSettingsReader) {
         self.comms = comms

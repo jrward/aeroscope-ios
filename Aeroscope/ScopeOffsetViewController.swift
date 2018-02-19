@@ -30,10 +30,7 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
         NotificationCenter.default.addObserver(self, selector: #selector(updateOffset), name: ScopeSettings.notifications.offset, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(updateSliderHeight), name:  ScopeSettings.notifications.vert, object: nil)
-        
-//        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan))
-//        scopeOffsetView.addGestureRecognizer(panRecognizer)
-//        
+    
         // Do any additional setup after loading the view.
     }
     
@@ -48,23 +45,15 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
     
     @objc func pan(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: scopeOffsetView)
-        //print(translation.x)
-        //let frameTranslation = (translation.x / scopeStripView.track_width) * 100.0
-        //framePosition = min(max((framePosition + frameTranslation),0),100)
+
         let rangeMax = scope.settings.getOffsetRange().upperBound - 1
         let rangeMin = scope.settings.getOffsetRange().lowerBound
         
         let frameTranslation = Int(translation.y / scopeOffsetView.frame.size.height * CGFloat(rangeMax))
-        let frameFloatTranslation = translation.y / scopeOffsetView.height * CGFloat(rangeMax)
         
         //TODO: Fix offset mechanism so that the caller doesn't have to invert. Hardware implementation details shouldn't bubble up to this leel
-        
+    
         scope.settings.setOffset( max(min(scope.settings.getOffset() - frameTranslation, rangeMax), rangeMin) )
-        
-//        //        let remainingX = scopeStripView.track_width * (frameFloatTranslation - CGFloat(frameTranslation))
-        
-        
-        
         gesture.setTranslation(CGPoint.zero, in: scopeOffsetView)
     }
     

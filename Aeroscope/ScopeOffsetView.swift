@@ -94,12 +94,7 @@ class ScopeOffsetView: UIView {
     override func draw(_ rect: CGRect) {
         self.backgroundColor = nil
         self.isOpaque = false
-        
-        let offset = dataSource?.offsetForScopeOffsetView(self) ?? (25.0)
         let frameHeight = dataSource?.frameHeightForScopeOffsetView(self) ?? (8.0/80.0)
-        
-        let scaleRect = CGRect(origin: CGPoint(x: 0,y: 10), size: CGSize(width: width, height: height - 10))
-        
         let pen = UIBezierPath()
         
         pen.move(to: CGPoint(x: 45, y: 0))
@@ -107,11 +102,9 @@ class ScopeOffsetView: UIView {
         pen.addLine(to: CGPoint(x: width-5, y: height))
         pen.addLine(to: CGPoint(x: 45, y: height))
         pen.close()
-//        
+
         bgColor.set()
         pen.fill()
-        
-//        sliderLayer.path = drawSlider(frameHeight: frameHeight, position: offset).CGPath
         sliderLayer.path = drawSlider(frameHeight: frameHeight, position: 50.0).cgPath
         
         sliderLayer.strokeColor = sliderColor.cgColor
@@ -121,27 +114,6 @@ class ScopeOffsetView: UIView {
         updateSlider()
         
         pen.removeAllPoints()
-        
-        let scaleOffset : CGFloat = labelHeight
-        
-//        pen.moveToPoint(CGPoint(x: 40, y: scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 2*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 2*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 3*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 3*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 4*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 4*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 5*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 5*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 6*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 6*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 7*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 7*scale_height/8 + scaleOffset))
-//        pen.moveToPoint(CGPoint(x: 40, y: 8*scale_height/8 + scaleOffset))
-//        pen.addLineToPoint(CGPoint(x: width, y: 8*scale_height/8 + scaleOffset))
         
         pen.move(to: CGPoint(x: 40, y: scale_height/10))
         pen.addLine(to: CGPoint(x: width, y: scale_height/10))
@@ -175,17 +147,8 @@ class ScopeOffsetView: UIView {
         let labelNeg20 = NSString(string: "-20V")
         let labelNeg30 = NSString(string: "-30V")
         let labelNeg40 = NSString(string: "-40V")
-//        let textAttr : [String : AnyObject] = [NSForegroundColorAttributeName : UIColor.whiteColor(),
-//                        NSFontAttributeName : labelFont]
-        
-        //let text_height = label00.sizeWithAttributes(labelAttr).height
-        //let NSFontAttributeName: String = "Helvetica Neue"
-        //let NSForegroundColorAttributeName: String = "White"
-        //let NSStrokeColorAttributeName: String
-        //let NSStrokeWidthAttributeName: String
 
-         let textOffset : CGFloat = (labelHeight/2)
-        
+        let textOffset : CGFloat = (labelHeight/2)
         
         label40.draw(at: CGPoint(x: 0, y: scale_height/10 - textOffset), withAttributes: labelAttr)
         label30.draw(at: CGPoint(x: 0, y: 2*scale_height/10 - textOffset), withAttributes: labelAttr)
@@ -236,7 +199,6 @@ class ScopeOffsetView: UIView {
         let positionTranslated = (position - 50.0) / 100.0  * bounds.size.height
         
         sliderLayer.position = CGPoint(x: 0.0, y: positionTranslated)
-        //sliderLayer.needsDisplay()
     }
 
 }

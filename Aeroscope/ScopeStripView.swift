@@ -108,18 +108,6 @@ class ScopeStripView: UIView {
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
-//        self.clipsToBounds = true
-//        self.layer.cornerRadius = 5;
-//        self.layer.borderWidth = 1.0
-//        self.layer.borderColor = self.tintColor.CGColor
-
-//        UIColor(red: 65/255, green: 0/255, blue: 0/255, alpha: 1.0).set()
-//
-//        drawTouchTarget(10.0).fill()
-//        drawTouchTarget(50.0).fill()
-//        drawTouchTarget(90.0).fill()
-        
-        let position = CGFloat(dataSource?.framePositionForScopeStripView() ?? 50.0)
         let width = CGFloat(dataSource?.frameWidthForScopeStripView() ?? (100.0 * 500.0/4096.0))
         
         let pen = UIBezierPath()
@@ -132,23 +120,11 @@ class ScopeStripView: UIView {
         pen.lineWidth = lineWidth
         bgColor.set()
         pen.fill()
-        //pen.stroke()
         
         triggerColor.set()
         drawTrigger(10.0).fill()
         drawTrigger(50.0).fill()
         drawTrigger(90.0).fill()
-        //let ghostColor = UIColor(red: 65/255, green: 0, blue: 0, alpha: 1.0) //triggerColor.colorWithAlphaComponent(0.2)
-        //ghostColor.set()
-        //traceColor.set()
-//        triggerColor.colorWithAlphaComponent(0.5).set()
-//        drawTouchTarget(10.0).fill()
-//        drawTouchTarget(50.0).fill()
-//        drawTouchTarget(90.0).fill()
-
-        
-        //sliderColor.set()
-       // drawSlider(width: width, position: position).stroke()
         
         sliderLayer.path = drawSlider(width: width, position: 0.0).cgPath
         sliderLayer.strokeColor = sliderColor.cgColor
@@ -167,7 +143,6 @@ class ScopeStripView: UIView {
         traceLayer.fillColor = nil
         
         self.clipsToBounds = true
-        //self.layer.cornerRadius = 5;
         self.layer.borderWidth = 1.0
         self.layer.borderColor = self.borderColor.cgColor
 
@@ -191,10 +166,6 @@ class ScopeStripView: UIView {
         
         pen.removeAllPoints()
         pen.move(to: CGPoint(x: mycenter.x-(track_width/2), y: bounds.size.height/2))
-        //for (var index=Int(mycenter.x-(track_width/2)); index < Int(track_width); index += 1) {
-        //        for index in Int(mycenter.x-(track_width/2))  ..<  Int(track_width){
-        //            pen.addLineToPoint(CGPoint(x: CGFloat(index), y: CGFloat(5*sin(Double(index/5)))+(bounds.size.height/2) ) )
-        //        }
         
         for index in 0 ..< Int(bounds.width) {
             pen.addLine(to: CGPoint(x: Double(index), y: -5*sin(Double(index)/6.0) + Double(bounds.size.height/2) ))
@@ -219,11 +190,7 @@ class ScopeStripView: UIView {
         //22 cycles in full frame width with
         
         mypath.move(to: CGPoint(x: relativePos, y: mycenter.y))
-        //for (var index=Int(mycenter.x-(track_width/2)); index < Int(track_width); index += 1) {
-        //        for index in Int(mycenter.x-(track_width/2))  ..<  Int(track_width){
-        //            pen.addLineToPoint(CGPoint(x: CGFloat(index), y: CGFloat(5*sin(Double(index/5)))+(bounds.size.height/2) ) )
-        //        }
-        
+
         for index in 0 ..< Int(relativeWidth * scale) {
             let nextX = relativePos + (CGFloat(index)/CGFloat(scale))
             let nextY = -5*sin(CGFloat(index)/4.0) + CGFloat(mycenter.y)
@@ -238,10 +205,6 @@ class ScopeStripView: UIView {
         let relativeWidth = width/100.0 * track_width
         let relativePos = position/100.0 * track_width
         let mypath = UIBezierPath()
-//        mypath.move(to: CGPoint(x: mycenter.x  - (relativeWidth/2), y: mycenter.y + (slider_height/2)))
-//        mypath.addLine(to: CGPoint(x:mycenter.x  + (relativeWidth/2), y: mycenter.y + (slider_height/2)))
-//        mypath.addLine(to: CGPoint(x:mycenter.x  + (relativeWidth/2), y: mycenter.y - (slider_height/2)))
-//        mypath.addLine(to: CGPoint(x:mycenter.x  - (relativeWidth/2), y: mycenter.y - (slider_height/2)))
         
         mypath.move(to: CGPoint(x: relativePos, y: mycenter.y + (slider_height/2)))
         mypath.addLine(to: CGPoint(x: relativePos  + (relativeWidth), y: mycenter.y + (slider_height/2)))
@@ -280,7 +243,6 @@ class ScopeStripView: UIView {
     }
     
     func updateSliderWidth() {
-        let relPos = dataSource?.framePositionForScopeStripView() ?? 50.0
         let width = (dataSource?.frameWidthForScopeStripView())
         if width == nil {
             sliderLayer.path = nil
@@ -288,27 +250,12 @@ class ScopeStripView: UIView {
         else {
             sliderLayer.path = drawSlider(width: width!, position: 0.0).cgPath
             updateSlider()
-    //        sliderLayer.strokeColor = sliderColor.cgColor
-    //        sliderLayer.lineWidth = lineWidth
-    //        sliderLayer.fillColor = nil
         }
     }
     
     func updateSlider() {
         let relPos = dataSource?.framePositionForScopeStripView() ?? 50.0
-        let width = (dataSource?.frameWidthForScopeStripView() ?? 20.0) // 100.0 * track_width
-        
-//        let emptySpace = track_width - width
-//        print("track width: \(track_width)   width: \(width)")
-//        
-//        let translatedPosition = emptySpace * relPos/100.0 + width/2 - track_width/2
-//        
-//        print("translated position: \(translatedPosition)")
-//    
-        
-        //sliderLayer.position = CGPoint(x: CGFloat((position-50.0)/100.0) * track_width, y: 0.0)
         sliderLayer.position = CGPoint(x: (relPos/100.0) * track_width, y: 0.0)
-        //sliderLayer.needsDisplay()
     }
     
     func clearTrace() {

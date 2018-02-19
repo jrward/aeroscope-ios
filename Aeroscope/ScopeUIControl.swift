@@ -43,9 +43,6 @@ class ScopeUIControl : UIControl, UIPopoverPresentationControllerDelegate, Theme
     func initView() {
         assert(self.popover != nil, "popover needs to be set by subclass")
         popover.modalPresentationStyle = .popover
-
-        let width = bounds.size.width
-        let height = bounds.size.height
         
         self.tintColor = ScopeTheme.manager.activeTheme.tint
         self.addControlItem()
@@ -109,13 +106,6 @@ class ScopeUIControl : UIControl, UIPopoverPresentationControllerDelegate, Theme
 
         return UIModalPresentationStyle.none
     }
-    
-    
-//    override func prepareForInterfaceBuilder() {
-//        //initView()
-//        super.prepareForInterfaceBuilder()
-//        
-//    }
     
     override func layoutSubviews() {
         initView()

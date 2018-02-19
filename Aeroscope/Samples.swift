@@ -63,11 +63,7 @@ struct Samples  {
             self.data.append(Sample(el, isValid: false))
         }
     }
-    //
-    //    mutating func insert(_ contentsOf: [Samples], at Index: Int) {
-    //
-    //    }
-    //
+
     mutating func insert(interpData: [Float], at Index: Int) {
         var myIndex = Index
         for el in interpData {

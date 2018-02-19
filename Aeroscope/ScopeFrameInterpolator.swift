@@ -152,12 +152,10 @@ class ScopeFrameInterpolator {
         assert(signal.count > (k.count/stride))
         
         var resultSamples = signal
-        //let resultSize = signal.count + (k.count/stride) - 1
         let resultSize = signal.count + ((k.count - 1)/stride)
 
         var result = [Float](repeating: 0, count: resultSize)
         let kStart = UnsafePointer<Float>(k)
-        //let xPad = repeatElement(Float(0.0), count: (k.count/stride)-1)
         let signalPad = repeatElement(Float(0.0), count: (k.count/stride)/2)
         let signalPadded = signalPad + signal.raw + signalPad
         vDSP_conv(signalPadded, 1, kStart, vDSP_Stride(stride), &result, 1, vDSP_Length(resultSize), vDSP_Length(k.count/stride))
@@ -194,30 +192,16 @@ class ScopeFrameInterpolator {
     func interpolate (_ frame: Samples, factor: InterpFactor) -> Samples {
         var myframe : Samples
         var ret : Samples
-        //let extendSize = max( (kernel_length / kernel_factor), kernel_length/)
-        
         let kernelStride : Int = kernelFactor/factor.rawValue
         let extendSize : Int = kernelLength/kernelStride
 
         myframe = extend(frame, num: extendSize/factor.rawValue)
         myframe = upsample(myframe, factor: factor.rawValue)
-     
-//        let kernel : [Float]
-//        switch factor {
-//        case 10: kernel = mysincw10
-//        case 5: kernel = mysincw5
-//        case 2: kernel = mysincw2
-//        default: kernel = mysincw10
-//        }
-        
+
         ret = convolve(signal: myframe, kernel: sinc10_blackman3, stride: kernelStride)
         
-        //ret = ret.map({min(max($0,0),255)})
-
         let returnedSamples : [Sample]
-        let dataSizeToCut : Int
         
-        //TODO: Recorrect the array alignment of these!
         switch factor {
         case .x10:  returnedSamples = Array(ret.data[(extendSize)..<(ret.count - extendSize)])
         case .x5:  returnedSamples = Array(ret.data[(extendSize)..<(ret.count - extendSize)])
@@ -225,8 +209,6 @@ class ScopeFrameInterpolator {
         default: returnedSamples = frame.data
         }
 
-        //returnedSamples = Array(ret.data[(extendSize)..<(ret.count - extendSize)])
-        
         return Samples(samples: returnedSamples)
     }
 }
