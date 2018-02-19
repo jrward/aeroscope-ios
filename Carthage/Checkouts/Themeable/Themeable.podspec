@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name    = 'Themeable'
-  s.version = '0.7.0'
+  s.version = '0.8.0'
   s.summary = 'Easy UIKit theming'
   s.author  = { 'Ed Wellbrook' => 'edwellbrook@gmail.com' }
 
@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.homepage = 'https://github.com/edwellbrook/Themeable'
 
   s.source       = { :git => 'https://github.com/edwellbrook/Themeable.git', :tag => "v#{s.version}" }
-  s.source_files = 'Sources/*.swift'
+  s.source_files = 'Sources/Themeable/*.swift'
   s.requires_arc = true
 
   s.ios.deployment_target     = '8.0'

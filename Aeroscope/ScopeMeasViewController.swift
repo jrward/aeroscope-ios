@@ -50,7 +50,7 @@ class ScopeMeasViewController : UIViewController, Themeable{
        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
-    func updateMeasLabel() {
+    @objc func updateMeasLabel() {
         measLabel.text = nil
         //statusLabel.text = String(format: "%s\t\t", scope.measure.getText(meas: el)))
         let paddingLength : Int = 20

@@ -262,7 +262,7 @@ class TriggerPopoverVC : UIViewController {
 
     }
     
-    func trigCtrlPressed() {
+    @objc func trigCtrlPressed() {
         if trigCtrlRadio.selectedSegmentIndex == TriggerIndex.pos {
             scope.settings.setTrigMode(.pos)
             delegate?.setImage(posTrigImg!)
@@ -303,7 +303,7 @@ class TriggerPopoverVC : UIViewController {
 
         }
     }
-    func lpBtnPressed() {
+    @objc func lpBtnPressed() {
         //lpTrigBtn.selected = !lpTrigBtn.selected
 
         if trigCtrlRadio.selectedSegmentIndex != TriggerIndex.any {
@@ -341,7 +341,7 @@ class TriggerPopoverVC : UIViewController {
 
         }
     }
-    func autoBtnPressed() {
+    @objc func autoBtnPressed() {
         autoSelected = !autoSelected
 //        if autoSelected {
 //            autoTrigBtn.tintColor = UIColor.whiteColor()

@@ -25,7 +25,7 @@ class ScopeMessageViewController: UIViewController, Themeable {
         NotificationCenter.default.addObserver(self, selector: #selector(messageChanged), name: ScopeMessage.notifications.messageChanged, object: nil)
     }
     
-    func messageChanged() {
+    @objc func messageChanged() {
         messageLabel.text = ScopeMessage.default.message
         print("Message Changed")
     }

@@ -205,7 +205,7 @@ class RunStopControl : UIControl, Themeable {
 //    }
 
     
-    func runStopSingleChanged() {
+    @objc func runStopSingleChanged() {
         switch scope.settings.getRunState() {
         case .run:
             setRun()
@@ -259,7 +259,7 @@ class RunStopControl : UIControl, Themeable {
     }
     
     
-    func runStopIsPressed() {
+    @objc func runStopIsPressed() {
         print("RunStop")
         if scope.settings.getRunState() == .run || scope.settings.getRunState() == .single {
             scope.settings.setRunState(.stop)
@@ -271,12 +271,12 @@ class RunStopControl : UIControl, Themeable {
         
         activeLabel.alpha = 0.6
         
-        UIView.animate(withDuration: 0.25, animations: { _ in
+        UIView.animate(withDuration: 0.25, animations: { 
             self.activeLabel.alpha = 1.0
         }) 
     }
     
-    func singleIsPressed() {
+    @objc func singleIsPressed() {
         print("Single")
         scope.settings.setRunState(.single)
         

@@ -92,7 +92,7 @@ class ScopeViewController: UIViewController, Themeable {
     }
 
     
-    func showError(_ notification: Notification) {
+    @objc func showError(_ notification: Notification) {
         if let error = notification.userInfo?["error"] as? ScopeError {
             let alertView = UIAlertController(title: "Error", message: error.description(), preferredStyle: .alert)
             alertView.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in }))

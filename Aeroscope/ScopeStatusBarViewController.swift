@@ -48,15 +48,15 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
         self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
-    func updateACDC() {
+    @objc func updateACDC() {
         updateStatusLabel()
     }
     
-    func updateVert() {
+    @objc func updateVert() {
         updateStatusLabel()
     }
     
-    func updateHoriz() {
+    @objc func updateHoriz() {
         updateStatusLabel()
     }
     
@@ -89,7 +89,7 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
         
     }
     
-    func updateBattery() {
+    @objc func updateBattery() {
         battView.updateBattState()
     }
     

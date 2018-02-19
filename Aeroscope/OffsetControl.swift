@@ -62,7 +62,7 @@ class OffsetControl : ScopeUIControl {
 
     }
     
-    func updateOffset() {
+    @objc func updateOffset() {
         let offsetVolts = Translator.toVoltsFrom(
             offset: scope.settings.getOffset(),
             conv: scope.settings.getVertMeta().offsetConv,

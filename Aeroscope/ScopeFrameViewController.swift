@@ -160,18 +160,18 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
 
     }
 
-    func updateShowPts() {
+    @objc func updateShowPts() {
         scopeFrameView.updateShowPts()
         updateTracePos()
     }
     
-    func updateWindow() {
+    @objc func updateWindow() {
         scopeFrameView.updateTrigXPos()
         updateTracePos()
 
     }
     
-    func updateTrigXPos() {
+    @objc func updateTrigXPos() {
 //        updateSettingsText()
         scopeFrameView.updateTrigXPos()
         updateTracePos()
@@ -190,11 +190,11 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     
 
     
-    func updateTrig() {
+    @objc func updateTrig() {
         scopeFrameView.updateTrig()
     }
     
-    func updateOffset() {
+    @objc func updateOffset() {
         scopeFrameView.updateGnd()
 //        updateStatusLabel()
         updateTracePos()
@@ -204,7 +204,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
 //        calLabel.text = "CAL: \(cal)"
     }
     
-    func updateVert() {
+    @objc func updateVert() {
 //        updateStatusLabel()
 //        updateSettingsText()
         
@@ -212,7 +212,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
         scopeFrameView.updateGnd()
     }
     
-    func updateHoriz() {
+    @objc func updateHoriz() {
 //        updateStatusLabel()
 //        updateSettingsText()
         //frame.zoomX()
@@ -221,7 +221,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
         
     }
     
-    func updateSubFrame() {
+    @objc func updateSubFrame() {
         updateTracePos()
 
         scopeFrameView.updateTrigXPos()
@@ -345,7 +345,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
         return gndLabelOffset()
     }
     
-    func updateFPS() {
+    @objc func updateFPS() {
         fpsCapture = Double(fps) / 2.0
 //        print("fps: \(fpsCapture)")
         fps = 0
@@ -365,7 +365,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
 //        }
 //    }
 
-    func pan(_ gesture: UIPanGestureRecognizer) {
+    @objc func pan(_ gesture: UIPanGestureRecognizer) {
         let yTranslationGain : CGFloat = 256 //30
         let xTranslationGain = CGFloat(scope.frame.displayedFrameSize) / scopeFrameView.x_size
         var remainingX : CGFloat = 0
@@ -422,7 +422,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
     }
     
     
-    func pinch(_ gesture: UIPinchGestureRecognizer) {
+    @objc func pinch(_ gesture: UIPinchGestureRecognizer) {
         struct Static {
             static var changed = false
             static var level = 0 {
@@ -528,7 +528,7 @@ class ScopeFrameViewController: UIViewController, ScopeFrameViewDataSource, Them
         // Dispose of any resources that can be recreated.
     }
     
-    func updateFrame() {
+    @objc func updateFrame() {
         scopeFrameView.updateTrigXPos()
         scopeFrameView.updateTrace()
 //        updateStatusLabel()

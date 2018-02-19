@@ -45,7 +45,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
-    func pan(_ gesture: UIPanGestureRecognizer) {
+    @objc func pan(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: scopeStripView)
                 //print(translation.x)
                 //let frameTranslation = (translation.x / scopeStripView.track_width) * 100.0
@@ -89,7 +89,7 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 
     }
     
-    func tap(_ gesture: UITapGestureRecognizer) {
+    @objc func tap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: scopeStripView)
         
         let width = scopeStripView.bounds.size.width
@@ -109,18 +109,18 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 //        print(location)
     }
     
-    func triggerXPosUpdate() {
+    @objc func triggerXPosUpdate() {
         scopeStripView.updateTrigger()
         scopeStripView.updateTrace()
     }
     
-    func windowPosUpdate() {
+    @objc func windowPosUpdate() {
         scopeStripView.updateSlider()
         scopeStripView.updateTrace()
 
     }
     
-    func horizUpdate() {
+    @objc func horizUpdate() {
         scopeStripView.updateSliderWidth()
         scopeStripView.updateTrace()
 
@@ -130,13 +130,13 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
 //        }
     }
     
-    func subFrameUpdate() {
+    @objc func subFrameUpdate() {
         scopeStripView.updateSliderWidth()
         scopeStripView.updateTrace()
 
     }
     
-    func frameUpdate() {
+    @objc func frameUpdate() {
         if scope.frame.getRawFrame().isEmpty {
             scopeStripView.clearTrace()
         }
@@ -146,11 +146,11 @@ class ScopeStripViewController: UIViewController, ScopeStripViewDataSource, Them
         }
     }
     
-    func fullFrameUpdate() {
+    @objc func fullFrameUpdate() {
         scopeStripView.updateTraceFullframe()
     }
     
-    func rollFrameUpdate() {
+    @objc func rollFrameUpdate() {
         scopeStripView.updateTrace()
         scopeStripView.updateSliderWidth()
     }

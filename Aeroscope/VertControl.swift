@@ -52,7 +52,7 @@ class VertControl : ScopeUIControl {
         
     }
     
-    func updateVert() {
+    @objc func updateVert() {
         ctrlItem.text = scope.settings.getVert()
         //ctrlItem.sizeToFit()
     }
@@ -220,7 +220,7 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         return mycell
     }
     
-    func acDCPressed() {
+    @objc func acDCPressed() {
         if acDC.selectedSegmentIndex == 0 {
             scope.settings.setACDC(.dc)
         }

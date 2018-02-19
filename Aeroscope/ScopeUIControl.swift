@@ -62,7 +62,7 @@ class ScopeUIControl : UIControl, UIPopoverPresentationControllerDelegate, Theme
             if isHighlighted { self.alpha = 0.6 }
                 
             else {
-                UIView.animate(withDuration: 0.25, animations: { _ in
+                UIView.animate(withDuration: 0.25, animations: { 
                     self.alpha = 1.0 }) 
             }
         }
@@ -92,7 +92,7 @@ class ScopeUIControl : UIControl, UIPopoverPresentationControllerDelegate, Theme
         self.sourceVC = source
     }
     
-    func isPressed() {
+    @objc func isPressed() {
         let popController = popover.popoverPresentationController
         popController!.permittedArrowDirections = UIPopoverArrowDirection.any
         popController!.delegate = self

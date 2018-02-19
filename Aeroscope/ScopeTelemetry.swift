@@ -204,10 +204,10 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
         hwRev = Int(bitPattern: UInt(packet[telemBytes.hw]))
         fpgaRev = Int(bitPattern: UInt(packet[telemBytes.fpga]))
         fwRev = Int(bitPattern: UInt(packet[telemBytes.fw]))
-        serNum = Int(packet[telemBytes.ser4]) << 24 +
-            Int(packet[telemBytes.ser3]) << 16 +
-            Int(packet[telemBytes.ser2]) << 8 +
-            Int(packet[telemBytes.ser1])
+        serNum = Int(packet[telemBytes.ser4]) << 24
+        serNum += Int(packet[telemBytes.ser3]) << 16
+        serNum += Int(packet[telemBytes.ser2]) << 8
+        serNum += Int(packet[telemBytes.ser1])
         NotificationCenter.default.post(name: notifications.versions, object: self)
 
     }

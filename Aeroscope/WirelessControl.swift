@@ -60,11 +60,11 @@ class WirelessControl : ScopeUIControl {
 //    }
     
     
-    func connectPeripheral() {
+    @objc func connectPeripheral() {
         ctrlItem.alpha = 1.0
     }
     
-    func disconnectPeripheral() {
+    @objc func disconnectPeripheral() {
         ctrlItem.alpha = 0.1
     }
     

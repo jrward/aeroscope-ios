@@ -146,7 +146,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
-    func updateTable() {
+    @objc func updateTable() {
         DispatchQueue.main.async {
             self.wirelessTable.reloadData()
         }
@@ -177,7 +177,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
 
     }
     
-    func setConnecting() {
+    @objc func setConnecting() {
         connectedLabel.text = "Connecting..."
         connectedLabel.textColor = UIColor.yellow
         disconnectButton.isEnabled = true
@@ -248,13 +248,13 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     
    
     
-    func connectPeripheral() {
+    @objc func connectPeripheral() {
         setConnected()
         updateTable()
         
     }
     
-    func disconnectPeripheral() {
+    @objc func disconnectPeripheral() {
         setDisconnected()
         updateTable()
     }

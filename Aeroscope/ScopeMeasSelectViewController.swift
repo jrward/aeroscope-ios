@@ -85,7 +85,7 @@ class ScopeMeasSelectViewController: UIViewController, Themeable {
         instructionLabel.textColor = theme.text
     }
     
-    func updateMeasList() {
+    @objc func updateMeasList() {
         vppSwitch.setOn(scope.measure.measList.contains(.vpp), animated: true)
         vmaxSwitch.setOn(scope.measure.measList.contains(.vmax), animated: true)
         vminSwitch.setOn(scope.measure.measList.contains(.vmin), animated: true)

@@ -46,7 +46,7 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
 
     }
     
-    func pan(_ gesture: UIPanGestureRecognizer) {
+    @objc func pan(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: scopeOffsetView)
         //print(translation.x)
         //let frameTranslation = (translation.x / scopeStripView.track_width) * 100.0
@@ -68,7 +68,7 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
         gesture.setTranslation(CGPoint.zero, in: scopeOffsetView)
     }
     
-    func updateOffset() {
+    @objc func updateOffset() {
         let offsetVolts : Double = Translator.toVoltsFrom(
             offset: scope.settings.getOffset(),
             conv: scope.settings.getVertMeta().offsetConv,
@@ -78,7 +78,7 @@ class ScopeOffsetViewController: UIViewController, ScopeOffsetViewDataSource, Th
 
     }
     
-    func updateSliderHeight() {
+    @objc func updateSliderHeight() {
         scopeOffsetView.updateSliderHeight()
     }
     
