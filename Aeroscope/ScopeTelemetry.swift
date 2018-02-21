@@ -58,9 +58,6 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
     
     let button : ScopeButton
     
-    //weak var telemTimer : Timer?
-    
-    
     //TODO: Refactor, move notificatinos in individual classes
     struct notifications {
         static let measurements = Notification.Name("com.Aeroscope.updateMeasurements")
@@ -89,24 +86,7 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
         static let chargerConnected = 7
         static let charging = 6
     }
-    
-    //    #define CRITICAL_ERROR 0xC0
-    //    #define E_FPGA_CONFIG 0xC0
-    //    #define E_FPGA_RES 0xC1
-    //    #define E_FPGA_FRZN 0xC2
-    //    #define E_CAL_UART 0xC5
-    //    #define E_CAL_MAX_LIM 0xC6
-    //    #define E_STATE_ERR 0xC9
-    
-//    struct errorCode {
-//        static let crictical : UInt8 = 0xC0
-//        static let fpgaConfig : UInt8 = 0xC0
-//        static let fpgaFrozen : UInt8 = 0xC0
-//        static let cal : UInt8 = 0xC0
-//        static let calAccuracy : UInt8 = 0xC6
-//        static let badState : UInt8 = 0xC9
-//    }
-    
+
     
     var hwRev : Int = 0
     var fpgaRev : Int = 0
@@ -129,7 +109,6 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
     
     func didDisconnect() {
         batt.set(level: nil, chargerConnected: false, charging: false)
-        //telemTimer?.invalidate()
     }
     
     
@@ -204,10 +183,10 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
         hwRev = Int(bitPattern: UInt(packet[telemBytes.hw]))
         fpgaRev = Int(bitPattern: UInt(packet[telemBytes.fpga]))
         fwRev = Int(bitPattern: UInt(packet[telemBytes.fw]))
-        serNum = Int(packet[telemBytes.ser4]) << 24 +
-            Int(packet[telemBytes.ser3]) << 16 +
-            Int(packet[telemBytes.ser2]) << 8 +
-            Int(packet[telemBytes.ser1])
+        serNum = Int(packet[telemBytes.ser4]) << 24
+        serNum += Int(packet[telemBytes.ser3]) << 16
+        serNum += Int(packet[telemBytes.ser2]) << 8
+        serNum += Int(packet[telemBytes.ser1])
         NotificationCenter.default.post(name: notifications.versions, object: self)
 
     }
@@ -238,15 +217,11 @@ class ScopeTelemetry : ConnectionDelegate, PacketDelegate {
     }
     
     @objc func getTelemetry() {
-//        if connectStatus.rawValue >= ConnectStatus.connecting.rawValue {
-            settings.cmd.reqTelemetry()
-//        }
+        settings.cmd.reqTelemetry()
     }
     
     func getVersion() {
-//        if comms.connectStatus.rawValue >= ConnectStatus.connecting.rawValue {
-            settings.cmd.reqVersion()
-//        }
+        settings.cmd.reqVersion()
     }
     
     

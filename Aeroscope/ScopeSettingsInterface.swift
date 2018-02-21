@@ -25,8 +25,6 @@ protocol FrameSettingsDelegate : class {
 class ScopeSettingsInterface {
     let cmd : ScopeCmd
     var nextFrameSettings : ScopeSettings
-
-    //var currFrameSettings : ScopeSettings
     var settingsTimer = Timer()
     var frame : ScopeFrameInterface?
     
@@ -218,15 +216,6 @@ class ScopeSettingsInterface {
         return nextFrameSettings.offset.value
     }
     
-//    func getOffsetVolts() -> Double {
-//        let signedOffset = Double(getOffset() - 32768)
-//        let offsetConv = getVertMeta().offsetConv
-//        let voltConv = getVertMeta().voltsPerBit
-//        return (signedOffset / offsetConv) * voltConv
-//    }
-    
-
-    
     func getOffsetRange() -> Range<Int> {
         return nextFrameSettings.offset.range
     }
@@ -301,30 +290,6 @@ class ScopeSettingsInterface {
         nextFrameSettings.readDepth.value = depth
     }
     
-//    func getStoppedSubFrameSize() -> Int {
-//        return currFrameSettings.horiz.mappedSetting().subFrameSize
-//    }
-//    
-//    func getStoppedTrigMemPos() -> Int {
-//        return currFrameSettings.trigger_x_pos.value
-//    }
-//    
-//    func getStoppedWindowPos() -> Int {
-//        return currFrameSettings.window_pos.value
-//    }
-//    
-//    func getStoppedOffset() -> Int {
-//        return currFrameSettings.offset.value
-//    }
-//    
-//    func getStoppedHorizMeta() -> horiz_mapping {
-//        return currFrameSettings.horiz.mappedSetting()
-//    }
-//    
-//    func getStoppedVertMeta() -> vert_mapping {
-//        return currFrameSettings.vert.mappedSetting()
-//    }
-    
     func getACDC() -> ACDC {
         if nextFrameSettings.dc_en.value == true {
             return .dc
@@ -375,40 +340,5 @@ class ScopeSettingsInterface {
             return .none
         }
     }
-    
-    
-    
-//    func offsetLabelTranslated() -> String {
-//        let offset = 1 * (-10 * ((0.000152588 * Double(getOffset())) - 5.0))
-//        
-//        var offsetString : String
-//        if abs(offset) >= 1.0 {
-//            offsetString = String(format: "%.02f", offset)
-//            offsetString += " V"
-//        }
-//        else {
-//            offsetString = String(format: "%.0f", offset*1000.0)
-//            offsetString += " mV"
-//        }
-//        
-//        return offsetString
-//    }
-//    
-//    func translateVoltage(_ voltage: Double) -> String {
-//        var voltageString : String
-//        if abs(voltage) >= 1.0 {
-//            voltageString = String(format: "%.02f", voltage)
-//            voltageString += " V"
-//        }
-//        else {
-//            voltageString = String(format: "%.0f", voltage*1000.0)
-//            voltageString += " mV"
-//        }
-//        
-//        return voltageString
-//    }
-
-    
-
     
 }

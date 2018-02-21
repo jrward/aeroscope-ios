@@ -138,7 +138,6 @@ class ScopeMeasurementCenter {
          
             
             let scaledOffset = (signedOffset / offsetConv).rounded(.toNearestOrAwayFromZero)
-            //let scaledOffset = signedOffset / offsetConv
         
             
             vmax = rawVmax >= 255 || rawVmax <= 0 ? nil : (scaledOffset + rawVmaxRel) * voltConv

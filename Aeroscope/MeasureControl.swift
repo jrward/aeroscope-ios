@@ -72,7 +72,7 @@ class MeasureControl : ScopeUIControl {
 //        sourceVC.present(popover, animated: true, completion: nil)
 //    }
     
-    func updateMeas() {
+    @objc func updateMeas() {
         if scope.measure.measList.isEmpty {
             ctrlItem.text = "None"
         }

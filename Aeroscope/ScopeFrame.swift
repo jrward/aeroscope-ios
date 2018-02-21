@@ -38,41 +38,18 @@ class ScopeFrame : PacketDelegate{
     
     var type : FrameType = .normal
     
-//    var drawnSize : Float //size of frame to be displayed
-//    var drawnLoc : Float //offset from front of
-       // var translation : Float //data translation in X
-    
     fileprivate let maxSubTrig = 63
     fileprivate var _frame : [UInt8] = []
     fileprivate var _type : FrameType = .normal
-
-    
     fileprivate var _subTrig : Float = 0.0
-    
-//    var offset : Int = 0                //vertical offset in Y
-//    var subFrameSize : Int = 500          //number of points to be displayed on screen
-//    var subFramePosition : Int = 6      //subFrame offset location referenced to front of frame
-//
-    
     fileprivate var _frameSize : Int = 512
-    
-//        didSet {
-////            _frame.removeAll(keepCapacity: true)
-//            //myframe.reserveCapacity(frame_size)
-//            //frame.removeAll(keepCapacity: false)
-//            //frame.reserveCapacity(frame_size)
-//        }
-    
-    
+ 
     let packet_length = 20
     let frame_portion = (1..<20)
     
     
     //TODO: delete interface: from init function. add delegate manually after init
     init(interface: FrameDelegate?) {
-        //frame = [UInt8](count: frameSize, repeatedValue: 175)
-        //myframe = [UInt8](count: frameSize, repeatedValue: 0)
-        
         _frame.reserveCapacity(4096)
         frame.reserveCapacity(4096)
         frameDelegate = interface
@@ -112,7 +89,6 @@ class ScopeFrame : PacketDelegate{
                 _type = _frameSize > 512 ? .full : .normal
                 
                 _frame.removeAll(keepingCapacity: true)
-                //_frame.appendContentsOf(packet[frame_portion])
                 _frame.append(contentsOf: packet[2..<20])
             }
         }
@@ -151,7 +127,6 @@ class ScopeFrame : PacketDelegate{
             frameSize = _frameSize
             subTrig = _subTrig
             type = _type
-            //_frame.removeAll(keepCapacity: true)
             
             if _frameSize > 512 {
                 

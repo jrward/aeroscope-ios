@@ -48,15 +48,15 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
         self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
-    func updateACDC() {
+    @objc func updateACDC() {
         updateStatusLabel()
     }
     
-    func updateVert() {
+    @objc func updateVert() {
         updateStatusLabel()
     }
     
-    func updateHoriz() {
+    @objc func updateHoriz() {
         updateStatusLabel()
     }
     
@@ -68,46 +68,28 @@ class ScopeStatusBarViewController : UIViewController, ScopeBatteryViewDataSourc
         else {
             dc_mode = "AC"
         }
-        
-        //        let vertSetting = (scope.settings.settings.vert.value + " /div").stringByPaddingToLength(12, withString: " ", startingAtIndex: 0)
-        //        let horizSetting = (scope.settings.settings.horiz.value + " /div").stringByPaddingToLength(12, withString: " ", startingAtIndex: 0)
-        
-        //        let horizSetting = scope.settings.settings.horiz.value.cStringUsingEncoding(NSUTF8StringEncoding)!
-        
-        //        statusLabel.text = "\(dc_mode) \(vertSetting) \(horizSetting)"
-        
+
         let coupling = (dc_mode as NSString).utf8String
         let vertSetting = (scope.settings.nextFrameSettings.vert.value as NSString).utf8String
         
         let horizSetting = (scope.settings.nextFrameSettings.horiz.value as NSString).utf8String
         
-        //        let rawOffset = scope.settings.settings.offset.value
         
-        //        statusLabel.text = String(format: "%2s %5s/div  %5s/div    FPS: %3.2f    P-P: %3i", coupling!, vertSetting!, horizSetting!, fpsCapture, peakToPeak)
         statusLabel.text = String(format: "%2s %5s/div  %5s/div", coupling!, vertSetting!, horizSetting! )
         
         
     }
     
-    func updateBattery() {
+    @objc func updateBattery() {
         battView.updateBattState()
     }
     
     func battStateForBatteryView() -> ScopeBattery.BattState {
         return scope.telemetry.batt.state
-//        enum BattState {
-//            case fullyCharged
-//            case full
-//            case mid
-//            case low
-//            case dead
-//            case unknown
-//        }
-//        return .dead
+
     }
     func chargeStateForBatteryView() -> Bool {
         return scope.telemetry.batt.chargerConnected
-//        return true
     }
     
     func apply(theme: ScopeTheme) {

@@ -81,12 +81,8 @@ class ScopeBatteryView : UIView {
         battCharging.contentMode = .scaleToFill
         battBG.contentMode = .scaleToFill
         
-        
         updateBattState()
-        
-       // chargeLayer.image = UIImage(named: "batt_charging")
-      //  chargeLayer.contentMode = .scaleToFill
-        
+
     }
     
         

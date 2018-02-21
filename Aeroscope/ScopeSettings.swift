@@ -35,24 +35,6 @@ class ScopeSettings : Copyable  {
         static let acdc = Notification.Name("com.Aeroscope.acdc")
     }
     
-
-
-//    fileprivate struct Fpga1Reg {
-//        static let offset_prefix = 0
-//        static let trigger_ctrl = 1
-//        static let trigger = 2
-//        static let pll = 3
-//        static let front_end = 4
-//        static let sampler = 5
-//        static let trig_xposh = 6
-//        static let trig_xposl = 7
-//        static let window_posh = 8
-//        static let window_posl = 9
-//        static let writeDepth = 10
-//        static let readDepth = 11
-//        static let offset_h = 12
-//        static let offset_l = 13
-//    }
     fileprivate struct Fpga1Reg {
         static let trigger_ctrl = 0
         static let trigger = 1
@@ -134,9 +116,6 @@ class ScopeSettings : Copyable  {
 
     var vert : StringSetting<vert_mapping>  {
         didSet {
-//            if let offsetCal = offset {
-//                offset.value = offsetCal.value - offsetCalTable[vert.value]!
-//            }
             offset.value = offset.value
             let currMapping = vert.mapping[vert.value]?.reg
             fpga1_regs[Fpga1Reg.front_end] = currMapping! //| (dc_en.toInt() << dc_en.position)
@@ -165,24 +144,12 @@ class ScopeSettings : Copyable  {
     
     var offset : IntRangeSetting{
         didSet {
-            //var myvert : StringSetting<UInt8>? = scope.settings.vert as StringSetting<UInt8>?
-//            if let vertical = vert {
-//                offset.value = offset.value - offsetCalTable[vertical.value]!
-//            }
             var calOffset = offset.value
-            
-//            if let vertical = vert {
-//                calOffset = offset.value + offsetCalTable[vertical.value]!
-//            }
-            
             let vertical = vert.value
             let prefs = UserDefaults.standard
-            //if let myNSUUID = prefs.valueForKey("My Aeroscope") {
             let cal : Int = (prefs.value(forKey: vertical) as! Int?) ?? 0
             calOffset = offset.value + cal
-            
-//            let high_byte = (offset.value >> 8) & 0xFF
-//            let low_byte = offset.value & 0xFF
+
             let high_byte = (calOffset >> 8) & 0xFF
             let low_byte = calOffset & 0xFF
 
@@ -190,20 +157,16 @@ class ScopeSettings : Copyable  {
             fpga1_regs[Fpga1Reg.offset_l] = UInt8(low_byte)
             fpga1_settings_updated = true
             NotificationCenter.default.post(name: notifications.offset, object: self)
-            
-            //update_cpu_settings()
         }
     }
     var trigger_x_pos : IntRangeSetting {
         didSet{
             let high_byte = (trigger_x_pos.value >> 8) & 0xFF
             let low_byte = (trigger_x_pos.value) & 0xFF
-            
-            //let low_bits = trigger_x_pos.value & 0x7
+
             fpga1_regs[Fpga1Reg.trig_xposh] = UInt8(high_byte)
             fpga1_regs[Fpga1Reg.trig_xposl] = UInt8(low_byte)
             
-            //fpga1_regs[Fpga1Reg.trig_xpos_sel] = UInt8(low_bits)
             fpga1_settings_updated = true
             NotificationCenter.default.post(name: notifications.triggerXPos, object: self)
         }
@@ -236,24 +199,14 @@ class ScopeSettings : Copyable  {
     
     var readDepth : IntListSetting {
         didSet {
-            //scope.frame.frame_size = readDepth.value
             switch readDepth.value {
             case 512: fpga1_regs[Fpga1Reg.readDepth] = 0x06
             case 4096: fpga1_regs[Fpga1Reg.readDepth] = 0x09
-//                case 512: fpga1_regs[Fpga1Reg.readDepth] = 0
-//                case 1024: fpga1_regs[Fpga1Reg.readDepth] = 1
-//                case 2048: fpga1_regs[Fpga1Reg.readDepth] = 2
-//                case 4096: fpga1_regs[Fpga1Reg.readDepth] = 3
-//                default: fpga1_regs[Fpga1Reg.readDepth] = 0
             default: fpga1_regs[Fpga1Reg.readDepth] = 0x06
             }
             fpga1_settings_updated = true
         }
     }
-    
-    
-
-    
     
     let trigger_range = Range(0...255)
     let offset_range = Range(0...65535)
@@ -363,12 +316,8 @@ class ScopeSettings : Copyable  {
 
     
     func processHorizSetting(_ setting: horiz_mapping) {
-//        let mappedPll = pllMapping[setting.pll]!
-//        fpga1_regs[Fpga1Reg.pll] = mappedPll
         let mappedDiv = horiz.mappedSetting().reg
         fpga1_regs[Fpga1Reg.sampler] = mappedDiv
-       // scope.frame.subFrameSize = setting.subFrameSize
-       // scope.frame.subFramePosition = (scope.frame.frame_size - setting.subFrameSize) / 2
         
     }
     
@@ -385,12 +334,7 @@ class ScopeSettings : Copyable  {
         window_pos = IntRangeSetting(value: 1792, range: window_pos_range)
         writeDepth = IntListSetting(value: 4096, list: writeDepth_list)
         readDepth = IntListSetting(value: 512, list: readDepth_list)
-        
-//        stoppedOffset = offset
-//        stoppedXPos = trigger_x_pos
-//        stoppedWinPos = window_pos
-        
-        
+
         //reinitialize all regs to build initial register value
         makeRegs()
     }
@@ -405,29 +349,7 @@ class ScopeSettings : Copyable  {
         writeDepth = original.writeDepth
         readDepth = original.readDepth
     }
-    
-    
 
-    
-//    var runStopSingle : RunState {
-//        didSet {
-//            switch runStopSingle {
-//            case .run:
-//                setRun()
-//            case .stop:
-//                setStopped()
-//            case .single:
-//                setSingle()
-//            }
-//            
-//            update_cpu_settings()
-//            update_fpga_settings()
-//            NSNotificationCenter.defaultCenter().postNotificationName(Notifications.runState, object: self)
-//        }
-//    }
-    
-
-    
     func makeRegs() {
         trigCtrl.autoTrig.value = trigCtrl.autoTrig.value
         vert.value = vert.value
@@ -442,7 +364,6 @@ class ScopeSettings : Copyable  {
         inited = true
         
     }
-    
     
     func copy() -> ScopeSettings {
         let copy = ScopeSettings(comms: self.comms)

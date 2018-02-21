@@ -53,7 +53,7 @@ class HorizControl : ScopeUIControl {
     }
     
     
-    func updateHoriz() {
+    @objc func updateHoriz() {
         ctrlItem.text = scope.settings.getHoriz()
 
     }

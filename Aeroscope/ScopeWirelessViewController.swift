@@ -44,13 +44,6 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     
     
     @IBAction func disconnectButtonTouched(_ sender: UIButton) {
- 
-        //scope.settings.setRunState(.stop)
-//        settings.scopeCtrl.run.value = false;
-//        settings.scopeCtrl.single.value = false
-        //settings.settings.update_cpu_settings()
-//        settings.settings.send_cpu_setttings()
-        
         //TODO: Push some of this into model
         if let peripheral = comms.peripheral {
             comms.centralManager.cancelPeripheralConnection(peripheral.bt)
@@ -63,17 +56,6 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
  
     override func viewDidLoad() {
         super.viewDidLoad()
-//        comms.devices = []
-//        comms.startScanning()
-//        
-//        if (comms.connectStatus == .connected) {
-//            setConnected()
-//            addConnectedScope()
-//            selectConnectedScope()
-//        }
-//        else {
-//            setDisconnected()
-//        }
 
         wirelessTable.dataSource = self
         wirelessTable.delegate = self
@@ -146,7 +128,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         // Dispose of any resources that can be recreated.
     }
     
-    func updateTable() {
+    @objc func updateTable() {
         DispatchQueue.main.async {
             self.wirelessTable.reloadData()
         }
@@ -177,7 +159,7 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
 
     }
     
-    func setConnecting() {
+    @objc func setConnecting() {
         connectedLabel.text = "Connecting..."
         connectedLabel.textColor = UIColor.yellow
         disconnectButton.isEnabled = true
@@ -206,13 +188,6 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         editNameButton.isEnabled = false
         editNameButton.setTitleColor(nil, for: .normal)
         
-//        if let rows = wirelessTable.indexPathsForVisibleRows {
-//            for i in rows {
-//               // wirelessTable.deselectRow(at: i, animated: false)
-//                wirelessTable.cellForRow(at: i)?.accessoryType = .none
-//            }
-//        }
-        
     }
 
     
@@ -234,13 +209,8 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         for (i, el) in (comms.devices.enumerated()) {
             if let peripheral = comms.peripheral {
                 if el == peripheral {
-                    //wirelessTable.moveRow(at: IndexPath(item: i, section:0), to: IndexPath(item: 0, section: 0))
                     wirelessTable.selectRow(at: IndexPath(item: 0, section: 0), animated: false, scrollPosition: .none)
                     print("scope selected: \(i) \(el)")
-                    //wirelessTable.selectRow(at: IndexPath(item: i, section: 0), animated: true, scrollPosition: .none)
-                    //wirelessTable.sel
-                    
-                    
                 }
             }
         }
@@ -248,13 +218,13 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
     
    
     
-    func connectPeripheral() {
+    @objc func connectPeripheral() {
         setConnected()
         updateTable()
         
     }
     
-    func disconnectPeripheral() {
+    @objc func disconnectPeripheral() {
         setDisconnected()
         updateTable()
     }
@@ -319,16 +289,6 @@ class ScopeWirelessViewController: UIViewController, UITableViewDataSource, UITa
         updateTable()
     }
     
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//       // if !cell.isSelected {
-//            cell.backgroundColor = UIColor.clear
-//        
-//        //}
-//    }
-//    
-   
-    
-
     /*
     // MARK: - Navigation
 

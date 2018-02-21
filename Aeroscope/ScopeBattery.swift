@@ -16,7 +16,6 @@ class ScopeBattery {
         static let dead = Notification.Name("com.Aeroscope.batteryDead")
     }
     
-    
     private static let k =  1062.5/(5+12.4)
     
     private struct BattLevel {
@@ -74,10 +73,5 @@ class ScopeBattery {
         
         NotificationCenter.default.post(name: notifications.update, object: self)
     }
-    
-
-
-    
-    
     
 }

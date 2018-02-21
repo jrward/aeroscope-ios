@@ -22,12 +22,10 @@ protocol ScopeFrameViewDataSource : class {
 }
 
 class TraceWriter : NSObject, CALayerDelegate {
-    
+
     weak var dataSource : ScopeFrameViewDataSource?     //data source delegate
     var borderSize : CGFloat = 1
     var bounds: CGRect = CGRect()
-//    var x_size : CGFloat = 0
-//    var y_size : CGFloat = 0
 
     init(borderSize: CGFloat, bounds: CGRect, dataSource: ScopeFrameViewDataSource?) {
         self.borderSize = borderSize
@@ -51,8 +49,7 @@ class TraceWriter : NSObject, CALayerDelegate {
         let trace = UIBezierPath()
         let frameData = dataSource?.dataForScopeFrameView()
         let highlight = dataSource?.highlightSamples() ?? false
-        //        let frame : [UInt8] = dataSource?.dataForScopeFrameView()?.frame ?? [UInt8](count: 500, repeatedValue: 0)
-        var frame : Samples = frameData?.frame ?? Samples()//[UInt8](count: 500, repeatedValue: 128)
+        var frame : Samples = frameData?.frame ?? Samples()
         let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
         let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
         let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)
@@ -167,14 +164,12 @@ class ScopeFrameView: UIView{
         self.addSubview(rightTrig)
         self.addSubview(upGnd)
         self.addSubview(downGnd)
-        //self.layer.addSublayer(gndArrowLayer)
-        //sliderLayer.actions = ["position": NSNull()]
+
     }
     
     override func layoutSubviews() {
         x_size = bounds.size.width
         y_size = bounds.size.height
-        
         
         traceLayer.strokeColor = traceColor.cgColor
         traceLayer.lineJoin = kCALineJoinRound
@@ -185,9 +180,6 @@ class ScopeFrameView: UIView{
         traceWriter.dataSource = dataSource
         traceWriter.bounds = bounds
         traceLayer.path = traceWriter.drawTrace().cgPath
-
-
-        
         
         gndLayer.path = drawGnd().cgPath
         gndLayer.lineWidth = 1.0
@@ -204,21 +196,12 @@ class ScopeFrameView: UIView{
         trigXPosLayer.actions = ["position":NSNull()]
         
         rightTrig.frame.origin.x = self.frame.size.width - rightTrig.frame.size.width - 20
-        ////
         downGnd.frame.origin.y = self.frame.size.height - downGnd.frame.size.height - 12
 
-        
-//        gndArrowLayer.path = drawArrow(CGPoint(x: x_size/10, y: y_size/8), angle: CGFloat(0)).CGPath
-//        gndArrowLayer.fillColor = nil
-//        gndArrowLayer.lineWidth = 1.0
-//        gndArrowLayer.strokeColor = traceColor.CGColor
-        
         updateTrig()
         updateGnd()
         updateTrigXPos()
-        
-//        gndSymbol.lineWidth = 1.0
-//        gndSymbol.stroke()
+
     }
     
     
@@ -231,28 +214,21 @@ class ScopeFrameView: UIView{
         frame.fill()
         
         gridColor.set()
-        //frame.stroke()
         self.clipsToBounds = true
-        //self.layer.cornerRadius = 5;
         self.layer.borderWidth = 1.0
         self.layer.borderColor = self.borderColor.cgColor
         grid.stroke()
         graticle.stroke()
-        //self.tintColor.set()
         leftTrig.color = caretColor
         rightTrig.color = caretColor
         upGnd.color = gndColor
         downGnd.color = gndColor
 
-        //drawTrace()
     }
     
 
     func drawGrid() -> UIBezierPath {
-        
-//        self.layer.borderWidth = 0.0
-//        self.layer.borderColor = self.tintColor.CGColor
-        
+
         let grid = UIBezierPath()
         
         for index in 1..<xDiv {
@@ -289,8 +265,6 @@ class ScopeFrameView: UIView{
                 let xSubDivision = CGFloat(j) * gWidth / CGFloat(xDiv) / CGFloat(subDiv)
                 graticle.move(to: CGPoint(x: borderSize + xDivision + xSubDivision, y: centerY - (graticleLength/2)))
                 graticle.addLine(to: CGPoint(x: borderSize + xDivision + xSubDivision, y:  centerY + (graticleLength/2)))
-//                graticle.moveToPoint(CGPoint(x: borderSize + CGFloat(i) * +  CGFloat(j) * gWidth / (CGFloat(xDiv) * CGFloat(subDiv)) , y: centerY - (graticleLength/2) ))
-//                graticle.addLineToPoint(CGPoint(x: borderSize + CGFloat(i) * gWidth/CGFloat(xDiv) +  CGFloat(j) * gWidth / CGFloat(xDiv) / CGFloat(subDiv) , y: centerY + (graticleLength/2) ))
             }
         }
         
@@ -302,91 +276,32 @@ class ScopeFrameView: UIView{
                 graticle.move(to: CGPoint(x: centerX - (graticleLength/2) , y: borderSize + yDivision + ySubDivision))
                 
                 graticle.addLine(to: CGPoint(x: centerX + (graticleLength/2), y: borderSize + yDivision + ySubDivision ))
-                //                graticle.moveToPoint(CGPoint(x: borderSize + CGFloat(i) * +  CGFloat(j) * gWidth / (CGFloat(xDiv) * CGFloat(subDiv)) , y: centerY - (graticleLength/2) ))
-                //                graticle.addLineToPoint(CGPoint(x: borderSize + CGFloat(i) * gWidth/CGFloat(xDiv) +  CGFloat(j) * gWidth / CGFloat(xDiv) / CGFloat(subDiv) , y: centerY + (graticleLength/2) ))
             }
         }
         
-//        for index in 1 ..< (yDiv * subDiv) {
-//            graticle.moveToPoint(CGPoint(x: borderSize , y: CGFloat(index) * (y_size - borderSize)/CGFloat(yDiv) ))
-//            graticle.addLineToPoint(CGPoint(x: x_size - borderSize  , y: CGFloat(index) * (y_size - borderSize)/CGFloat(yDiv) ))
-//        }
         graticle.lineWidth = 1
-        //grid.setLineDash([3.0,3.0], count: 2, phase: 0)
+
         return graticle
     }
     
     func drawFrame() -> UIBezierPath {
         let frame = UIBezierPath()
-//        frame.moveToPoint(CGPoint(x: borderSize , y: borderSize ))
-//        frame.addLineToPoint(CGPoint(x: x_size , y: borderSize))
-//        frame.addLineToPoint(CGPoint(x: x_size, y:y_size ))
-//        frame.addLineToPoint(CGPoint(x: borderSize, y:y_size ))
+
         frame.move(to: CGPoint(x: 0 , y: 0 ))
         frame.addLine(to: CGPoint(x: x_size , y: 0))
         frame.addLine(to: CGPoint(x: x_size, y: y_size ))
         frame.addLine(to: CGPoint(x: 0, y: y_size ))
         frame.close()
-        //frame.lineWidth = 2.0
         frame.lineWidth = 0.0
         
         return frame
     }
     
     func updateTrace() {
-//        traceLayer.path = drawTrace().cgPath
         traceLayer.setNeedsDisplay()
         
     }
-//    
-//    override func display(_ layer: CALayer)  {
-//        traceLayer.path = drawTrace().cgPath
-//    }
-//    
-    
-//    func drawTrace() -> UIBezierPath{
-//        let trace = UIBezierPath()
-//        let frameData = dataSource?.dataForScopeFrameView()
-//        let highlight = dataSource?.highlightSamples() ?? false
-//        var frame : Samples = frameData?.frame ?? Samples()//[UInt8](count: 500, repeatedValue: 128)
-//        let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
-//        let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
-//        let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)
-//        
-//    
-//        let xstep : CGFloat
-//        if frameSize < 2 {
-//            xstep = (x_size - 2*borderSize)
-//        }
-//        
-//        else {
-//            xstep = (x_size - 2*borderSize) / (frameSize - 1)
-//        }
-//
-//        let subTrigOffset = xstep * subTrig
-//        
-//        let scale : CGFloat = CGFloat((y_size - 2*borderSize)/255)
-//        
-//        if !frame.data.isEmpty {
-//            trace.move(to: CGPoint(x: borderSize + (frameXOffset * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
-//            if frameSize < 2 {
-//                trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + xstep + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[0].value) * scale))
-//            }
-//            else {
-//                
-//                for i in 1 ..< frame.data.count {
-//                    trace.addLine(to: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale))
-//                    if frame.data[i].isValid && highlight {
-//                        trace.addArc(withCenter: CGPoint(x: borderSize + (frameXOffset * xstep) + (CGFloat(i) * xstep) + subTrigOffset, y: (y_size - borderSize) - CGFloat(frame.data[i].value) * scale), radius: 1.0, startAngle: 0, endAngle: 2*CGFloat.pi, clockwise: true)
-//                    }
-//                }
-//            }
-//        }
-//     
-//        return trace
-//    }
-    
-    
+
     func drawGnd() -> UIBezierPath {
         let gndSymbol = UIBezierPath()
         let centerY = bounds.size.height/2
@@ -407,7 +322,6 @@ class ScopeFrameView: UIView{
     }
     
 
-    
     func drawTrig() -> UIBezierPath {
         let trigSymbol = UIBezierPath()
         let centerX = x_size - borderSize
@@ -457,12 +371,10 @@ class ScopeFrameView: UIView{
         arrow.addArc(withCenter: CGPoint(x: -9, y: arrowTip.y), radius: 9, startAngle: 0.0, endAngle: CGFloat.pi/4, clockwise: true)
         arrow.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
         arrow.apply(CGAffineTransform(translationX: center.x, y: center.y))
-        //CGContextRotateCTM(, CGFloat(M_PI))
         return arrow
     }
     
 
-    
     func averageTrace(_ trace : [UInt8]) -> Double {
     
         var traceAvg : Double = 0
@@ -471,7 +383,7 @@ class ScopeFrameView: UIView{
             traceAvg += Double(el)
         }
         traceAvg = traceAvg/Double(trace.count)
-        print("Average Value: \(traceAvg)")
+        //print("Average Value: \(traceAvg)")
         
         return traceAvg
     }

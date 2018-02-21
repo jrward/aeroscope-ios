@@ -18,9 +18,6 @@ import UIKit
  }
 
  class Scope : ConnectionDelegate, PacketDelegate, PowerDelegate {
-    
-    //let settings : ScopeSettings!
-    //let frame : ScopeFrame!
     let settings : ScopeSettingsInterface
     let appSettings : ScopeAppSettings
     let frame : ScopeFrameInterface
@@ -29,7 +26,6 @@ import UIKit
     let connection : ScopeConnection
     let measure : ScopeMeasurementCenter
     
-//    var scopeTest : ScopeTest! = nil
     
     var runState : RunState {
         get {
@@ -46,26 +42,16 @@ import UIKit
 
         appSettings = ScopeAppSettings()
         settings = ScopeSettingsInterface(comms: comms, appSettings: appSettings)
-        
-        
-        //frame = ScopeFrameInterface(comms: comms, settings: settings)
         frame = ScopeFrameInterface(settings: settings, appSettings: appSettings)
         settings.frame = frame
-        
         telemetry = ScopeTelemetry(settings: settings)
-        
         connection = ScopeConnection(cmd: settings.cmd)
-
         measure = ScopeMeasurementCenter(settings: settings, frame: frame)
-        
-//        scopeTest = ScopeTest(scopeToTest: self)
-
         comms.packetDelegate = self
         comms.connectionDelegate = self
         telemetry.powerDelegate = self
 
     }
-    
     
     func updateSettings() {
 

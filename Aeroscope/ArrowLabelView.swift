@@ -90,17 +90,14 @@ class ArrowLabelView: UIView {
         switch location {
         
         case .left:
-            //self.frame.size = label.frame.insetBy(dx: -20, dy: -2).offsetBy(dx: -20, dy: 0)
             arrowLoc = CGPoint(x: 6, y: self.frame.size.height/2)
             label.center = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
             label.frame.origin.x =  16
             label.textAlignment = .left
         case .right:
-            //self.frame = label.frame.insetBy(dx: -20, dy: -2).offsetBy(dx: 20, dy: 0)
             arrowLoc = CGPoint(x: self.frame.size.width - 6, y: self.frame.size.height/2)
             label.center = CGPoint(x: self.frame.size.width/2, y: self.frame.size.height/2)
             label.frame.origin.x = self.frame.size.width - label.frame.size.width - 16
-            //label.frame.maxX = self.frame.maxX - 14
             label.textAlignment = .right
             
         }
@@ -116,7 +113,6 @@ class ArrowLabelView: UIView {
             arrowLayer.path = drawArrow(arrowLoc, angle: 3*CGFloat.pi/2).cgPath
         }
         
-        //arrowLayer.path = drawArrow(CGPoint(x: x_size/10, y: y_size/8), angle: CGFloat(0)).CGPath
         arrowLayer.fillColor = nil
         arrowLayer.lineCap = kCALineCapRound
         arrowLayer.lineJoin =  kCALineJoinRound
@@ -138,22 +134,8 @@ class ArrowLabelView: UIView {
         arrow.addArc(withCenter: CGPoint(x: -9, y: arrowTip.y), radius: 9, startAngle: 0.0, endAngle: CGFloat.pi/4, clockwise: true)
         arrow.apply(CGAffineTransform(rotationAngle: CGFloat(angle)))
         arrow.apply(CGAffineTransform(translationX: center.x, y: center.y))
-        //CGContextRotateCTM(, CGFloat(M_PI))
         return arrow
     }
-    
-//    func drawArrow(center: CGPoint, angle: CGFloat) -> UIBezierPath {
-//        let arrow = UIBezierPath()
-//        arrow.moveToPoint(CGPointZero)
-//        arrow.addLineToPoint(CGPoint(x: 0, y: 12))
-//        arrow.moveToPoint(CGPointZero)
-//        arrow.addArcWithCenter(CGPoint(x: 9, y: 0), radius: 9, startAngle: CGFloat(M_PI), endAngle: CGFloat(3*M_PI/4), clockwise: false)
-//        arrow.moveToPoint(CGPointZero)
-//        arrow.addArcWithCenter(CGPoint(x: -9, y: 0), radius: 9, startAngle: 0.0, endAngle: CGFloat(M_PI/4), clockwise: true)
-//        arrow.applyTransform(CGAffineTransformMakeRotation(CGFloat(angle)))
-//        arrow.applyTransform(CGAffineTransformMakeTranslation(center.x, center.y))
-//        //CGContextRotateCTM(, CGFloat(M_PI))
-//        return arrow
-//    }
+
     
 }

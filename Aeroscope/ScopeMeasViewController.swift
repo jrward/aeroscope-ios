@@ -43,30 +43,19 @@ class ScopeMeasViewController : UIViewController, Themeable{
 
         }
         
-//        print("measwidth: \(self.view.bounds.width)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
        self.apply(theme: ScopeTheme.manager.activeTheme)
     }
     
-    func updateMeasLabel() {
+    @objc func updateMeasLabel() {
         measLabel.text = nil
-        //statusLabel.text = String(format: "%s\t\t", scope.measure.getText(meas: el)))
-        let paddingLength : Int = 20
-//        if scope.measure.maxMeasurements < 4 {
-//            paddingLength = 16
-//        }
-//        else {
-//            paddingLength = 18
-//        }
-        for el in scope.measure.measList {
-//            measLabel.text = (measLabel.text ?? "") + scope.measure.getText(meas: el).padding(toLength: paddingLength, withPad: " ", startingAt: 0)
 
+        for el in scope.measure.measList {
             measLabel.text = (measLabel.text ?? "") + String(format: "%18s", (scope.measure.getText(meas: el) as NSString).cString(using: 8)!)
         }
         
-        //measLabel.text = String(format: "%2s %5s/div  %5s/div    FPS: %3.2f    P-P: %3i", coupling!, vertSetting!, horizSetting!, fpsCapture, peakToPeak)
     }
     
     func apply(theme: ScopeTheme) {

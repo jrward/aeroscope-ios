@@ -31,25 +31,19 @@ class HamburgerViewController: UIViewController, Themeable {
         super.viewDidLoad()
         
         vertControl.registerVC(source: self)
-        //vertControl.addTarget(vertControl, action: #selector(VertControl.isPressed), forControlEvents:  .TouchUpInside)
         
         horizControl.registerVC(source: self)
-        //horizControl.addTarget(horizControl, action: #selector(HorizControl.isPressed), forControlEvents: .TouchUpInside)
         
         triggerControl.registerVC(source: self)
-        //triggerControl.addTarget(triggerControl, action: #selector(TriggerControl.isPressed), forControlEvents: UIControlEvents.TouchUpInside)
         
         offsetControl.registerVC(source: self)
-        //offsetControl.addTarget(offsetControl, action: #selector(OffsetControl.isPressed), forControlEvents: .TouchUpInside)
         
         measureControl.registerVC(source: self)
-        //measureControl.addTarget(measureControl, action: #se, forControlEvents: <#T##UIControlEvents#>)
         
         wirelessControl.registerVC(source: self)
         
         settingsControl.registerVC(source: self)
         
-//        hamburgerControl.registerVC(source: self)
 
         ScopeTheme.manager.register(themeable: self)
         // Do any additional setup after loading the view.
