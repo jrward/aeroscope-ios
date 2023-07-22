@@ -172,7 +172,7 @@ class ScopeFrameView: UIView{
         y_size = bounds.size.height
         
         traceLayer.strokeColor = traceColor.cgColor
-        traceLayer.lineJoin = kCALineJoinRound
+        traceLayer.lineJoin = CAShapeLayerLineJoin.round
         traceLayer.lineWidth = 3.0
         traceLayer.fillColor = nil
         traceLayer.actions = ["position":NSNull()]

@@ -232,15 +232,15 @@ class ScopeSettingsViewController: UIViewController, Themeable {
     
     func apply(theme: ScopeTheme) {
         clearTraceButton.borderColor = theme.tint
-        clearTraceButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        clearTraceButton.setTitleColor(theme.tint, for: UIControl.State.normal)
         fullCalButton.borderColor = theme.tint
-        fullCalButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        fullCalButton.setTitleColor(theme.tint, for: UIControl.State.normal)
         clearCalButton.borderColor = theme.tint
-        clearCalButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        clearCalButton.setTitleColor(theme.tint, for: UIControl.State.normal)
         resetButton.borderColor = theme.tint
-        resetButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        resetButton.setTitleColor(theme.tint, for: UIControl.State.normal)
         deepSleepButton.borderColor = theme.tint
-        deepSleepButton.setTitleColor(theme.tint, for: UIControlState.normal)
+        deepSleepButton.setTitleColor(theme.tint, for: UIControl.State.normal)
         
         fullFrameLabel.textColor = theme.text
         showPtsLabel.textColor = theme.text

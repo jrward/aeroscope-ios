@@ -190,7 +190,7 @@ class TriggerPopoverVC : UIViewController {
         //trigCtrlRadio.bounds.size.height = 44
         
 
-        trigCtrlRadio.addTarget(self, action: #selector(trigCtrlPressed), for: UIControlEvents.valueChanged)
+        trigCtrlRadio.addTarget(self, action: #selector(trigCtrlPressed), for: UIControl.Event.valueChanged)
         self.view.addSubview(trigCtrlRadio)
         
         lpTrigBtn = UIButton(type: .system)
@@ -199,8 +199,8 @@ class TriggerPopoverVC : UIViewController {
         lpTrigBtn.layer.cornerRadius = 5
         lpTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
         lpTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
-        lpTrigBtn.setImage(lpImg, for: UIControlState())
-        lpTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.lpBtnPressed), for: UIControlEvents.touchUpInside)
+        lpTrigBtn.setImage(lpImg, for: UIControl.State())
+        lpTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.lpBtnPressed), for: UIControl.Event.touchUpInside)
 
         self.view.addSubview(lpTrigBtn)
         
@@ -213,9 +213,9 @@ class TriggerPopoverVC : UIViewController {
         autoTrigBtn.layer.cornerRadius = 5
         autoTrigBtn.layer.borderColor = ScopeTheme.manager.activeTheme.tint.cgColor
         autoTrigBtn.tintColor = ScopeTheme.manager.activeTheme.tint
-        autoTrigBtn.setImage(autoImg, for: UIControlState())
+        autoTrigBtn.setImage(autoImg, for: UIControl.State())
         //autoTrigBtn.setImage(autoImg, forState: .Highlighted)
-        autoTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.autoBtnPressed), for: UIControlEvents.touchUpInside)
+        autoTrigBtn.addTarget(self, action: #selector(TriggerPopoverVC.autoBtnPressed), for: UIControl.Event.touchUpInside)
         self.view.addSubview(autoTrigBtn)
 
         
@@ -232,13 +232,13 @@ class TriggerPopoverVC : UIViewController {
         
         NSLayoutConstraint(item: trigCtrlRadio, attribute: .width, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 150).isActive = true
 
-        let lpSpacingConst = NSLayoutConstraint(item: lpTrigBtn, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: trigCtrlRadio, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 15.0)
-        let lpCenterConst = NSLayoutConstraint(item: lpTrigBtn, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: trigCtrlRadio, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        let lpSpacingConst = NSLayoutConstraint(item: lpTrigBtn, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: trigCtrlRadio, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1.0, constant: 15.0)
+        let lpCenterConst = NSLayoutConstraint(item: lpTrigBtn, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: trigCtrlRadio, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1.0, constant: 0.0)
         let lpHeightConst = NSLayoutConstraint(item: lpTrigBtn, attribute: .height, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
         let lpWidthConst = NSLayoutConstraint(item: lpTrigBtn, attribute: .width, relatedBy: .equal, toItem: .none, attribute: .notAnAttribute, multiplier: 1.0, constant: 44)
         
-        let autoSpacingCont = NSLayoutConstraint(item: autoTrigBtn, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: lpTrigBtn, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 15.0)
-        let autoCenterConst = NSLayoutConstraint(item: autoTrigBtn, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: trigCtrlRadio, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0.0)
+        let autoSpacingCont = NSLayoutConstraint(item: autoTrigBtn, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: lpTrigBtn, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1.0, constant: 15.0)
+        let autoCenterConst = NSLayoutConstraint(item: autoTrigBtn, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: trigCtrlRadio, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1.0, constant: 0.0)
 
         NSLayoutConstraint.activate([lpSpacingConst, lpCenterConst, lpHeightConst, lpWidthConst, autoSpacingCont, autoCenterConst])
     }

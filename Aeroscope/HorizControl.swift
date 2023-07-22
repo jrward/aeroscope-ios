@@ -112,7 +112,7 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
 
         let myIndex = IndexPath(row: scope.settings.getHorizSettings().index(of: scope.settings.getHoriz())!, section: 0)
         
-        horizScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableViewScrollPosition.middle)
+        horizScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
         
         self.tableView(horizScroll, didSelectRowAt: myIndex)
     }

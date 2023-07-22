@@ -114,8 +114,8 @@ class ArrowLabelView: UIView {
         }
         
         arrowLayer.fillColor = nil
-        arrowLayer.lineCap = kCALineCapRound
-        arrowLayer.lineJoin =  kCALineJoinRound
+        arrowLayer.lineCap = CAShapeLayerLineCap.round
+        arrowLayer.lineJoin =  CAShapeLayerLineJoin.round
         arrowLayer.lineWidth = 2.0
 
         arrowLayer.strokeColor = color.cgColor

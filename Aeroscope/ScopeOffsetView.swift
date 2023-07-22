@@ -32,8 +32,8 @@ class ScopeOffsetView: UIView {
     var labelColor = UIColor(red: 240/255, green: 0/255, blue: 0/255, alpha: 1.0) {
         didSet {
             labelFont = UIFont(name: "Helvetica Neue", size: 16)!
-            labelAttr  = [NSAttributedStringKey.foregroundColor : labelColor,
-                          NSAttributedStringKey.font : labelFont]
+            labelAttr  = [NSAttributedString.Key.foregroundColor : labelColor,
+                          NSAttributedString.Key.font : labelFont]
             setNeedsDisplay()
         }
     }
@@ -46,7 +46,7 @@ class ScopeOffsetView: UIView {
     
     var labelFont : UIFont!
     
-    var labelAttr : [NSAttributedStringKey : AnyObject]!
+    var labelAttr : [NSAttributedString.Key : AnyObject]!
     
     let labelBox = NSString(string: "I|q`")
     
@@ -83,8 +83,8 @@ class ScopeOffsetView: UIView {
         sliderLayer.actions = ["position": NSNull()]
         
         labelFont = UIFont(name: "Helvetica Neue", size: 16)!
-        labelAttr  = [NSAttributedStringKey.foregroundColor : labelColor,
-        NSAttributedStringKey.font : labelFont]
+        labelAttr  = [NSAttributedString.Key.foregroundColor : labelColor,
+                      NSAttributedString.Key.font : labelFont]
        // NSTex]
         
     }

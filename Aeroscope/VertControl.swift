@@ -167,7 +167,7 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         super.viewDidAppear(animated)
         let myIndex = IndexPath(row: scope.settings.getVertSettings().index(of: scope.settings.getVert())!, section: 0)
         
-        vertScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableViewScrollPosition.middle)
+        vertScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
 
         self.tableView(vertScroll, didSelectRowAt: myIndex)
         

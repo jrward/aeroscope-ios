@@ -60,7 +60,7 @@ class ScopeBatteryView : UIView {
         self.addSubview(battFullCharge)
         self.addSubview(battCharging)
         
-        self.bringSubview(toFront: battCharging)
+        self.bringSubviewToFront(battCharging)
         self.isOpaque = false
         self.backgroundColor = UIColor.clear
 

@@ -26,9 +26,9 @@
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Aeroscope uses Bluetooth for connection</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Aeroscope uses Bluetooth for connection</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Aeroscope uses Bluetooth for connection</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
@@ -44,6 +44,8 @@
 	<true/>
 	<key>UIStatusBarHidden~ipad</key>
 	<false/>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleDarkContent</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationLandscapeLeft</string>

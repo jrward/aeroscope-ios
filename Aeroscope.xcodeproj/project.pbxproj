@@ -364,12 +364,11 @@
 				TargetAttributes = {
 					E574C4881B7AC8570028277F = {
 						CreatedOnToolsVersion = 6.4;
-						LastSwiftMigration = 0920;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					E574C49D1B7AC8570028277F = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2SB4764459;
 						LastSwiftMigration = 0800;
 						TestTargetID = E574C4881B7AC8570028277F;
 					};
@@ -625,7 +624,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -648,7 +647,7 @@
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -657,7 +656,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 2SB4764459;
+				DEVELOPMENT_TEAM = M3L7KX3WML;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -680,7 +679,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				DEVELOPMENT_TEAM = 2SB4764459;
+				DEVELOPMENT_TEAM = M3L7KX3WML;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AeroscopeTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
