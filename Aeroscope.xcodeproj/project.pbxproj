@@ -3,10 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		645675EA2A6B3D1300E316FB /* ThemePersistor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E72A6B3D1300E316FB /* ThemePersistor.swift */; };
+		645675EB2A6B3D1300E316FB /* Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E82A6B3D1300E316FB /* Themeable.swift */; };
+		645675EC2A6B3D1300E316FB /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E92A6B3D1300E316FB /* ThemeManager.swift */; };
+		645675F12A6B400200E316FB /* Themeable.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645675F02A6B400200E316FB /* Themeable.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
+		645675F32A6B40F600E316FB /* Themeable.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 645675F22A6B40F600E316FB /* Themeable.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5005EE41B9FF8970061932F /* ScopeComms.swift */; };
 		E509CDE91CEFC31B003CB77D /* Debug.swift in Sources */ = {isa = PBXBuildFile; fileRef = E509CDE81CEFC31A003CB77D /* Debug.swift */; };
 		E5154D6E1CDF9EF100713DA5 /* Copyable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5154D6D1CDF9EF100713DA5 /* Copyable.swift */; };
@@ -42,7 +47,6 @@
 		E5AAB4121E6F89CF0052422B /* ScopeConnection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AAB4111E6F89CF0052422B /* ScopeConnection.swift */; };
 		E5AD22211E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AD22201E6BDAD3005C1EBD /* ScopeStatusBarViewController.swift */; };
 		E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B017611DDCD28F00928E98 /* ScopeCmd.swift */; };
-		E5B73EFD1EAEB80E0071AA10 /* Themeable.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E5B73EFC1EAEB80E0071AA10 /* Themeable.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		E5B73F001EAEC8390071AA10 /* ScopeTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B73EFF1EAEC8390071AA10 /* ScopeTheme.swift */; };
 		E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1171B86E72800E3D63A /* Scope.swift */; };
 		E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5D9E1181B86E72800E3D63A /* ScopeFrame.swift */; };
@@ -80,12 +84,20 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				645675F32A6B40F600E316FB /* Themeable.xcframework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		645675E72A6B3D1300E316FB /* ThemePersistor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemePersistor.swift; path = Carthage/Checkouts/Themeable/Sources/Themeable/ThemePersistor.swift; sourceTree = SOURCE_ROOT; };
+		645675E82A6B3D1300E316FB /* Themeable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Themeable.swift; path = Carthage/Checkouts/Themeable/Sources/Themeable/Themeable.swift; sourceTree = SOURCE_ROOT; };
+		645675E92A6B3D1300E316FB /* ThemeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThemeManager.swift; path = Carthage/Checkouts/Themeable/Sources/Themeable/ThemeManager.swift; sourceTree = SOURCE_ROOT; };
+		645675EE2A6B3D7F00E316FB /* Checkouts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Checkouts; path = Carthage/Checkouts; sourceTree = "<group>"; };
+		645675EF2A6B3DAF00E316FB /* Themeable */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Themeable; path = Carthage/Checkouts/Themeable; sourceTree = "<group>"; };
+		645675F02A6B400200E316FB /* Themeable.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Themeable.xcframework; path = Carthage/Build/Themeable.xcframework; sourceTree = "<group>"; };
+		645675F22A6B40F600E316FB /* Themeable.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Themeable.xcframework; path = Carthage/Build/Themeable.xcframework; sourceTree = "<group>"; };
 		E5005EE41B9FF8970061932F /* ScopeComms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScopeComms.swift; sourceTree = "<group>"; };
 		E509CDE81CEFC31A003CB77D /* Debug.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Debug.swift; sourceTree = "<group>"; };
 		E5154D6D1CDF9EF100713DA5 /* Copyable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Copyable.swift; sourceTree = "<group>"; };
@@ -152,7 +164,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E5B73EFD1EAEB80E0071AA10 /* Themeable.framework in Frameworks */,
+				645675F12A6B400200E316FB /* Themeable.xcframework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,9 +178,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		645675ED2A6B3D7F00E316FB /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				645675EE2A6B3D7F00E316FB /* Checkouts */,
+				645675EF2A6B3DAF00E316FB /* Themeable */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		E574C4801B7AC8570028277F = {
 			isa = PBXGroup;
 			children = (
+				645675F22A6B40F600E316FB /* Themeable.xcframework */,
+				645675ED2A6B3D7F00E316FB /* Packages */,
 				E574C48B1B7AC8570028277F /* Aeroscope */,
 				E574C4A11B7AC8570028277F /* AeroscopeTests */,
 				E574C48A1B7AC8570028277F /* Products */,
@@ -228,6 +251,9 @@
 				E5360F171CB82D2700C4DEEB /* ScopeOffsetView.swift */,
 				E56344E31DF224DC00BA56F6 /* ScopeBatteryView.swift */,
 				E571987D1BBD376000A9B832 /* Main.storyboard */,
+				645675E82A6B3D1300E316FB /* Themeable.swift */,
+				645675E92A6B3D1300E316FB /* ThemeManager.swift */,
+				645675E72A6B3D1300E316FB /* ThemePersistor.swift */,
 				E5A2E4411D0C96B3001F905D /* BorderColor.swift */,
 				E574C48E1B7AC8570028277F /* AppDelegate.swift */,
 				E5F5DB1D1C9626BF00DA6199 /* ScopeUIControl.swift */,
@@ -267,6 +293,7 @@
 		E5B73EFB1EAEB80E0071AA10 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				645675F02A6B400200E316FB /* Themeable.xcframework */,
 				E5B73EFC1EAEB80E0071AA10 /* Themeable.framework */,
 			);
 			name = Frameworks;
@@ -341,7 +368,6 @@
 				TargetAttributes = {
 					E574C4881B7AC8570028277F = {
 						CreatedOnToolsVersion = 6.4;
-						DevelopmentTeam = 2SB4764459;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
@@ -358,6 +384,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
@@ -404,7 +431,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+			shellScript = "
+";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -451,9 +479,11 @@
 				E56344E21DF1DE0D00BA56F6 /* ScopeButton.swift in Sources */,
 				E5DE54C01BBDFDEE00243AEB /* ScopeSettingsViewController.swift in Sources */,
 				E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */,
+				645675EA2A6B3D1300E316FB /* ThemePersistor.swift in Sources */,
 				E5265AD31CA1CCE900D45ECB /* WirelessControl.swift in Sources */,
 				E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */,
 				E5F5DB261C9B089A00DA6199 /* TriggerControl.swift in Sources */,
+				645675EC2A6B3D1300E316FB /* ThemeManager.swift in Sources */,
 				E5A1C4DF1CC3365E00FC896F /* ArrowLabelView.swift in Sources */,
 				E5F5DB241C9A194900DA6199 /* OffsetControl.swift in Sources */,
 				E57073AA1D340C9300CE0FF8 /* ScopeAppSettings.swift in Sources */,
@@ -462,6 +492,7 @@
 				E5F5DB201C9A192900DA6199 /* VertControl.swift in Sources */,
 				E5F5DB221C9A193C00DA6199 /* HorizControl.swift in Sources */,
 				E5EEBBDB1C8A4DAC0064D10B /* Setting.swift in Sources */,
+				645675EB2A6B3D1300E316FB /* Themeable.swift in Sources */,
 				E57073A81D33FBD000CE0FF8 /* Translator.swift in Sources */,
 				E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */,
 				E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */,
@@ -542,7 +573,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -591,10 +622,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = 2;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "arm64 arm7 arm7s";
@@ -607,14 +639,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2SB4764459;
+				DEVELOPMENT_TEAM = M3L7KX3WML;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
 				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
@@ -631,14 +666,17 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = 2SB4764459;
+				DEVELOPMENT_TEAM = M3L7KX3WML;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
 				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AeroscopeLabs.Aeroscope;
 				PRODUCT_NAME = Aeroscope;
 				PROVISIONING_PROFILE = "";
@@ -660,7 +698,11 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = AeroscopeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "AeroscopeLabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Aeroscope;
 				SWIFT_VERSION = 3.0;
@@ -675,7 +717,11 @@
 				DEVELOPMENT_TEAM = 2SB4764459;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = AeroscopeTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "AeroscopeLabs.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Aeroscope;
 				SWIFT_VERSION = 3.0;

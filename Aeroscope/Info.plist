@@ -28,6 +28,8 @@
 	<true/>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>Aeroscope uses Bluetooth for connection</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>Aeroscope uses Bluetooth for connection</string>
 	<key>UILaunchStoryboardName</key>
 	<string>Main</string>
 	<key>UIMainStoryboardFile</key>
