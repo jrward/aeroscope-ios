@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		645675EA2A6B3D1300E316FB /* ThemePersistor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E72A6B3D1300E316FB /* ThemePersistor.swift */; };
-		645675EB2A6B3D1300E316FB /* Themeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E82A6B3D1300E316FB /* Themeable.swift */; };
-		645675EC2A6B3D1300E316FB /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 645675E92A6B3D1300E316FB /* ThemeManager.swift */; };
 		645675F12A6B400200E316FB /* Themeable.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 645675F02A6B400200E316FB /* Themeable.xcframework */; settings = {ATTRIBUTES = (Required, ); }; };
 		645675F32A6B40F600E316FB /* Themeable.xcframework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 645675F22A6B40F600E316FB /* Themeable.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5005EE41B9FF8970061932F /* ScopeComms.swift */; };
@@ -326,7 +323,6 @@
 				E574C4861B7AC8570028277F /* Frameworks */,
 				E574C4871B7AC8570028277F /* Resources */,
 				E5205A8B1E8C2D1900271E50 /* CopyFiles */,
-				E5B73EFE1EAEB93A0071AA10 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -418,25 +414,6 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		E5B73EFE1EAEB93A0071AA10 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Themeable.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "
-";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
 		E574C4851B7AC8570028277F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -479,11 +456,9 @@
 				E56344E21DF1DE0D00BA56F6 /* ScopeButton.swift in Sources */,
 				E5DE54C01BBDFDEE00243AEB /* ScopeSettingsViewController.swift in Sources */,
 				E5005EE51B9FF8970061932F /* ScopeComms.swift in Sources */,
-				645675EA2A6B3D1300E316FB /* ThemePersistor.swift in Sources */,
 				E5265AD31CA1CCE900D45ECB /* WirelessControl.swift in Sources */,
 				E5D9E11E1B86E72800E3D63A /* Scope.swift in Sources */,
 				E5F5DB261C9B089A00DA6199 /* TriggerControl.swift in Sources */,
-				645675EC2A6B3D1300E316FB /* ThemeManager.swift in Sources */,
 				E5A1C4DF1CC3365E00FC896F /* ArrowLabelView.swift in Sources */,
 				E5F5DB241C9A194900DA6199 /* OffsetControl.swift in Sources */,
 				E57073AA1D340C9300CE0FF8 /* ScopeAppSettings.swift in Sources */,
@@ -492,7 +467,6 @@
 				E5F5DB201C9A192900DA6199 /* VertControl.swift in Sources */,
 				E5F5DB221C9A193C00DA6199 /* HorizControl.swift in Sources */,
 				E5EEBBDB1C8A4DAC0064D10B /* Setting.swift in Sources */,
-				645675EB2A6B3D1300E316FB /* Themeable.swift in Sources */,
 				E57073A81D33FBD000CE0FF8 /* Translator.swift in Sources */,
 				E5D9E11F1B86E72800E3D63A /* ScopeFrame.swift in Sources */,
 				E5B017621DDCD28F00928E98 /* ScopeCmd.swift in Sources */,
@@ -640,10 +614,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = M3L7KX3WML;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
-				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -667,10 +637,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = M3L7KX3WML;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS/**",
-				);
 				INFOPLIST_FILE = Aeroscope/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
