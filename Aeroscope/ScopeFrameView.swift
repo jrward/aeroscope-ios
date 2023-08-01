@@ -11,7 +11,7 @@ import Accelerate
 
 
 
-protocol ScopeFrameViewDataSource : class {
+protocol ScopeFrameViewDataSource : AnyObject {
     func dataForScopeFrameView() -> frameData?
     func positionForGndSymbol() -> CGFloat?
     func positionForTrigSymbol() -> CGFloat?
@@ -49,7 +49,7 @@ class TraceWriter : NSObject, CALayerDelegate {
         let trace = UIBezierPath()
         let frameData = dataSource?.dataForScopeFrameView()
         let highlight = dataSource?.highlightSamples() ?? false
-        var frame : Samples = frameData?.frame ?? Samples()
+        let frame : Samples = frameData?.frame ?? Samples()
         let frameSize : CGFloat = CGFloat(frameData?.frameSize ?? 500)
         let frameXOffset : CGFloat = CGFloat(frameData?.xPos ?? 0)
         let subTrig : CGFloat = CGFloat(frameData?.subTrig ?? 0)

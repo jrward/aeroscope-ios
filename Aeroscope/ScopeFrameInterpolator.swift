@@ -155,7 +155,7 @@ class ScopeFrameInterpolator {
         let resultSize = signal.count + ((k.count - 1)/stride)
 
         var result = [Float](repeating: 0, count: resultSize)
-        let kStart = UnsafePointer<Float>(k)
+        let kStart = k
         let signalPad = repeatElement(Float(0.0), count: (k.count/stride)/2)
         let signalPadded = signalPad + signal.raw + signalPad
         vDSP_conv(signalPadded, 1, kStart, vDSP_Stride(stride), &result, 1, vDSP_Length(resultSize), vDSP_Length(k.count/stride))

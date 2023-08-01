@@ -134,7 +134,7 @@ struct StringSetting<Tmapping> : StrSetting, CustomStringConvertible {
     }
     
     func mappedSetting() -> Tmapping {
-        let index = mapping.settings.index(of: value)!
+        let index = mapping.settings.firstIndex(of: value)!
         return mapping.mappings[index]
     }
     
@@ -154,7 +154,7 @@ struct StringSetting<Tmapping> : StrSetting, CustomStringConvertible {
     }
     
     mutating func increment() {
-        let currIndex = mapping.settings.index(of: value)!
+        let currIndex = mapping.settings.firstIndex(of: value)!
         if currIndex < mapping.settings.endIndex - 1 {
             value = mapping.settings[currIndex + 1]
         }
@@ -162,7 +162,7 @@ struct StringSetting<Tmapping> : StrSetting, CustomStringConvertible {
     }
     
     mutating func decrement() {
-        let currIndex = mapping.settings.index(of: value)!
+        let currIndex = mapping.settings.firstIndex(of: value)!
         if currIndex > mapping.settings.startIndex {
             value = mapping.settings[currIndex - 1]
         }
@@ -229,7 +229,7 @@ struct Mapping<key : Hashable, value> : Mappable, CustomStringConvertible, Expre
     }
     
     subscript(index: key) -> value? {
-        if let foundIndex = keys.index(of: index) {
+        if let foundIndex = keys.firstIndex(of: index) {
             return values[foundIndex]
         }
         else {

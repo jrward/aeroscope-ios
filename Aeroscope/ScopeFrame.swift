@@ -14,7 +14,7 @@ enum FrameType {
     case full
 }
 
-protocol FrameDelegate: class {
+protocol FrameDelegate: AnyObject {
     func didReceiveFrame()
     func didReceiveFullFrame()
     func didReceiveRollFrame()

@@ -43,7 +43,7 @@ enum ScopeError : UInt8 {
     }
 }
 
-protocol PowerDelegate : class {
+protocol PowerDelegate : AnyObject {
     func didPowerOn()
     func didPowerOff()
 }

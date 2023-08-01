@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol ScopeStripViewDataSource : class {
+protocol ScopeStripViewDataSource : AnyObject {
     //0.0 - 100.0
     func frameWidthForScopeStripView() -> CGFloat?
     //0.0 - 100.0

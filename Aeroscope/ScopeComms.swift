@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-protocol ConnectionDelegate : class {
+protocol ConnectionDelegate : AnyObject {
     func didConnect()
     func didReconnect()
     func didDisconnect()
@@ -21,11 +21,11 @@ enum PacketType {
     case fpga
 }
 
-protocol PacketDelegate : class {
+protocol PacketDelegate : AnyObject {
     func didReceive(packet: [UInt8], type: PacketType)
 }
 
-protocol ScanningDelegate : class {
+protocol ScanningDelegate : AnyObject {
     func startScanning()
     func stopScanning()
 }
@@ -176,7 +176,7 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func sendCpu(_ packet: [UInt8]) {
         assert(packet.count == commsInCharLength, "Ctrl Packet Error \(#file) \(#line)")
-        let ctrl_data = Data(bytes: UnsafePointer<UInt8>(packet), count: packet.count)
+        let ctrl_data = Data(bytes: packet, count: packet.count)
         print("CPU Packet: \(packet)")
         if let scope = peripheral, let char = commsInChar {
             scope.bt.writeValue(ctrl_data, for: char, type: CBCharacteristicWriteType.withResponse)
@@ -184,7 +184,7 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     }
     
     func sendFpga1(_ packet: [UInt8]) {
-        let fpga1_data = Data(bytes: UnsafePointer<UInt8>(packet), count: packet.count)
+        let fpga1_data = Data(bytes: packet, count: packet.count)
         print("FPGA Packet: \(packet)")
         if let scope = peripheral, let char = stateChar {
             scope.bt.writeValue(fpga1_data, for: char, type: CBCharacteristicWriteType.withResponse)
@@ -194,7 +194,7 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     
     func sendFpgaUpdate(_ packet: [UInt8]) {
         print("FPGAUPDATE SENT: \(packet)")
-        let fpgaUpdateData = Data(bytes: packet)
+        let fpgaUpdateData = Data(packet)
         if let scope = peripheral, let char = fpgaInChar {
             scope.bt.writeValue(fpgaUpdateData, for: char, type: CBCharacteristicWriteType.withoutResponse)
         }
@@ -228,6 +228,9 @@ class ScopeComms: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
         case .unsupported:
             print("CoreBluetooth BLE hardware is unsupported on this platform");
             
+        @unknown default:
+            print("Unkown state")
+
         }
     }
     

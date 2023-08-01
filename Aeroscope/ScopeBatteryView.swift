@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-protocol ScopeBatteryViewDataSource : class {
+protocol ScopeBatteryViewDataSource : AnyObject {
     func battStateForBatteryView() -> ScopeBattery.BattState
     func chargeStateForBatteryView() -> Bool
 }

@@ -18,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        UIApplication.shared.statusBarStyle = .lightContent
-        application.statusBarStyle = .lightContent
+        //UIApplication.shared.statusBarStyle = .lightContent
+        //application.statusBarStyle = .lightContent
 //        let globalTint = UIColor(red: 200/255, green: 0/255, blue: 0/255, alpha: 1.0)
 //        UIApplication.shared.keyWindow?.tintColor = globalTint
 //        self.window?.tintColor = globalTint

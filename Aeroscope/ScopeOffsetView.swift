@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 
 
-protocol ScopeOffsetViewDataSource : class {
+protocol ScopeOffsetViewDataSource : AnyObject {
     //0.0 - 100.0
     func frameHeightForScopeOffsetView(_ sender: ScopeOffsetView) -> CGFloat?
     //0.0 - 100.0

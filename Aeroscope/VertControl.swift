@@ -109,29 +109,29 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
         
         
         
-        NSLayoutConstraint(item: acDC, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: 8).isActive = true
+        NSLayoutConstraint(item: acDC!, attribute: .top, relatedBy: .equal, toItem: self.view, attribute: .topMargin, multiplier: 1.0, constant: 8).isActive = true
         
-        NSLayoutConstraint(item: acDC, attribute:  .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: acDC!, attribute:  .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         
-        NSLayoutConstraint(item: acDC, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant:50).isActive = true
+        NSLayoutConstraint(item: acDC!, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant:50).isActive = true
         
-        NSLayoutConstraint(item: acDC, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 180).isActive = true
+        NSLayoutConstraint(item: acDC!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 180).isActive = true
         //NSLayoutAttribute.NotAnAttribute
-        NSLayoutConstraint(item: vertScroll, attribute:  .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200).isActive = true
+        NSLayoutConstraint(item: vertScroll!, attribute:  .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200).isActive = true
         
 //        NSLayoutConstraint(item: vertScroll, attribute:  .Bottom, relatedBy: .Equal, toItem: self.view, attribute: .Bottom, multiplier: 1.0, constant: 500).active = true
         
-        NSLayoutConstraint(item: vertScroll, attribute:  .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: vertScroll!, attribute:  .centerX, relatedBy: .equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0).isActive = true
         
-        NSLayoutConstraint(item: vertScroll, attribute:  .top, relatedBy: .equal, toItem: acDC, attribute: .bottom, multiplier: 1.0, constant: 8).isActive = true
+        NSLayoutConstraint(item: vertScroll!, attribute:  .top, relatedBy: .equal, toItem: acDC, attribute: .bottom, multiplier: 1.0, constant: 8).isActive = true
         
-        NSLayoutConstraint(item: vertScroll, attribute:  .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: vertScroll!, attribute:  .bottom, relatedBy: .equal, toItem: self.view, attribute: .bottom, multiplier: 1.0, constant: 0).isActive = true
         
-        NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: .equal, toItem: vertScroll, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.view!, attribute: .leading, relatedBy: .equal, toItem: vertScroll, attribute: .leading, multiplier: 1.0, constant: 0).isActive = true
         
-        NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: .equal, toItem: vertScroll, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
+        NSLayoutConstraint(item: self.view!, attribute: .trailing, relatedBy: .equal, toItem: vertScroll, attribute: .trailing, multiplier: 1.0, constant: 0).isActive = true
         
-        NSLayoutConstraint(item: self.view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200).isActive = true
+        NSLayoutConstraint(item: self.view!, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: 200).isActive = true
         
         self.preferredContentSize = CGSize(width: vertScroll.bounds.size.width, height: vertScroll.bounds.size.height + acDC.bounds.size.height + 50.0)
         
@@ -165,7 +165,7 @@ class VertPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSour
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        let myIndex = IndexPath(row: scope.settings.getVertSettings().index(of: scope.settings.getVert())!, section: 0)
+        let myIndex = IndexPath(row: scope.settings.getVertSettings().firstIndex(of: scope.settings.getVert())!, section: 0)
         
         vertScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
 

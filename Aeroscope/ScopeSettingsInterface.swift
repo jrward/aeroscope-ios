@@ -14,7 +14,7 @@ enum ACDC {
 }
 
 
-protocol FrameSettingsDelegate : class {
+protocol FrameSettingsDelegate : AnyObject {
     func didChangeHoriz(oldValue: horiz_mapping)
     func didChangeVert()
     func didChangeOffset()

@@ -90,7 +90,7 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
         self.view.addSubview(horizScroll)
         
         
-        Timer.scheduledTimer(timeInterval: 0.1, target: horizScroll, selector: #selector(UIScrollView.flashScrollIndicators), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0.1, target: horizScroll!, selector: #selector(UIScrollView.flashScrollIndicators), userInfo: nil, repeats: false)
         
     }
     
@@ -110,7 +110,7 @@ class HorizPopoverVC : UIViewController, UITableViewDelegate, UITableViewDataSou
         //let myIndex = NSIndexPath(forRow: scope.settings.horizMapping.settings.indexOf(scope.settings.horiz.value)!, inSection: 0)
         
 
-        let myIndex = IndexPath(row: scope.settings.getHorizSettings().index(of: scope.settings.getHoriz())!, section: 0)
+        let myIndex = IndexPath(row: scope.settings.getHorizSettings().firstIndex(of: scope.settings.getHoriz())!, section: 0)
         
         horizScroll.selectRow(at: myIndex, animated: false, scrollPosition: UITableView.ScrollPosition.middle)
         
